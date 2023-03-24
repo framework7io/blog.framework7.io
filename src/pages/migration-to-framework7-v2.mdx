@@ -1,10 +1,7 @@
 url: https://blog.framework7.io/migration-to-framework7-v2-eb6dc38ede3b
 date: Fri Jan 12 2018 17:00:14 GMT+0300 (Москва, стандартное время)
 
-
 # Migration To Framework7 v2
-
-
 
 Stable Framework7 v2 was recently released with the new v2 documentation. And in case you have already created or started to work on app with Framework7 v1 you may want to switch it to v2.
 
@@ -18,39 +15,39 @@ First of all, new F7 has new JS & CSS assets structure.
 
 ### Stylesheets
 
-* now there is no more *separate* “colors” stylesheet, all color themes are embedded now into main stylesheets
+- now there is no more _separate_ “colors” stylesheet, all color themes are embedded now into main stylesheets
 
-* there is no more *additional* RTL stylesheet that you added in addition to main stylesheet to enable RTL styles. Now it is *standalone* stylesheet file that must be included instead of usual/ltr one
+- there is no more _additional_ RTL stylesheet that you added in addition to main stylesheet to enable RTL styles. Now it is _standalone_ stylesheet file that must be included instead of usual/ltr one
 
-* theme-related styles (for iOS theme and MD theme) are also now in main styles
+- theme-related styles (for iOS theme and MD theme) are also now in main styles
 
 So here is the list of stylesheet files you will find in `/dist/css/` folder:
 
-* framework7.css — main styles bundle. Contains everything in default (LTR) direction: all color themes, iOS theme and MD theme
+- framework7.css — main styles bundle. Contains everything in default (LTR) direction: all color themes, iOS theme and MD theme
 
-* framework7.ios.css — contains iOS-only style. Useful only in case you develop app with only iOS theme
+- framework7.ios.css — contains iOS-only style. Useful only in case you develop app with only iOS theme
 
-* framework7.md.css — contains MD-only style. Useful only in case you develop app with only MD theme
+- framework7.md.css — contains MD-only style. Useful only in case you develop app with only MD theme
 
-* framework7.rtl.css — RTL bundle. Contains everything in RTL direction: all color themes, iOS theme and MD theme
+- framework7.rtl.css — RTL bundle. Contains everything in RTL direction: all color themes, iOS theme and MD theme
 
-* framework7.rtl.ios.css — RTL styles only for iOS theme. Useful only in case you develop RTL app with only iOS theme
+- framework7.rtl.ios.css — RTL styles only for iOS theme. Useful only in case you develop RTL app with only iOS theme
 
-* framework7.rtl.md.css — RTL only for MD theme. Useful only in case you develop RTL app with only MD theme
+- framework7.rtl.md.css — RTL only for MD theme. Useful only in case you develop RTL app with only MD theme
 
 And same minified files:
 
-* framework7.min.css
+- framework7.min.css
 
-* framework7.md.min.css
+- framework7.md.min.css
 
-* framework7.ios.min.css
+- framework7.ios.min.css
 
-* framework7.rtl.min.css
+- framework7.rtl.min.css
 
-* framework7.rtl.ios.min.css
+- framework7.rtl.ios.min.css
 
-* framework7.rtl.md.min.css
+- framework7.rtl.md.min.css
 
 So if in v1 you have supported both iOS and MD themes you had conditional include of the `framework7.ios.css` + `framework7.ios.colors.css` + `framework7.material.css` + `framework7.material.colors.css`. Now you need to include only one stylesheet `framework7.css` (or its minified version).
 
@@ -60,15 +57,16 @@ If you used RTL layout with both themes, you had even more files included: `fram
 
 In terms of script files not much changed in case you included them via `<script>` attribute. There are same scripts you will find in `/dist/js/` folder:
 
-* framework7.js — Framework7 library with all its components
+- framework7.js — Framework7 library with all its components
 
-* framework7.min.js — its minified version
+- framework7.min.js — its minified version
 
 But if you included it using ES `import` then there are a lot of new things here, now Framework7 and all of its components available as ES modules, check the [Installation Docs](http://framework7.io/docs/installation.html#es-module)
 
 ## App HTML Layout
 
 HTML layout of many components and main app layout is a bit changed. In v1 we had:
+
 ```
 <body>
   <!-- Statusbar overlay -->
@@ -89,6 +87,7 @@ HTML layout of many components and main app layout is a bit changed. In v1 we ha
         <!-- Page, "data-page" contains page name -->
         <div data-page="index" class="page">
 ```
+
 ```
           <!-- Navbar -->
           <div class="navbar">
@@ -97,6 +96,7 @@ HTML layout of many components and main app layout is a bit changed. In v1 we ha
             </div>
           </div>
 ```
+
 ```
           <!-- Toolbar -->
           <div class="toolbar">
@@ -107,6 +107,7 @@ HTML layout of many components and main app layout is a bit changed. In v1 we ha
             </div>
           </div>
 ```
+
 ```
           <!-- Scrollable page content -->
           <div class="page-content">
@@ -124,21 +125,22 @@ HTML layout of many components and main app layout is a bit changed. In v1 we ha
 
 What we need to change here:
 
-* `statusbar-overlay` has been renamed to just `statusbar`. Check [Statusbar](http://framework7.io/docs/statusbar.html) docs
+- `statusbar-overlay` has been renamed to just `statusbar`. Check [Statusbar](http://framework7.io/docs/statusbar.html) docs
 
-* `views` element is not required anymore for single view app. It is only required for so called “Tabbed app layout” with multiple views-tabs. Check [App Layout](http://framework7.io/docs/app-layout.html) docs
+- `views` element is not required anymore for single view app. It is only required for so called “Tabbed app layout” with multiple views-tabs. Check [App Layout](http://framework7.io/docs/app-layout.html) docs
 
-* `data-page` page's attribute renamed to `data-name` and also not required anymore
+- `data-page` page's attribute renamed to `data-name` and also not required anymore
 
-* All navbar/toolbar related layout classes are gone and not used anymore`navbar-through`, `navbar-fixed`, `toolbar-through`, `toolbar-fixed`, etc. Check [Navbar](http://framework7.io/docs/navbar.html) and [Toolbar](http://framework7.io/docs/toolbar-tabbar.html) docs
+- All navbar/toolbar related layout classes are gone and not used anymore`navbar-through`, `navbar-fixed`, `toolbar-through`, `toolbar-fixed`, etc. Check [Navbar](http://framework7.io/docs/navbar.html) and [Toolbar](http://framework7.io/docs/toolbar-tabbar.html) docs
 
-* `<div class="pages">` element that was used to wrap all view's pages is also gone and not needed anymore
+- `<div class="pages">` element that was used to wrap all view's pages is also gone and not needed anymore
 
-* It is now recommended to wrap an app into single root element, for example `<div id="#app"></div`
+- It is now recommended to wrap an app into single root element, for example `<div id="#app"></div`
 
-* Navbar's `center` element renamed to `title`
+- Navbar's `center` element renamed to `title`
 
 So in v2 we will have the following:
+
 ```
 <body>
   <!-- App root -->
@@ -159,6 +161,7 @@ So in v2 we will have the following:
       <div data-name="index" class="page">
         <!-- Navbar and Toolbar are always first elements in the page-->
 ```
+
 ```
         <!-- Navbar -->
         <div class="navbar">
@@ -167,6 +170,7 @@ So in v2 we will have the following:
           </div>
         </div>
 ```
+
 ```
         <!-- Toolbar -->
         <div class="toolbar">
@@ -177,6 +181,7 @@ So in v2 we will have the following:
           </div>
         </div>
 ```
+
 ```
         <!-- Scrollable page content -->
         <div class="page-content">
@@ -190,6 +195,7 @@ So in v2 we will have the following:
   ...
 </body>
 ```
+
 > **One more important change, now whole HTML structure must be the same for both iOS and MD themes. There is no more any layout difference between them!**
 
 ## iOS Dynamic Navbar
@@ -200,24 +206,26 @@ One of the v1 pains was Dynamic Navbar structure, v1 required you to put it unde
 
 First of all, there is a new components API structure. All components that require initialization have new API now. For example in v1 to init/create component we had to call something like `app.[componentName](params)`, for example:
 
-* `app.popup(...)` — to create and open Popup
+- `app.popup(...)` — to create and open Popup
 
-* `app.virtualList(...)` — to create Virtual List
+- `app.virtualList(...)` — to create Virtual List
 
-* `app.calendar(...)` — to create Calendar
+- `app.calendar(...)` — to create Calendar
 
 In v2 all components API naming convention is new. It is now `app.[componentName].create(params)`, for example:
 
-* `app.popup.create(...)` — to create Popup instance
+- `app.popup.create(...)` — to create Popup instance
 
-* `app.virtualList.create(...)` — to create Virtual List
+- `app.virtualList.create(...)` — to create Virtual List
 
-* `app.calendar.create(...)` — to create Calendar
+- `app.calendar.create(...)` — to create Calendar
 
 All these `.create()` methods return initialized component instance with own methods, events and properties. For example:
+
 ```
 var popup = app.popup.create(...);
 ```
+
 ```
 *// open popup*
 popup.open();
@@ -225,9 +233,9 @@ popup.open();
 
 There are also new additional app methods for such components:
 
-* `app.[componentName].get(el)` — returns initialized component instance (with `.create`) by passed HTML element
+- `app.[componentName].get(el)` — returns initialized component instance (with `.create`) by passed HTML element
 
-* `app.[componentName].destroy(el)` — destroys initialized component instance by passed HTML element
+- `app.[componentName].destroy(el)` — destroys initialized component instance by passed HTML element
 
 And some components has additional app methods related to components. So if you use components with initialization then it is highly recommended to check their [documentation](http://framework7.io/docs/).
 
@@ -237,23 +245,24 @@ HTML layout structure of many components has been changed, renamed or simplified
 
 ### **List View**
 
-* List element class changed from `list-block` to just `list`
+- List element class changed from `list-block` to just `list`
 
 ### **Content Block**
 
-* Content Block. Content block element class changed from `content-block` to just `block`
+- Content Block. Content block element class changed from `content-block` to just `block`
 
-* Content block title element class changed from `content-block-title` to just `block-title`
+- Content block title element class changed from `content-block-title` to just `block-title`
 
-* `content-block-inner` element (for additional block highlighting) has beed removed and replaced with just an additional `block-strong` class on the block, so now it should be `<div class="block block-strong">...</div>`
+- `content-block-inner` element (for additional block highlighting) has beed removed and replaced with just an additional `block-strong` class on the block, so now it should be `<div class="block block-strong">...</div>`
 
 ### **Navbar**
 
-* As mentioned above, its `center` element with page title renamed to `title`
+- As mentioned above, its `center` element with page title renamed to `title`
 
 ### **Subnavbar**
 
 Subnavbar content must be wrapped with additional `<div class="subnavbar-inner">...</div>` element:
+
 ```
 <div class="subnavbar">
   <div class="subnavbar-inner">
@@ -266,11 +275,12 @@ Subnavbar content must be wrapped with additional `<div class="subnavbar-inner">
 
 Form inputs layout that used in List View a bit changed:
 
-* List item's `item-content` element that contains form input must have additional `item-input` class. *In v1 “item-input” class was added to input element itself*
+- List item's `item-content` element that contains form input must have additional `item-input` class. _In v1 “item-input” class was added to input element itself_
 
-* Input element itself must be wrapped with additional `<div class="item-input-wrap"></div>` element
+- Input element itself must be wrapped with additional `<div class="item-input-wrap"></div>` element
 
-* Input label element now is `<div class="item-title item-label">` . *In v1 it was <div class=”item-title label”>*
+- Input label element now is `<div class="item-title item-label">` . _In v1 it was <div class=”item-title label”>_
+
 ```
 *<!-- So, in v1 it was: -->*
 <li>
@@ -285,6 +295,7 @@ Form inputs layout that used in List View a bit changed:
   </div>
 </li>
 ```
+
 ```
 *<!-- In v2 the same will be: -->
 *<li class="item-content item-input">
@@ -308,6 +319,7 @@ Well, Messages component has been fully reworked, so everything is new here from
 ### Searchbar
 
 Searchbar has a bit changed layout:
+
 ```
 <!-- In v1: -->
 <form class="searchbar">
@@ -318,6 +330,7 @@ Searchbar has a bit changed layout:
   <a href="#" class="searchbar-cancel">Cancel</a>
 </form>
 ```
+
 ```
 <!-- In v2: -->
 <form class="searchbar">
@@ -334,27 +347,29 @@ Searchbar has a bit changed layout:
 
 Where we can see:
 
-* new additional “search-inner” element to wrap searchbar content
+- new additional “search-inner” element to wrap searchbar content
 
-* “searchbar-input” renamed to “searchbar-input-wrap”
+- “searchbar-input” renamed to “searchbar-input-wrap”
 
-* new seach icon
+- new seach icon
 
-* “searchbar-clear” renamed to “input-clear-button”
+- “searchbar-clear” renamed to “input-clear-button”
 
-* “searchbar-cancel” renamed to “searchbar-disable-button”
+- “searchbar-cancel” renamed to “searchbar-disable-button”
 
 And of course there is new API. Check the [Searchbar component](http://framework7.io/docs/searchbar.html) docs
 
 ### Floating Action Button (FAB)
 
 FAB layout and API is also changed to be more unified across iOS and MD themes and support new features, including fab position specific classes.
+
 ```
 *<!-- In v1 we had: -->*
 <a href="#" class="floating-button">
   <i class="icon icon-plus"></i>
 </a>
 ```
+
 ```
 *<!-- Now in v2 it is: -->*
 <div class="fab fab-right-bottom">
@@ -365,6 +380,7 @@ FAB layout and API is also changed to be more unified across iOS and MD themes a
 ```
 
 FAB Speed Dial comes with new layout as well:
+
 ```
 *<!-- In v1 it was: -->*
 <div class="speed-dial">
@@ -380,6 +396,7 @@ FAB Speed Dial comes with new layout as well:
   </div>
 </div>
 ```
+
 ```
 *<!-- In v2 it has changed to: -->*
 <div class="fab fab-right-bottom">
@@ -402,15 +419,16 @@ In v1 there was a mess with Notification/Toast component, it was rendered simila
 
 In v2 such inconsistency removed and now there are two different components instead:
 
-* Notification — look like a system notifications on both iOS and MD themes
+- Notification — look like a system notifications on both iOS and MD themes
 
-* Toast — look like a Toast message on both iOS and MD themes
+- Toast — look like a Toast message on both iOS and MD themes
 
 So just check the [Notification](http://framework7.io/docs/notification.html) and [Toast](http://framework7.io/docs/toast.html) documentation on new API and usage examples
 
 ### Checkbox/Radio
 
 Checkboxes and radios used in List View now has new and unified layout for both iOS and MD themes:
+
 ```
 <div class="list">
   <ul>
@@ -449,9 +467,9 @@ Checkboxes and radios used in List View now has new and unified layout for both 
 
 There is not much changes in Tabs:
 
-* Active tab HTML element class renamed from `active` to `tab-active`
+- Active tab HTML element class renamed from `active` to `tab-active`
 
-* API function to show tab changed from `app.showTab` to `app.tab.show`
+- API function to show tab changed from `app.showTab` to `app.tab.show`
 
 There are also some new features as Routable Tabs, so check the [Tabs](http://framework7.io/docs/tabs.html) documentation.
 
@@ -459,17 +477,18 @@ There are also some new features as Routable Tabs, so check the [Tabs](http://fr
 
 Just few changes here:
 
-* active button element class in Buttons Row/Segmented renamed from `active` to `button-active`
+- active button element class in Buttons Row/Segmented renamed from `active` to `button-active`
 
-* active tab link element class renamed from `active` to `tab-link-active`
+- active tab link element class renamed from `active` to `tab-link-active`
 
-* Buttons Row now called Segmented, so`<div class="buttons">` renamed to `<div class="segmented">`
+- Buttons Row now called Segmented, so`<div class="buttons">` renamed to `<div class="segmented">`
 
 Check the [Button](http://framework7.io/docs/button.html) and [Link](http://framework7.io/docs/link.html) components documentation for all changes and new features.
 
 ### Switch/Toggle
 
 Switch component in v1 has been renamed to Toggle, it has new HTML layout and now it must be initialized using JavaScript API or auto initialization:
+
 ```
 *<!-- In v1 -->*
 <label class="label-switch">
@@ -477,6 +496,7 @@ Switch component in v1 has been renamed to Toggle, it has new HTML layout and no
   <div class="checkbox"></div>
 </label>
 ```
+
 ```
 *<!-- In v2, with auto init -->*
 <label class="toggle toggle-init">
@@ -494,11 +514,13 @@ As Switch/Toggle, Range Slider now uses JavaScript API and must be initialized m
 ## Control Links
 
 As you know there are so called control links in v1, that can trigger some components' actions, like open/close panel, popup, sortable, and other components. In v1 we could have something like:
+
 ```
 *<!-- Open/Close Panel -->*
 <a href="#" class="open-panel">Open Panel</a>
 <a href="#" class="close-panel">Close Panel</a>
 ```
+
 ```
 *<!-- Open/Close Popup -->*
 <a href="#" class="open-popup">Open Popup</a>
@@ -506,11 +528,13 @@ As you know there are so called control links in v1, that can trigger some compo
 ```
 
 In v2 there are same links there only difference is that such additional classes naming convention has beed changed from `[action]-[component]` (open-panel, close-popup) to `[component]-[action]` . So the same in v2 will be:
+
 ```
 *<!-- Open/Close Panel -->*
 <a href="#" class="panel-open">Open Panel</a>
 <a href="#" class="panel-close">Close Panel</a>
 ```
+
 ```
 *<!-- Open/Close Popup -->*
 <a href="#" class="popup-open">Open Popup</a>
@@ -523,21 +547,22 @@ You can find such links reference in related component documentation, e.g. [Cont
 
 Ajax API has been removed from built-in Dom7 library ($.ajax, $.get, $.post, $.getJSON) and moved under `app.request` method with same functionality and API:
 
-* `$.ajax(parameters)` -> `app.request(parameters)`
+- `$.ajax(parameters)` -> `app.request(parameters)`
 
-* `$.get(...)` -> `app.request.get(...)`
+- `$.get(...)` -> `app.request.get(...)`
 
-* `$.post(...)` -> `app.request.post(...)`
+- `$.post(...)` -> `app.request.post(...)`
 
-* `$.getJSON(...)` -> `app.request.json(...)`
+- `$.getJSON(...)` -> `app.request.json(...)`
 
-* `$.ajaxSetup(...)` -> `app.request.setup(...)`
+- `$.ajaxSetup(...)` -> `app.request.setup(...)`
 
 ## Init App
 
 In v1 we init app using `new Framework7` declaration and passing all possible parameters here. In v2 not much changed, except that now components related parameters are now “grouped” and must be passed in separate parameters properties.
 
 So, if in v1 we had and app with such parameters:
+
 ```
 var app = new Framework7({
   material: true, // enabled material theme
@@ -560,6 +585,7 @@ var app = new Framework7({
 ```
 
 In v2 it will be :
+
 ```
 var app = new Framework7({
   theme: 'md',
@@ -611,6 +637,7 @@ How the routing works in v1: when we click on any link, then Router will load pa
 In v2 thins are totally different. When we click a link (or use router's api to load a page), it will first check what Route matches to link's url specified in `href` tag (or passed url in router api call), and then decides how to load the page for this link based on route parameters.
 
 So first of all, we must pass app routes on app init. For example:
+
 ```
 *// Init App*
 var app = new Framework7({
@@ -640,24 +667,24 @@ var app = new Framework7({
 
 What does it mean? According to routes specified above:
 
-* When we click on link with `/about/` href attribute, page will be loaded from `/pages/about.html` file
+- When we click on link with `/about/` href attribute, page will be loaded from `/pages/about.html` file
 
-* When we click on link with `/news/` href attribute, page will be loaded from `/pages/news.html` file
+- When we click on link with `/news/` href attribute, page will be loaded from `/pages/news.html` file
 
-* When we click on link with `/people/` href attribute, page will be loaded from `/pages/people.html` file as a Router Component
+- When we click on link with `/people/` href attribute, page will be loaded from `/pages/people.html` file as a Router Component
 
-* When we click on link with `/users/25/` href attribute, page will be loaded from `/pages/user.html` file as a Router Component and it will receive `userId: 25` route paremeter
+- When we click on link with `/users/25/` href attribute, page will be loaded from `/pages/user.html` file as a Router Component and it will receive `userId: 25` route paremeter
 
 That was the basics. There is much more to learn about v2 Router. Here is what is recommended to read/check:
 
-* [Mastering Framework7 v2 Router](https://blog.framework7.io/mastering-v2-router-958ea2dbd24f) tutorial
+- [Mastering Framework7 v2 Router](https://blog.framework7.io/mastering-v2-router-958ea2dbd24f) tutorial
 
-* [Routes documentation](http://framework7.io/docs/routes.html) — learn how to and where to specify Routes, all possible parameters and options
+- [Routes documentation](http://framework7.io/docs/routes.html) — learn how to and where to specify Routes, all possible parameters and options
 
-* [Router Component documentation](http://framework7.io/docs/router-component.html) — learn what is Router Component and what is it for
+- [Router Component documentation](http://framework7.io/docs/router-component.html) — learn what is Router Component and what is it for
 
-* [View / Router documentation](http://framework7.io/docs/view.html) — common Router settings and API
+- [View / Router documentation](http://framework7.io/docs/view.html) — common Router settings and API
 
 ## What is Next?
 
-This was the basic guide to migrate your app made with Framework7 v1 to v2. Of course there are a lot more new features which are out of the scope for this guide. As next steps it is highly recommended to check all new [Framework7 v2 Docs](http://framework7.io/docs) and Framework7 [v2 Starter Templates](http://framework7.io/templates/). And don't forget about [Framework7 Forum](http://forum.framework7.io) — the best place to get F7 support.
+This was the basic guide to migrate your app made with Framework7 v1 to v2. Of course there are a lot more new features which are out of the scope for this guide. As next steps it is highly recommended to check all new [Framework7 v2 Docs](http://framework7.io/docs) and Framework7 [v2 Starter Templates](http://framework7.io/templates/). And don't forget about [Framework7 Forum](http://forum.framework7.io) — the best place to get F7 support.
