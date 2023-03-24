@@ -32,7 +32,7 @@ export const PostLayout = (props) => {
       <div className="prose w-full max-w-none">
         {image && (
           <img
-            className="rounded-xl border border-border"
+            className="!rounded-2xl border border-border"
             src={`/images/${image}`}
           />
         )}
