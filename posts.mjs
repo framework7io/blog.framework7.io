@@ -18,16 +18,16 @@ const processFile = async (f, content) => {
         line.split('(https://cdn-images-1')[1].split(')')[0];
       const imageFileName = `${title}-${imageIndex}${path.extname(imageSrc)}`;
       imageIndex += 1;
-      console.log({ imageSrc, imageFileName });
+      lines[index] = line.replace(imageSrc, `/images/${imageFileName}`);
+
       // await fetch(imageSrc)
-      //   .then((res) => res.body.pipe(fs.createWriteStream('./path/to/image.png')))
+      //   .then((res) =>
+      //     res.body.pipe(
+      //       fs.createWriteStream(`./public/images/${imageFileName}`)
+      //     )
+      //   )
       //   .then((res) => {
-      //     if (res.includes && res.includes('(https://cdn-images-1')) {
-      //       const imageSrc =
-      //         'https://cdn-images-1' +
-      //         res.split('(https://cdn-images-1')[1].split(')')[0];
-      //       lines[index] = line.replace(imageSrc, newSrc);
-      //     }
+      //     lines[index] = line.replace(imageSrc, newSrc);
       //   });
     }
   }
