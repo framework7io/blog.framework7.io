@@ -1,4 +1,3 @@
-import { Gist } from '@/components/Gist.jsx';
 import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Framework7 v6',
@@ -40,6 +39,7 @@ New **Area Chart** & **Pie Chart** components that generate pure SVG charts:
 New **Menu List** component (modification for existing list). Menu List unlike usual links list is designed to indicate currently active screen (or section) of your app.
 
 <iframe
+  loading="lazy"
   width="560"
   height="315"
   src="https://www.youtube.com/embed/eDRNlubgFMg"
@@ -49,6 +49,7 @@ New **Menu List** component (modification for existing list). Menu List unlike u
 New **Preloader Buttons** to indicate loading state:
 
 <iframe
+  loading="lazy"
   width="560"
   height="315"
   src="https://www.youtube.com/embed/h0-rXMkYsm8"
@@ -58,6 +59,7 @@ New **Preloader Buttons** to indicate loading state:
 Support for **nested side panels**. Now, in addition to global app side panels, we can put them right inside of every Page:
 
 <iframe
+  loading="lazy"
   width="560"
   height="315"
   src="https://www.youtube.com/embed/3OUFJhtfpRw"
@@ -67,6 +69,7 @@ Support for **nested side panels**. Now, in addition to global app side panels, 
 New and reworked **Touch Ripple effect** (used in Material theme) to better match updated official Material theme look and feel:
 
 <iframe
+  loading="lazy"
   width="560"
   height="315"
   src="https://www.youtube.com/embed/NdPy9BslTL8"
@@ -101,7 +104,7 @@ request.get('some-url').then((res) => {
 
 Built-in library for DOM manipulation has been updated to new version 3, which, under the hood, has been rewritten as `Array` class extension instead of custom class.
 
-And because of that it inherits all native Array.prototype methods, but at the some time introduces some breaking changes in “iteration” methods to match native Array methods:
+And because of that it inherits all native Array.prototype methods, but at the some time introduces some breaking changes in "iteration" methods to match native Array methods:
 
 If in v5 we used, for example, `.each` method like this:
 
@@ -117,11 +120,11 @@ $('p').each((el, index) => {   *// ...* })
 
 ### Skeleton Elements
 
-Skeleton layouts was released as a standalone [Skeleton Elements](http://skeleton-elements.dev) library with “native” components for React, Vue, Svelete and Angular. It is now integrated into Framework7 v6 as a dependency.
+Skeleton layouts was released as a standalone [Skeleton Elements](http://skeleton-elements.dev) library with "native" components for React, Vue, Svelete and Angular. It is now integrated into Framework7 v6 as a dependency.
 
 ### Swiper
 
-In meanwhile, [Swiper](http://swiperjs.com) also got huge v6 update with a lot of new features, and own “native” components for React, Vue, Svelte and Angular. And now it is also integrated into Framework7 v6 as a dependency.
+In meanwhile, [Swiper](http://swiperjs.com) also got huge v6 update with a lot of new features, and own "native" components for React, Vue, Svelte and Angular. And now it is also integrated into Framework7 v6 as a dependency.
 
 ### Template7 Library
 
@@ -143,17 +146,134 @@ Also component definition is now a function rather then object with `data` , `me
 
 For example if we had something like this in v5:
 
-<Gist src="https://gist.github.com/nolimits4web/291478c2df97923fd724a0ed42abf34b.js" />
+```html
+<template>
+  <div class="page">
+    <p>Value is: {{foo}}</p>
+    <p>
+      <a href="#" @click="changeValue">Change value</a>
+    </p>
+    <ul>
+      {{each items}}
+      <li>{{title}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        foo: 'bar',
+        items: [
+          {
+            title: 'Item 1',
+          },
+          {
+            title: 'Item 2',
+          },
+        ],
+      };
+    },
+    methods: {
+      changeValue() {
+        this.foo = 'bar 2';
+        this.$update();
+      },
+    },
+    on: {
+      pageInit() {
+        this.$app.dialog.alert('page init');
+      },
+    },
+  };
+</script>
+```
 
 In v6 will look like this:
 
-<Gist src="https://gist.github.com/nolimits4web/d1ab619b7bdeee7dffa0ba32d7f72a67.js" />
+```html
+<template>
+  <div class="page">
+    <p>Value is: ${foo}</p>
+    <p>
+      <a href="#" @click="${changeValue}">Change value</a>
+    </p>
+    <ul>
+      ${items.map((item) => $h`
+      <li>${item.title}</li>
+      `)}
+    </ul>
+  </div>
+</template>
+<script>
+  export default (props, { $f7, $on, $update }) => {
+    let foo = 'bar';
+    const items = [
+      {
+        title: 'Item 1',
+      },
+      {
+        title: 'Item 2',
+      },
+    ];
+
+    const changeValue = () => {
+      foo = 'bar 2';
+      $update();
+    };
+
+    $on('pageInit', () => {
+      $f7.dialog.alert('page init');
+    });
+
+    return $render;
+  };
+</script>
+```
 
 Having component in single function body provides much better readability, structuring and opens a lot of possibilities for reusing code and logic across components.
 
 And now, it is even possible to write Router Components with JSX:
 
-<Gist src="https://gist.github.com/nolimits4web/14eb293779d2568c99237e1c73d9f120.js" />
+```jsx
+export default (props, { $f7, $on, $update }) => {
+  let foo = 'bar';
+  const items = [
+    {
+      title: 'Item 1',
+    },
+    {
+      title: 'Item 2',
+    },
+  ];
+
+  const changeValue = () => {
+    foo = 'bar 2';
+    $update();
+  };
+
+  $on('pageInit', () => {
+    $f7.dialog.alert('page init');
+  });
+
+  return () => (
+    <div class="page">
+      <p>Value is: {foo}</p>
+      <p>
+        <a href="#" onClick={changeValue}>
+          Change value
+        </a>
+      </p>
+      <ul>
+        {items.map((item) => (
+          <li>{item.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+```
 
 ### Store
 
@@ -161,15 +281,83 @@ There is also a totally new application state management solution built-in. As y
 
 First, we create store (for example in `store.js` file):
 
-<Gist src="https://gist.github.com/nolimits4web/b0fe318e6d633dfe86121884d215af68.js" />
+```js
+import { createStore } from 'framework7';
+
+// create store
+const store = createStore({
+  // start with the state (store data)
+  state: {
+    users: [],
+    // ...
+  },
+
+  // actions to operate with state and for async manipulations
+  actions: {
+    getUser({ state }) {
+      // fetch users from API
+      fetch('some-url')
+        .then((res) => res.json())
+        .then((users) => {
+          // assign new users to store state.users
+          state.users = users;
+        });
+    },
+    // ...
+  },
+
+  // getters to retreive the state
+  getters: {
+    users({ state }) {
+      return state.users;
+    },
+  },
+});
+
+// export store
+export default store;
+```
 
 Next we pass this store to Framework7 app on init:
 
-<Gist src="https://gist.github.com/nolimits4web/fa9114ac83131c2c6b49aa238d92955b.js" />
+```js
+import Framework7 from 'framework7';
+import store from 'path/to/store.js';
+
+const app = new Framework7({
+  // pass store instance
+  store,
+  // ...
+});
+```
 
 And we can use store in our components:
 
-<Gist src="https://gist.github.com/nolimits4web/194441a3eaaff7117cee5e6a6c259778.js" />
+```jsx
+<template>
+  <div class="page">
+    <ul>
+      <!-- getter has value in ".value" property -->
+      ${users.value.map((user) => $h`
+        <li>${user.name}</li>
+      `)}
+    </ul>
+  </div>
+</template>
+<script>
+  export default (props, { $store, $on }) => {
+    // retrieve "users" getter handler value. Initially empty array
+    const users = $store.getters('users');
+
+    $on('pageInit', () => {
+      // load users on page init
+      store.dispatch('getUsers');
+    });
+
+    return $render;
+  }
+</script>
+```
 
 Awesome thing with Store is that it will automatically update (re-render) dependant components on state/getters update.
 
@@ -203,7 +391,7 @@ Framework7 Vue got an even bigger update, with full new Vue.js v3 support.
 
 ## Framework Svelte
 
-New Framework7 Svelte already had own “native” components so not much updates here.
+New Framework7 Svelte already had own "native" components so not much updates here.
 
 - There are new Svelte components for new UI elements: Area & Pie charts, Menu List, Preloader buttons, etc.
 - Same as in Framework7 React — now initial page components (initial routes) should be loaded much faster — on first initial app rendering.

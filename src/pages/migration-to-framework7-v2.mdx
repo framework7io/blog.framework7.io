@@ -19,7 +19,7 @@ First of all, new F7 has new JS & CSS assets structure.
 
 ### Stylesheets
 
-- now there is no more _separate_ “colors” stylesheet, all color themes are embedded now into main stylesheets
+- now there is no more _separate_ "colors" stylesheet, all color themes are embedded now into main stylesheets
 
 - there is no more _additional_ RTL stylesheet that you added in addition to main stylesheet to enable RTL styles. Now it is _standalone_ stylesheet file that must be included instead of usual/ltr one
 
@@ -131,7 +131,7 @@ What we need to change here:
 
 - `statusbar-overlay` has been renamed to just `statusbar`. Check [Statusbar](http://framework7.io/docs/statusbar.html) docs
 
-- `views` element is not required anymore for single view app. It is only required for so called “Tabbed app layout” with multiple views-tabs. Check [App Layout](http://framework7.io/docs/app-layout.html) docs
+- `views` element is not required anymore for single view app. It is only required for so called "Tabbed app layout" with multiple views-tabs. Check [App Layout](http://framework7.io/docs/app-layout.html) docs
 
 - `data-page` page's attribute renamed to `data-name` and also not required anymore
 
@@ -279,21 +279,21 @@ Subnavbar content must be wrapped with additional `<div class="subnavbar-inner">
 
 Form inputs layout that used in List View a bit changed:
 
-- List item's `item-content` element that contains form input must have additional `item-input` class. _In v1 “item-input” class was added to input element itself_
+- List item's `item-content` element that contains form input must have additional `item-input` class. _In v1 "item-input" class was added to input element itself_
 
 - Input element itself must be wrapped with additional `<div class="item-input-wrap"></div>` element
 
-- Input label element now is `<div class="item-title item-label">` . _In v1 it was <div class=”item-title label”>_
+- Input label element now is `<div class="item-title item-label">` . In v1 it was `<div class="item-title label">`
 
-```
-*<!-- So, in v1 it was: -->*
+```html
+<!-- So, in v1 it was: -->
 <li>
   <div class="item-content">
     <div class="item-media">... icon/image here ...</div>
     <div class="item-inner">
       <div class="item-title label">Name</div>
       <div class="item-input">
-          <input type="text" name="name">
+        <input type="text" name="name" />
       </div>
     </div>
   </div>
@@ -301,8 +301,8 @@ Form inputs layout that used in List View a bit changed:
 ```
 
 ```
-*<!-- In v2 the same will be: -->
-*<li class="item-content item-input">
+<!-- In v2 the same will be: -->
+<li class="item-content item-input">
   <div class="item-media">... icon/image here ...</div>
   <div class="item-inner">
     <div class="item-title item-label">Name</div>
@@ -351,15 +351,15 @@ Searchbar has a bit changed layout:
 
 Where we can see:
 
-- new additional “search-inner” element to wrap searchbar content
+- new additional "search-inner" element to wrap searchbar content
 
-- “searchbar-input” renamed to “searchbar-input-wrap”
+- "searchbar-input" renamed to "searchbar-input-wrap"
 
 - new seach icon
 
-- “searchbar-clear” renamed to “input-clear-button”
+- "searchbar-clear" renamed to "input-clear-button"
 
-- “searchbar-cancel” renamed to “searchbar-disable-button”
+- "searchbar-cancel" renamed to "searchbar-disable-button"
 
 And of course there is new API. Check the [Searchbar component](http://framework7.io/docs/searchbar.html) docs
 
@@ -368,14 +368,14 @@ And of course there is new API. Check the [Searchbar component](http://framework
 FAB layout and API is also changed to be more unified across iOS and MD themes and support new features, including fab position specific classes.
 
 ```
-*<!-- In v1 we had: -->*
+<!-- In v1 we had: -->
 <a href="#" class="floating-button">
   <i class="icon icon-plus"></i>
 </a>
 ```
 
 ```
-*<!-- Now in v2 it is: -->*
+<!-- Now in v2 it is: -->
 <div class="fab fab-right-bottom">
   <a href="#">
     <i class="icon f7-icons">add</i>
@@ -386,7 +386,7 @@ FAB layout and API is also changed to be more unified across iOS and MD themes a
 FAB Speed Dial comes with new layout as well:
 
 ```
-*<!-- In v1 it was: -->*
+<!-- In v1 it was: -->
 <div class="speed-dial">
   <a href="#" class="floating-button">
     <i class="icon icon-plus"></i>
@@ -402,7 +402,7 @@ FAB Speed Dial comes with new layout as well:
 ```
 
 ```
-*<!-- In v2 it has changed to: -->*
+<!-- In v2 it has changed to: -->
 <div class="fab fab-right-bottom">
   <a href="#">
     <i class="icon icon-plus"></i>
@@ -494,7 +494,7 @@ Check the [Button](http://framework7.io/docs/button.html) and [Link](http://fram
 Switch component in v1 has been renamed to Toggle, it has new HTML layout and now it must be initialized using JavaScript API or auto initialization:
 
 ```
-*<!-- In v1 -->*
+<!-- In v1 -->
 <label class="label-switch">
   <input type="checkbox">
   <div class="checkbox"></div>
@@ -502,7 +502,7 @@ Switch component in v1 has been renamed to Toggle, it has new HTML layout and no
 ```
 
 ```
-*<!-- In v2, with auto init -->*
+<!-- In v2, with auto init -->
 <label class="toggle toggle-init">
   <input type="checkbox">
   <span class="toggle-icon"></span>
@@ -520,13 +520,13 @@ As Switch/Toggle, Range Slider now uses JavaScript API and must be initialized m
 As you know there are so called control links in v1, that can trigger some components' actions, like open/close panel, popup, sortable, and other components. In v1 we could have something like:
 
 ```
-*<!-- Open/Close Panel -->*
+<!-- Open/Close Panel -->
 <a href="#" class="open-panel">Open Panel</a>
 <a href="#" class="close-panel">Close Panel</a>
 ```
 
 ```
-*<!-- Open/Close Popup -->*
+<!-- Open/Close Popup -->
 <a href="#" class="open-popup">Open Popup</a>
 <a href="#" class="close-popup">Close Popup</a>
 ```
@@ -534,13 +534,13 @@ As you know there are so called control links in v1, that can trigger some compo
 In v2 there are same links there only difference is that such additional classes naming convention has beed changed from `[action]-[component]` (open-panel, close-popup) to `[component]-[action]` . So the same in v2 will be:
 
 ```
-*<!-- Open/Close Panel -->*
+<!-- Open/Close Panel -->
 <a href="#" class="panel-open">Open Panel</a>
 <a href="#" class="panel-close">Close Panel</a>
 ```
 
 ```
-*<!-- Open/Close Popup -->*
+<!-- Open/Close Popup -->
 <a href="#" class="popup-open">Open Popup</a>
 <a href="#" class="popup-close">Close Popup</a>
 ```
@@ -563,7 +563,7 @@ Ajax API has been removed from built-in Dom7 library ($.ajax, $.get, $.post, $.g
 
 ## Init App
 
-In v1 we init app using `new Framework7` declaration and passing all possible parameters here. In v2 not much changed, except that now components related parameters are now “grouped” and must be passed in separate parameters properties.
+In v1 we init app using `new Framework7` declaration and passing all possible parameters here. In v2 not much changed, except that now components related parameters are now "grouped" and must be passed in separate parameters properties.
 
 So, if in v1 we had and app with such parameters:
 

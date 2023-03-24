@@ -329,13 +329,13 @@ routes = [
 
 So let's say we are on a `/catalog/` page and have the following links:
 
-1. `<a href=”computers/”>Computers</a>` — will work as expected. Link will be merged with the current route (`/catalog/` + `computers/`) and we will have `/catalog/computers/` which we have in our routes.
+1. `<a href="computers/">Computers</a>` — will work as expected. Link will be merged with the current route (`/catalog/` + `computers/`) and we will have `/catalog/computers/` which we have in our routes.
 
-1. `<a href=”./computers/”>Computers</a>` — will work the same as case 1 because `./` in the beginning of path means same sub level.
+1. `<a href="./computers/">Computers</a>` — will work the same as case 1 because `./` in the beginning of path means same sub level.
 
-1. `<a href=”/catalog/computers/”>Computers</a>` — will also work as expected the same as case 1 because `/` (slash) in the beginning means root. And we have such root route in merged routes.
+1. `<a href="/catalog/computers/">Computers</a>` — will also work as expected the same as case 1 because `/` (slash) in the beginning means root. And we have such root route in merged routes.
 
-1. `<a href=”/computers/”>Computers</a>` — **won't work** as expected because `/` (slash) in the beginning means root. And we don't have such `/computers/` root route in our routes and won't have same .
+1. `<a href="/computers/">Computers</a>` — **won't work** as expected because `/` (slash) in the beginning means root. And we don't have such `/computers/` root route in our routes and won't have same .
 
 ## Routable Tabs
 
@@ -403,7 +403,7 @@ On the */about-me/ *page we may have the following structure for example:
 </div>
 ```
 
-Almost the same as with usual tabs but with the difference that there is no more “tab-link-active” and “tab-active” classes on tab links and tabs. These classes and tabs will be switched by router. And there is a new “data-route-tab-id” attribute, it is required for tabs switcher to understand which link related to the selected route.
+Almost the same as with usual tabs but with the difference that there is no more "tab-link-active" and "tab-active" classes on tab links and tabs. These classes and tabs will be switched by router. And there is a new "data-route-tab-id" attribute, it is required for tabs switcher to understand which link related to the selected route.
 
 ## Routable Modals
 
@@ -494,13 +494,13 @@ routes = [
 
 According to example above:
 
-- when you click on link with “/popup-content/” href attribute it will open Popup from specified string content,
+- when you click on link with "/popup-content/" href attribute it will open Popup from specified string content,
 
-- when you click on link with “/login-screen-ajax/” href attribute it will perform Ajax request to “login-screen.html” file and open it as a Login Screen,
+- when you click on link with "/login-screen-ajax/" href attribute it will perform Ajax request to "login-screen.html" file and open it as a Login Screen,
 
-- when you click on link with “/popup-component/” href attribute it will perform Ajax request to “popup-component.html” file, parse it as a Router Component and open it as a Popup,
+- when you click on link with "/popup-component/" href attribute it will perform Ajax request to "popup-component.html" file, parse it as a Router Component and open it as a Popup,
 
-- when you click on link with “/secured-content/” href attribute it will load page from “secured-page.html” if user is logged in or open Login Screen from “login-screen.html” file is user is not logged in.
+- when you click on link with "/secured-content/" href attribute it will load page from "secured-page.html" if user is logged in or open Login Screen from "login-screen.html" file is user is not logged in.
 
 ## Router Component
 
@@ -716,7 +716,7 @@ Initial page can also be loaded correctly using `routes` . In app layout we must
 </body>
 ```
 
-In routes we may specify “home” route, for example:
+In routes we may specify "home" route, for example:
 
 ```
 routes: [
@@ -757,7 +757,7 @@ routes = [
 ]
 ```
 
-Means than when we request `/bar/` URL then router will redirect to `/foo/` URL and then search for route that match to this new URL. In this case it will match to the first route with path`/foo/` and load the page from “somepage.html”
+Means than when we request `/bar/` URL then router will redirect to `/foo/` URL and then search for route that match to this new URL. In this case it will match to the first route with path`/foo/` and load the page from "somepage.html"
 
 ### Alias
 
@@ -778,9 +778,9 @@ routes = [
 
 Alias in this case basically means that same route can have multiple paths to access. So according to the example above:
 
-- if we request page by `/foo/` or `/bar/` URL then first route will match and we get the page loaded from “somepage.html”
+- if we request page by `/foo/` or `/bar/` URL then first route will match and we get the page loaded from "somepage.html"
 
-- if we request page by `/foo2/` , `/bar2/`, `/baz/`, `/baz2/` URL then second route will match and we the page loaded from “anotherpage.html”
+- if we request page by `/foo2/` , `/bar2/`, `/baz/`, `/baz2/` URL then second route will match and we the page loaded from "anotherpage.html"
 
 ## Improved Push State
 

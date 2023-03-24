@@ -1,4 +1,3 @@
-import { Gist } from '@/components/Gist.jsx';
 import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Framework7 v3 Is Coming Soon',
@@ -14,13 +13,13 @@ So what is it about? v3 won't be a huge update in terms of new features, but it 
 
 ## A Bit Of Story
 
-A bit of story. [Ben Compton](https://github.com/bencompton/) did a tremendous job to bring React support for Framework7 with his [Framework7-React](https://github.com/bencompton/framework7-react) package, which was based on official Framework7-Vue package but did a lot of “Vue to React” functionality things on runtime. With Framework7 v2 release we realised that it will take too much efforts to do the same to bring Framework7-React v2, and it will take even more efforts and time to maintain and keep in sync all the Framework7 Core, Framework7-Vue and Framework7-React libraries. So we began to look for solution, how to unite them and how to keep them all in sync.
+A bit of story. [Ben Compton](https://github.com/bencompton/) did a tremendous job to bring React support for Framework7 with his [Framework7-React](https://github.com/bencompton/framework7-react) package, which was based on official Framework7-Vue package but did a lot of "Vue to React" functionality things on runtime. With Framework7 v2 release we realised that it will take too much efforts to do the same to bring Framework7-React v2, and it will take even more efforts and time to maintain and keep in sync all the Framework7 Core, Framework7-Vue and Framework7-React libraries. So we began to look for solution, how to unite them and how to keep them all in sync.
 
 We realised that we need kind of universal thing, universal component definition that can be used with both Vue and React (and maybe later with WebComponents) keeping same functionality. [Stencil.js](https://stenciljs.com/) looks pretty promising for this as it compiles to WebComponent which can be used by React and Vue js. But soon, it was refused as a solution for few reasons:
 
 - using web components (custom elements) in React and Vue.js requires some extra hacks [https://custom-elements-everywhere.com/](https://custom-elements-everywhere.com/)
 
-- Stencil.js uses own virtual-dom implementation (fork of [Snabbdom](https://github.com/snabbdom/snabbdom)). Not an option for us, because we need our F7-Vue/React components to utilize all “native” features of framework (Vue/React) they are used in, including Vue/React virtual dom implementation
+- Stencil.js uses own virtual-dom implementation (fork of [Snabbdom](https://github.com/snabbdom/snabbdom)). Not an option for us, because we need our F7-Vue/React components to utilize all "native" features of framework (Vue/React) they are used in, including Vue/React virtual dom implementation
 
 So we decided to go with our own universal component compiler. And after few months of brainstorming and hardcoding we, together with Ben, finally nailed it!
 
@@ -30,19 +29,67 @@ So we decided to go with our own universal component compiler. And after few mon
 
 The compiler we created we called **_Phenome.js — The ultimate cross-framework component compiler_**
 
-And it works just amazing. We came up with own Phenome component syntax definition, which is similar to both Vue and React. And the most outstanding part is that in the end it compiles “phenome” component files to standalone and absolutely “native” Vue and React components, without any extra library dependencies, utilizing all “native” framework features and virtual dom implementations.
+And it works just amazing. We came up with own Phenome component syntax definition, which is similar to both Vue and React. And the most outstanding part is that in the end it compiles "phenome" component files to standalone and absolutely "native" Vue and React components, without any extra library dependencies, utilizing all "native" framework features and virtual dom implementations.
 
 For example, we have some simple Phenome Card component file:
 
-<Gist src="https://gist.github.com/nolimits4web/e9fc4ce6379c6db3bb1efbe64f47e80d.js" />
+```jsx
+export default {
+  name: 'my-card',
+  render() {
+    return (
+      <div className="card" id="some-id">
+        <p>This is card</p>
+      </div>
+    );
+  },
+};
+```
 
 This will be compiled result for React:
 
-<Gist src="https://gist.github.com/nolimits4web/e78ee835605299814d6bc99d7c8fb004.js" />
+```js
+import React from 'react';
+
+class MyCard extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return React.createElement(
+      'div',
+      {
+        className: 'card',
+        id: 'some-id',
+      },
+      React.createElement('p', null, 'This is card')
+    );
+  }
+}
+
+export default MyCard;
+```
 
 This will be compiled result for Vue:
 
-<Gist src="https://gist.github.com/nolimits4web/37ea4740d23b0660383529dd07b11ad7.js" />
+```js
+export default {
+  name: 'my-card',
+  render() {
+    const _h = this.$createElement;
+    return _h(
+      'div',
+      {
+        class: 'card',
+        attrs: {
+          id: 'some-id',
+        },
+      },
+      _h('p', null, ['This is card'])
+    );
+  },
+};
+```
 
 And of course it supports all features like Slots, State management, Lifecycle hooks, Props validation, etc. There will be a separate post about Phenome when we finish its documentation.
 
@@ -58,7 +105,7 @@ So what will be changed in Framework7 v3?
 
 Framework7-Vue and Framework7-React GitHub repositories will be deprecated. New Vue/React components will be written as Phenome components, so their source code and compiled results will move to main Framework7 repo. It will help us to keep everything in sync with core lib. But NPM packages (`framework7`, `framework7-vue` , `framework7-react` ) will be still different packages.
 
-Because Phenome is a **_universal_** component, so we have refactored FrameworkVue/React plugins and routers to be universal and as much framework agnostic as possible. So some Vue-only “hacks” will be removed or changed to different syntax.
+Because Phenome is a **_universal_** component, so we have refactored FrameworkVue/React plugins and routers to be universal and as much framework agnostic as possible. So some Vue-only "hacks" will be removed or changed to different syntax.
 
 ### 1. Framework7-Vue/React Plugin Installation
 

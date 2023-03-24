@@ -1,0 +1,103 @@
+$codeMain: #fff;
+$codeBg: #253238;
+$codeComment: #6c8e9e;
+$codeMeta: #aaa;
+$codeOrange: #f98c68;
+$codeRed: #f27076;
+$codeYellow: #ffcc63;
+$codeGreen: #c2e988;
+$codeLightBlue: #86ddff;
+$codeBlue: #80a8ff;
+$codePurple: #c88fec;
+$codePink: #ff506e;
+$codeGray: #b1ccd7;
+
+pre {
+  overflow: hidden;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  code {
+    color: $codeMain;
+    overflow-x: auto;
+    font-weight: normal;
+  }
+}
+
+code {
+  .punctuation {
+    color: $codeLightBlue;
+  }
+  .operator {
+    color: $codePurple;
+  }
+  .keyword {
+    color: $codePurple;
+  }
+  .keyword-block {
+    color: $codeLightBlue;
+  }
+  .function {
+    color: $codeBlue;
+  }
+  .string {
+    color: $codeGreen;
+  }
+  .tag {
+    color: $codeRed;
+  }
+  .attr-name {
+    color: $codeYellow;
+    font-style: italic;
+  }
+  .script,
+  &.svelte .tag .token.language-javascript {
+    color: #fff;
+  }
+  .spread {
+    color: #fff;
+  }
+  .attr-value {
+    color: $codeGreen;
+  }
+  .class-name {
+    color: $codeYellow;
+  }
+  .comment {
+    color: $codeComment;
+    font-style: italic;
+  }
+  .number,
+  .boolean {
+    color: $codeOrange;
+  }
+  .constant {
+    color: $codeRed;
+  }
+  .context {
+    color: $codePink;
+    font-style: italic;
+  }
+  .built-in {
+    color: $codeYellow;
+  }
+  .literal {
+    color: $codeOrange;
+  }
+  .selector {
+    color: $codeYellow;
+  }
+  .property {
+    color: $codeGray;
+  }
+  .doctype {
+    color: $codeMeta;
+  }
+  &.less {
+    .variable {
+      color: $codeLightBlue;
+    }
+    .url {
+      color: $codeGreen;
+    }
+  }
+}

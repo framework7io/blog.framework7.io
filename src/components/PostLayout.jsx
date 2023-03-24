@@ -13,7 +13,7 @@ export const PostLayout = (props) => {
   return (
     <>
       <Head>
-        <title key="title">{title} | Framework7 Blog</title>
+        <title>{`${title} | Framework7 Blog`}</title>
         <meta property="og:title" content={title} />
         <meta name="twitter:title" content={title} />
         {image && (

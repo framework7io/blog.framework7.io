@@ -16,7 +16,7 @@ export default function Home(props) {
       <Head>
         <title>Framework7 Blog</title>
       </Head>
-      <div className="grid grid-cols-2 gap-16">
+      <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
         {posts.map((post) => (
           <Link href={post.path} key={post.title} className="group relative">
             <div className="pointer-events-none absolute -left-4 -top-4 -right-4 -bottom-4 -z-10 rounded-2xl bg-surface-3 opacity-0 duration-200 group-hover:opacity-100" />

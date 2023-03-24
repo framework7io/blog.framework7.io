@@ -1,4 +1,3 @@
-import { Gist } from '@/components/Gist.jsx';
 import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Framework7, Next.js & Server-Side Rendering? Yes!',
@@ -42,7 +41,15 @@ In project root folder we need to create two `env` files:
 
 In this files we need to define `NEXT_PUBLIC_HOST` variable, that will point to our webapp host. During development it will be `[http://localhost:3000`](http://localhost:3000,) (default Next.js dev server), and for production you need to specify the host where the app will be deployed:
 
-<Gist src="https://gist.github.com/nolimits4web/71535ae1bd0f945bbceaa2b50b4489ba.js" />
+```bash
+# .env.development
+NEXT_PUBLIC_HOST=http://localhost:3000
+```
+
+```bash
+# .env.production
+NEXT_PUBLIC_HOST=https://my-framework7-website.com
+```
 
 ## Routing
 
@@ -55,14 +62,27 @@ To support server-side routing and have a correct response with initially reques
 For example, if we have the following pages in our Next.js app:
 
 - `./pages/index.js`
-
 - `./pages/about.js`
-
 - `./pages/blog/[postID].js` — dynamic route
 
 We need to match it to Framework7 React router and pass this routes to our Framework7 App. So Framework7 routes for such structure will be the following:
 
-<Gist src="https://gist.github.com/nolimits4web/3f64420ae8bd0ba4d7f55dbff6b0faa2.js" />
+```js
+const routes = [
+  {
+    path: '/',
+    asyncComponent: () => import('./index'),
+  },
+  {
+    path: '/about',
+    asyncComponent: () => import('./about'),
+  },
+  {
+    path: '/blog/:postID',
+    asyncComponent: () => import('./blog/[postID]'),
+  },
+];
+```
 
 Pay attention that we use `asyncComponent` because we don't want (and more likely don't need) to add all routes/pages content into initial page JavaScript file.
 
@@ -70,7 +90,15 @@ Pay attention that we use `asyncComponent` because we don't want (and more likel
 
 Now, let's move to our main app component. We need to setup and tweak our main App layout in `pages/_app.js` file. By default (created by `create-next-app`) it should look like this:
 
-<Gist src="https://gist.github.com/nolimits4web/a828ce1c27c195ef024509dd191e4358.js" />
+```js
+import '../styles/globals.css';
+
+function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />;
+}
+
+export default MyApp;
+```
 
 Let's modify it to the following:
 
@@ -141,7 +169,18 @@ function MyApp({ Component, pageProps }) {
 
 We are almost ready. What is left is to change our main index page (located in `index.js` ) to be a Framework7-React page:
 
-<Gist src="https://gist.github.com/nolimits4web/d336679eafefbe39556479bcaca8929a.js" />
+```jsx
+import { Page, Navbar, Block } from 'framework7-react';
+
+export default function Home() {
+  return (
+    <Page>
+      <Navbar title="Framework7 Next.js" />
+      <Block>Hello world from Next.js</Block>
+    </Page>
+  );
+}
+```
 
 ## Launch 🚀
 
@@ -167,21 +206,74 @@ As mentioned above for navigating and router we use ONLY Framework7's router, it
 
 Let's create dynamic route page in `./pages/blog/[postID].js` file with the following content:
 
-<Gist src="https://gist.github.com/nolimits4web/9c0c6321f89f79020a4ec888ee98dbf9.js" />
+```jsx
+import { Block, Navbar, Page } from 'framework7-react';
+
+export default function BlogPost(props) {
+  /* 
+   we use Framework7 router and its features
+  */
+  const { postID, f7route } = props;
+  return (
+    <Page>
+      <Navbar title="Post" backLink="Back" />
+      <Block strong>
+        <p>
+          This is a dynamic route loaded from <code>/blog/[postID].js</code>{' '}
+          page component.
+        </p>
+        <p>
+          Route URL: <b>{f7route.url}</b>
+        </p>
+        <p>
+          Post ID: <b>{postID}</b>
+        </p>
+      </Block>
+    </Page>
+  );
+}
+```
 
 And now we need to add this route to our Framework7 routes in `_app.js` :
 
-<Gist src="https://gist.github.com/nolimits4web/e0a890297e9318d13b71cc4e533f4bf2.js" />
+```jsx
+// ...
+
+// move our routes array out of component
+const routes = [
+  {
+    path: '/',
+    asyncComponent: () => import('./index'),
+  },
+  // add dynamic Framework7 route to ./blog/[postID].js page
+  {
+    path: '/blog/:postID',
+    asyncComponent: () => import('./blog/[postID]'),
+  },
+];
+
+function MyApp({ Component, pageProps }) {
+  // ...
+  return (
+    <App url={url} routes={routes}>
+      {/* ... */}
+    </App>
+  );
+}
+
+export default MyApp;
+```
 
 And link to the page, somewhere on our home page:
 
-```
+```html
 <a href="/blog/45">Blog post</a>
 ```
 
 Everything works as intended:
 
 <iframe
+  loading="lazy"
   width="560"
   height="315"
   src="https://www.youtube.com/embed/h1FpBBkF0cw"
@@ -192,7 +284,7 @@ Everything works as intended:
 
 As you may know Framework7 supports iOS, Material Design and Aurora themes. Theme can be specified on main App component like so:
 
-```
+```jsx
 <App theme="ios">
 ```
 
@@ -204,11 +296,47 @@ Simple solution will be to just use single theme. But that is not for us. With N
 
 To do so, let's add `getInitialProps` function to our `_app.js` and see how get and use user-agent:
 
-<Gist src="https://gist.github.com/nolimits4web/b65c3c6c97660022b042d8d18fe6c6a2.js" />
+```jsx
+function MyApp({ Component, pageProps, userAgent }) {
+  // pass userAgent to Framework7's App component
+  return (
+    <App url={url} routes={routes} userAgent={userAgent}>
+      {/* ... */}
+    </App>
+  );
+}
+
+MyApp.getInitialProps = async ({ ctx }) => {
+  // get user-agent string on server-side
+  if (ctx && ctx.req && ctx.req.headers) {
+    // pass it to our component props
+    return {
+      userAgent: ctx.req.headers['user-agent'],
+    };
+  }
+  return {};
+};
+
+export default MyApp;
+```
 
 Now, theme detection will work correctly and we can safely use condition rendering even on server-side, e.g.:
 
-<Gist src="https://gist.github.com/nolimits4web/74341ea13a2b7b6f234b6960bf4005f6.js" />
+```jsx
+import { Page, Navbar, Block, theme } from 'framework7-react';
+
+export default function Home() {
+  return (
+    <Page>
+      <Navbar title="Framework7 Next.js" />
+      <Block>
+        {theme.ios && <p>Hello to iOS user!</p>}
+        {theme.md && <p>Hello to Android user!</p>}
+      </Block>
+    </Page>
+  );
+}
+```
 
 ## P.S.
 

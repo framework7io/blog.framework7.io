@@ -102,7 +102,7 @@ Framework7.use(Debugger);
 
 ### iOS/ Material Themes
 
-Themes and the way how they work is highly reworked as well. Now there is no need to include separate CSS files for different themes. Both of them are now included into single stylesheet `framework7.css`file. On app initialization ( `new Framework7()` ) we now pass `theme` parameter that could be `'ios'` or `'md'` or `'auto'`. If we set `'auto'` then iOS theme will be set for iOS devices and Material theme for any other device. On app init the appropriate “ios”or "md” class will be set on`<html>` element. So most of the styles (which are theme-specific) will look like `.ios .card`, `.md .toolbar`, etc.
+Themes and the way how they work is highly reworked as well. Now there is no need to include separate CSS files for different themes. Both of them are now included into single stylesheet `framework7.css`file. On app initialization ( `new Framework7()` ) we now pass `theme` parameter that could be `'ios'` or `'md'` or `'auto'`. If we set `'auto'` then iOS theme will be set for iOS devices and Material theme for any other device. On app init the appropriate "ios"or "md" class will be set on`<html>` element. So most of the styles (which are theme-specific) will look like `.ios .card`, `.md .toolbar`, etc.
 
 But in case you develop the app only the single platform (or want it to look like ios or md app on both platforms), the `framework7.ios.css` and `framework7.md.css` stylesheets are also available.
 
@@ -114,7 +114,7 @@ That is right, all components have been reworked to have same layout for both th
 
 ### Navbars/Toolbars
 
-But hey, we remember that pretty uncomfortable thing when Navbar for iOS theme must be under the View element and under the Page element for Material theme, and that hard to manage “_navbar-fixed_, _navbar-through_, _toolbar-fixed_, *toolbar-through” *additional classes\* \*thing. This is in the past. Now all styles and required page content offset is based on layout structure and elements order. And there are few new rules for Page bars:
+But hey, we remember that pretty uncomfortable thing when Navbar for iOS theme must be under the View element and under the Page element for Material theme, and that hard to manage "_navbar-fixed_, _navbar-through_, _toolbar-fixed_, *toolbar-through" *additional classes\* \*thing. This is in the past. Now all styles and required page content offset is based on layout structure and elements order. And there are few new rules for Page bars:
 
 - If we have Navbar for page, then it should be always inside of a Page
 
@@ -182,7 +182,7 @@ Lists**. **Before, if we need just a simple (without icons, subtitle, etc.) list
 </div>
 ```
 
-Now there are new lists modifications, called “links-list” and “simple-list” which saves a lot of time and markup:
+Now there are new lists modifications, called "links-list" and "simple-list" which saves a lot of time and markup:
 
 ```
 <!-- Simple List to display simple data -->
@@ -259,7 +259,7 @@ As i stated above many components have been highly improved and reworked. I will
 
 ## What is not yet ready?
 
-Almost all components from v1 are ported to v2, except “Autocomplete”, “Picker” and “Calendar”. So if your app uses them you will have to wait for next releases.
+Almost all components from v1 are ported to v2, except "Autocomplete", "Picker" and "Calendar". So if your app uses them you will have to wait for next releases.
 
 ## What is next?
 

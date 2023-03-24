@@ -1,4 +1,3 @@
-import { Gist } from '@/components/Gist.jsx';
 import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Framework7 Svelte',
@@ -23,7 +22,51 @@ Svelte will make your apps faster, with less and more clear code to write, and w
 
 Usage is pretty simple, straightforward and similar to what we have in Framework7-Vue/React. For example:
 
-<Gist src="https://gist.github.com/nolimits4web/0b5e398226cbdb873fdc93601a855ba8.js" />
+```html
+<App { params }>
+  <View main url="/" />
+</App>
+
+<script>
+  import { App, View } from 'framework7-svelte';
+  import Home from './pages/home.svelte';
+  const params = {
+    // ...
+    routes: [
+      {
+        path: '/',
+        component: Home,
+      },
+      // ...
+    ],
+  };
+</script>
+```
+
+```html
+<Page>
+  <Navbar large title="My App" />
+  <Block strong>
+    <p>Welcome to my app!</p>
+    <button fill large>Button</button>
+  </Block>
+  <List>
+    <ListItem title="Item 1" />
+    <ListItem title="Item 2" />
+  </List>
+</Page>
+
+<script>
+  import {
+    Page,
+    Navbar,
+    Block,
+    Button,
+    List,
+    ListItem,
+  } from 'framework7-svelte';
+</script>
+```
 
 And we will get the following output:
 
@@ -39,7 +82,7 @@ Just run the following command where you want to setup new project:
 npx framework7-cli create --ui
 ```
 
-And in “Framework” section choose **Framework7 with Svelte:**
+And in "Framework" section choose **Framework7 with Svelte:**
 
 ![](/images/framework7-svelte-1.png)
 

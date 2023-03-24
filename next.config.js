@@ -1,10 +1,9 @@
-const remarkFrontmatter = require('remark-frontmatter');
 const rehypePrism = require('@mapbox/rehype-prism');
 
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [remarkFrontmatter],
+    remarkPlugins: [],
     rehypePlugins: [rehypePrism],
     // If you use `MDXProvider`, uncomment the following line.
     // providerImportSource: "@mdx-js/react",
@@ -15,9 +14,9 @@ const withMDX = require('@next/mdx')({
 const nextConfig = withMDX({
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: true,
-  experimental: {
-    mdxRs: true,
-  },
+  // experimental: {
+  //   mdxRs: true,
+  // },
 });
 
 module.exports = nextConfig;

@@ -1,4 +1,3 @@
-import { Gist } from '@/components/Gist.jsx';
 import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Superpowered Router Components in Framework7 3.1.0',
@@ -14,13 +13,85 @@ But there was one feature that was really missing. It is auto re-rendering (layo
 
 Let's look at the following simple router component:
 
-<Gist src="https://gist.github.com/nolimits4web/ee1bd312059bf957996c112f317e381a.js" />
+```html
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="title">Profile</div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="list simple-list">
+        <ul>
+          <li>First Name: {{user.firstName}}</li>
+          <li>Last Name: {{user.lastName}}</li>
+          <li>Age: {{user.age}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  return {
+    data() {
+      return {
+        user: {
+          firstName: 'John',
+          lastName: 'Doe',
+          age: 32,
+        },
+      };
+    },
+  };
+</script>
+```
 
 Everything is simple here, when page is initially rendered, it is already has `user` data so it will be rendered as expected.
 
 But what if we request user data later, after page was already rendered:
 
-<Gist src="https://gist.github.com/nolimits4web/35b232d9f359f9594b2076e35bea1462.js" />
+```html
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="title">Profile</div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="list simple-list">
+        <ul>
+          <li>First Name: {{user.firstName}}</li>
+          <li>Last Name: {{user.lastName}}</li>
+          <li>Age: {{user.age}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  return {
+    data() {
+      return {
+        // empty initial user data
+        user: {},
+      };
+    },
+    on: {
+      pageInit() {
+        var self = this;
+        var app = self.$app;
+        // request user data on page init
+        app.request.get('http://api.website.com/get-user-profile', (user) => {
+          // update component state user with new user
+          self.user = user;
+        });
+      },
+    },
+  };
+</script>
+```
 
 This won't work as expected at all, and in such cases developers usually use direct DOM manipulations (via Dom7 lib) to update layout manually.
 
@@ -30,7 +101,7 @@ And in Framework7 3.1.0 this issue has been finally solved.
 
 In Framework 3.1.0 Router Component is highly reworked and powered with Virtual DOM!
 
-> The virtual DOM (VDOM) is a programming concept where an ideal, or “virtual”, representation of a UI is kept in memory and synced with the “real” DOM. It allows us to express our application's view as a function of its state.
+> The virtual DOM (VDOM) is a programming concept where an ideal, or "virtual", representation of a UI is kept in memory and synced with the "real" DOM. It allows us to express our application's view as a function of its state.
 
 Instead of own custom Virtual DOM implementation, we decided to use VDOM library called [\*\*Snabbdom](https://github.com/snabbdom/snabbdom)\*\* because it is extremely lightweight, fast and fits great for Framework7 environment. Fork of Snabbdom is also used in Vue.js VDOM implementation.
 
@@ -38,7 +109,57 @@ So how does Framework7 router component rendering work now? Now component templa
 
 Now let's look again at that user profile component that will auto update layout when we request user data:
 
-<Gist src="https://gist.github.com/nolimits4web/129c500b441ad00fbb3fe8e960dba9c7.js" />
+```html
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="title">Profile</div>
+      </div>
+    </div>
+    <div class="page-content">
+      {{#if user}}
+      <!-- Show user list when it is loaded -->
+      <div class="list simple-list">
+        <ul>
+          <li>First Name: {{user.firstName}}</li>
+          <li>Last Name: {{user.lastName}}</li>
+          <li>Age: {{user.age}}</li>
+        </ul>
+      </div>
+      {{else}}
+      <!-- Otherwise show preloader -->
+      <div class="block-strong text-align-center block">
+        <div class="preloader"></div>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+<script>
+  return {
+    data() {
+      return {
+        // empty initial user data
+        user: null,
+      };
+    },
+    on: {
+      pageInit() {
+        var self = this;
+        var app = self.$app;
+        // request user data on page init
+        app.request.get('http://api.website.com/get-user-profile', (user) => {
+          // update component state with new state
+          self.$setState({
+            user: user,
+          });
+        });
+      },
+    },
+  };
+</script>
+```
 
 Noticed that `self.$setState()` method we call in previous example to update component state?
 
@@ -56,21 +177,85 @@ When we use single file component, the everything what is under `<template>` tag
 
 So one more new feature of this 3.1.0 update is that single file component template can be treated as native JavaScript [Template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
 
-> Template literals are string literals allowing embedded expressions. You can use multi-line strings and string interpolation features with them. They were called “template strings” in prior editions of the ES2015 specification.
+> Template literals are string literals allowing embedded expressions. You can use multi-line strings and string interpolation features with them. They were called "template strings" in prior editions of the ES2015 specification.
 
-```
-`var a = 5;
+```js
+var a = 5;
 var b = 10;
 console.log(`Fifteen is ${a + b} and not ${2 * a + b}.`);`
 ```
 
 To enable your component template being treated as template literal we need to add `es` attribute to `<template>` tag. The template from previous example will look like:
 
-<Gist src="https://gist.github.com/nolimits4web/343cd554e8ca1c575ea4cc64739800e2.js" />
+```html
+<!-- new "es" attribute to treat it as template literal -->
+<template es>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="title">Profile</div>
+      </div>
+    </div>
+    <div class="page-content">
+      <!-- use conditional (ternary) operator instead of if/else -->
+      ${this.user ? `
+      <!-- Show user list when it is loaded -->
+      <div class="list simple-list">
+        <ul>
+          <li>First Name: ${this.user.firstName}</li>
+          <li>Last Name: ${this.user.lastName}</li>
+          <li>Age: ${this.user.age}</li>
+        </ul>
+      </div>
+      ` : `
+      <!-- Otherwise show preloader -->
+      <div class="block-strong text-align-center block">
+        <div class="preloader"></div>
+      </div>
+      ` }
+    </div>
+  </div>
+</template>
+```
 
 To iterate over array items in template literals we can use `Array.map`:
 
-<Gist src="https://gist.github.com/nolimits4web/b068ca23077bfa821d9ca850e60babfb.js" />
+```html
+<template es>
+  ... ${this.users.map((user, index) => `
+  <div class="list simple-list" data-index="${index}" data-id="${user.id}">
+    <ul>
+      <li>First Name: ${user.firstName}</li>
+      <li>Last Name: ${user.lastName}</li>
+      <li>Age: ${user.age}</li>
+    </ul>
+  </div>
+  `).join('')} ...
+</template>
+<script>
+  return {
+    data() {
+      return {
+        users: [
+          {
+            id: 1,
+            firstName: 'John',
+            lastName: 'Doe',
+            age: 32,
+          },
+          {
+            id: 2,
+            firstName: 'Jane',
+            lastName: 'Smith',
+            age: 23,
+          },
+        ],
+      };
+    },
+    // ...
+  };
+</script>
+```
 
 ## Auto Init Components
 
