@@ -1,5 +1,10 @@
-url: https://blog.framework7.io/built-with-framework7-brief-customer-messaging-app-76497d56a2d3
-date: Wed Jan 31 2018 09:54:51 GMT+0300 (Москва, стандартное время)
+
+import { PostLayout } from '@/components/PostLayout.jsx';
+export const meta = {
+  title: "Built with Framework7: Brief — Customer messaging app",
+  date: "2018-01-31T06:54:51.000Z"
+}
+
 
 
 # Built with Framework7: Brief — Customer messaging app
@@ -69,3 +74,6 @@ Go try Brief, it is free, and maybe this is what you are looking for:
 * [Brief on Google Play](https://play.google.com/store/apps/details?id=com.letsbrief.app)
 
 * [Brief Webapp](https://letsbrief.com)
+
+
+export default ({ children }) => <PostLayout meta={meta}>{children}</PostLayout>

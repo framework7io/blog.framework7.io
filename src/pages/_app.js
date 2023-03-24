@@ -38,7 +38,9 @@ export default function App({ Component, pageProps }) {
         />
       </Head>
       <Header />
-      <Component {...pageProps} />
+      <main className="mx-auto max-w-screen-lg py-16 px-4 lg:px-6">
+        <Component {...pageProps} />
+      </main>
     </>
   );
 }

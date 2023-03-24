@@ -1,10 +1,10 @@
-url: https://blog.framework7.io/framework7-v3-is-coming-soon-e327e9c10480
-date: Sun May 27 2018 15:07:41 GMT+0300 (Москва, стандартное время)
-
+import { PostLayout } from '@/components/PostLayout.jsx';
+export const meta = {
+  title: 'Framework7 v3 Is Coming Soon',
+  date: '2018-05-27T12:07:41.000Z',
+};
 
 # Framework7 v3 Is Coming Soon
-
-
 
 This is very exciting release and a bit unexpected to be so soon, but first of all, don't worry, **upgrade from v2 to v3 will not be such complex like from v1 to v2.**
 
@@ -16,9 +16,9 @@ A bit of story. [Ben Compton](https://github.com/bencompton/) did a tremendous j
 
 We realised that we need kind of universal thing, universal component definition that can be used with both Vue and React (and maybe later with WebComponents) keeping same functionality. [Stencil.js](https://stenciljs.com/) looks pretty promising for this as it compiles to WebComponent which can be used by React and Vue js. But soon, it was refused as a solution for few reasons:
 
-* using web components (custom elements) in React and Vue.js requires some extra hacks [https://custom-elements-everywhere.com/](https://custom-elements-everywhere.com/)
+- using web components (custom elements) in React and Vue.js requires some extra hacks [https://custom-elements-everywhere.com/](https://custom-elements-everywhere.com/)
 
-* Stencil.js uses own virtual-dom implementation (fork of [Snabbdom](https://github.com/snabbdom/snabbdom)). Not an option for us, because we need our F7-Vue/React components to utilize all “native” features of framework (Vue/React) they are used in, including Vue/React virtual dom implementation
+- Stencil.js uses own virtual-dom implementation (fork of [Snabbdom](https://github.com/snabbdom/snabbdom)). Not an option for us, because we need our F7-Vue/React components to utilize all “native” features of framework (Vue/React) they are used in, including Vue/React virtual dom implementation
 
 So we decided to go with our own universal component compiler. And after few months of brainstorming and hardcoding we, together with Ben, finally nailed it!
 
@@ -26,21 +26,21 @@ So we decided to go with our own universal component compiler. And after few mon
 
 ![](https://cdn-images-1.medium.com/max/3800/1*tMFUEvEVqbyP15meskS-iQ.png)
 
-The compiler we created we called ***Phenome.js — The ultimate cross-framework component compiler***
+The compiler we created we called **_Phenome.js — The ultimate cross-framework component compiler_**
 
 And it works just amazing. We came up with own Phenome component syntax definition, which is similar to both Vue and React. And the most outstanding part is that in the end it compiles “phenome” component files to standalone and absolutely “native” Vue and React components, without any extra library dependencies, utilizing all “native” framework features and virtual dom implementations.
 
 For example, we have some simple Phenome Card component file:
 
-<iframe src="https://medium.com/media/74c0c44c2781352b28e901e6d6a0f02f" frameBorder="0"></iframe>
+<iframe src="https://medium.com/media/74c0c44c2781352b28e901e6d6a0f02f"></iframe>
 
 This will be compiled result for React:
 
-<iframe src="https://medium.com/media/df32b49ef2e1033ed48973f981a20714" frameBorder="0"></iframe>
+<iframe src="https://medium.com/media/df32b49ef2e1033ed48973f981a20714"></iframe>
 
 This will be compiled result for Vue:
 
-<iframe src="https://medium.com/media/902582264343b9d90ba0008a5f05a31a" frameBorder="0"></iframe>
+<iframe src="https://medium.com/media/902582264343b9d90ba0008a5f05a31a"></iframe>
 
 And of course it supports all features like Slots, State management, Lifecycle hooks, Props validation, etc. There will be a separate post about Phenome when we finish its documentation.
 
@@ -56,20 +56,23 @@ So what will be changed in Framework7 v3?
 
 Framework7-Vue and Framework7-React GitHub repositories will be deprecated. New Vue/React components will be written as Phenome components, so their source code and compiled results will move to main Framework7 repo. It will help us to keep everything in sync with core lib. But NPM packages (`framework7`, `framework7-vue` , `framework7-react` ) will be still different packages.
 
-Because Phenome is a ***universal*** component, so we have refactored FrameworkVue/React plugins and routers to be universal and as much framework agnostic as possible. So some Vue-only “hacks” will be removed or changed to different syntax.
+Because Phenome is a **_universal_** component, so we have refactored FrameworkVue/React plugins and routers to be universal and as much framework agnostic as possible. So some Vue-only “hacks” will be removed or changed to different syntax.
 
 ### 1. Framework7-Vue/React Plugin Installation
 
 At the moment to install and init Framework7 in Vue we do the following:
+
 ```
 *import* Vue *from* 'vue';
 *import* Framework7Vue *from* 'framework7-vue';
 *import* Framework7 *from* 'framework7';
 ```
+
 ```
 *// Install F7-Vue plugin/router
 *Vue.use(Framework7Vue, Framework7);
 ```
+
 ```
 *// Init App
 *new Vue({
@@ -83,15 +86,18 @@ At the moment to install and init Framework7 in Vue we do the following:
 ```
 
 In v3, it is a bit different:
+
 ```
 *import* Vue *from* 'vue';
 *import* Framework7Vue *from* 'framework7-vue';
 *import* Framework7 *from* 'framework7';
 ```
+
 ```
 *// Different F7-Vue plugin initialization
 *Framework7.use(Framework7Vue, { Vue });
 ```
+
 ```
 *// Init App
 *new Vue({
@@ -102,7 +108,8 @@ In v3, it is a bit different:
 
 ### 2. Framework7 Initialization
 
-There is no more Framework7 params under `framework7` root Vue properties. Now F7 init moves to new `**f7-app`** component in your main app template:
+There is no more Framework7 params under `framework7` root Vue properties. Now F7 init moves to new `**f7-app`\*\* component in your main app template:
+
 ```
 <template>
   <f7-app :params="f7Params">
@@ -114,6 +121,7 @@ There is no more Framework7 params under `framework7` root Vue properties. Now F
   import { f7App, f7Panel, f7View, f7Statusbar } from 'framework7-vue';
   import routes from './routes';
 ```
+
 ```
 export default {
     components: {
@@ -133,11 +141,13 @@ export default {
 ```
 
 For React it will be basically the same now:
+
 ```
 import React from 'react';
 import { App, View, Statusbar } from 'framework7-react';
 import routes from './routes';
 ```
+
 ```
 export default () => (
   <App params={{ theme: 'auto', routes, id: 'io.framework7.testapp' }}>
@@ -150,6 +160,7 @@ export default () => (
 ### 3. onF7Ready Method
 
 `onF7Ready` Vue component method to execute F7 related API code is also gone away in favour of new`$f7ready` prototype method which is recommend to use in `mounted` / `componentDidMount` hooks:
+
 ```
 // Vue Page Component
 export default {
@@ -161,6 +172,7 @@ export default {
   }
 }
 ```
+
 ```
 // React Page Component
 export default class extends React.Component {
@@ -181,14 +193,18 @@ Framework7 v3 is almost ready, and we already have React/Vue kitchen sinks runni
 
 After new v3 release we will have a new long v4 roadmap targeting following major features:
 
-* Framework7 WebComponents library
+- Framework7 WebComponents library
 
-* More frameworks support, e.g. Preact, Angular
+- More frameworks support, e.g. Preact, Angular
 
-* CSS variables support to make F7 app styling and theming much easier
+- CSS variables support to make F7 app styling and theming much easier
 
-* First class PWA support
+- First class PWA support
 
-* New UI components
+- New UI components
 
 And don't forget, if you love Framework7, you can support project by donating or pledging on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7)
+
+export default ({ children }) => (
+  <PostLayout meta={meta}>{children}</PostLayout>
+);

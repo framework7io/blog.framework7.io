@@ -1,5 +1,10 @@
-url: https://blog.framework7.io/framework7-icons-v2-1bb74ef5055a
-date: Wed Nov 21 2018 12:14:52 GMT+0300 (Москва, стандартное время)
+
+import { PostLayout } from '@/components/PostLayout.jsx';
+export const meta = {
+  title: "Framework7 Icons v2",
+  date: "2018-11-21T09:14:52.000Z"
+}
+
 
 
 # Framework7 Icons v2
@@ -50,3 +55,6 @@ You can download icon font and its available assets at Framework7 Icons reposito
 ## P.S.
 
 If you love Framework7, you can support project by donating or pledging on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7)
+
+
+export default ({ children }) => <PostLayout meta={meta}>{children}</PostLayout>

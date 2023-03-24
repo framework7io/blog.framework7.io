@@ -1,5 +1,10 @@
-url: https://blog.framework7.io/welcome-to-framework7-blog-3500c27cbfed
-date: Sat Sep 02 2017 18:41:46 GMT+0300 (Москва, стандартное время)
+
+import { PostLayout } from '@/components/PostLayout.jsx';
+export const meta = {
+  title: "Welcome to Framework7 Blog",
+  date: "2017-09-02T15:41:46.000Z"
+}
+
 
 
 # Welcome to Framework7 Blog
@@ -7,3 +12,6 @@ date: Sat Sep 02 2017 18:41:46 GMT+0300 (Москва, стандартное в
 Hi!
 
 As title says welcome to Framework7 blog. I and, probably, other Framework7 developers will post here new tutorials, information about new releases, new features and news from Framework7 world.
+
+
+export default ({ children }) => <PostLayout meta={meta}>{children}</PostLayout>

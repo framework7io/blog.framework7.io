@@ -1,5 +1,10 @@
-url: https://blog.framework7.io/framework7-v2-beta-41f983d6e89d
-date: Sat Sep 02 2017 18:51:41 GMT+0300 (Москва, стандартное время)
+
+import { PostLayout } from '@/components/PostLayout.jsx';
+export const meta = {
+  title: "Framework7 v2 Beta",
+  date: "2017-09-02T15:51:41.000Z"
+}
+
 
 
 # Framework7 v2 Beta
@@ -260,3 +265,6 @@ Follow Framework7 to be notified and start using it now!
 ```
 $ npm install framework7
 ```
+
+
+export default ({ children }) => <PostLayout meta={meta}>{children}</PostLayout>

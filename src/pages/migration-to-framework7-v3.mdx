@@ -1,5 +1,10 @@
-url: https://blog.framework7.io/migration-to-framework7-v3-928a21a1eac9
-date: Mon Jul 09 2018 14:49:11 GMT+0300 (Москва, стандартное время)
+
+import { PostLayout } from '@/components/PostLayout.jsx';
+export const meta = {
+  title: "Migration to Framework7 v3",
+  date: "2018-07-09T11:49:11.000Z"
+}
+
 
 
 # Migration to Framework7 v3
@@ -201,3 +206,6 @@ This was the basic guide to migrate your app made with Framework7 v2 to v3. Of c
 ## P.S.
 
 And don't forget, if you love Framework7, you can support project by donating or pledging on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7)
+
+
+export default ({ children }) => <PostLayout meta={meta}>{children}</PostLayout>

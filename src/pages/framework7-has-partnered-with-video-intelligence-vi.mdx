@@ -1,5 +1,10 @@
-url: https://blog.framework7.io/framework7-has-partnered-with-video-intelligence-vi-c16f6705c112
-date: Mon Dec 18 2017 18:23:52 GMT+0300 (Москва, стандартное время)
+
+import { PostLayout } from '@/components/PostLayout.jsx';
+export const meta = {
+  title: "Framework7 has partnered with video intelligence (vi)",
+  date: "2017-12-18T15:23:52.000Z"
+}
+
 
 
 # Framework7 has partnered with video intelligence (vi)
@@ -87,3 +92,6 @@ That is all, now we can use Framework7's vi API to create and show ads. In simpl
 With the final release of v2 documentation (i promise it is going to be very soon) there will be more information about vi API and usage examples (which are now available in v2 Kitchen Sink at [vi demo page](https://github.com/framework7io/framework7/blob/master/kitchen-sink/pages/vi.html).
 
 Until then, if you have questions about vi feel free to ask them here or at [Framework7 Forum](http://forum.framework7.io).
+
+
+export default ({ children }) => <PostLayout meta={meta}>{children}</PostLayout>

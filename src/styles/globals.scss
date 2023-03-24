@@ -15,3 +15,7 @@ pre[class*='language-'] {
   font-family: Menlo, ui-monospace, SFMono-Regular, Monaco, Consolas,
     Liberation Mono, Courier New, monospace;
 }
+
+.prose pre {
+  @apply bg-surface-1;
+}

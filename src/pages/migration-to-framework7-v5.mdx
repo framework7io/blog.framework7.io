@@ -1,10 +1,10 @@
-url: https://blog.framework7.io/migration-to-framework7-v5-1374257bb5a7
-date: Fri Oct 04 2019 18:55:19 GMT+0300 (Москва, стандартное время)
-
+import { PostLayout } from '@/components/PostLayout.jsx';
+export const meta = {
+  title: 'Migration to Framework7 v5',
+  date: '2019-10-04T15:55:19.000Z',
+};
 
 # Migration to Framework7 v5
-
-
 
 Framework7 stable 5.0.0 released on October 7, 2019 and it is time to update!
 
@@ -12,7 +12,7 @@ Let's walk through all v3 -> v4 breaking changes to see what needs to be changed
 
 In this article we will walk most of v4 -> v5 breaking changes to check what needs to be done to migrate from Framework7 v4 to Framework7 v5.
 
-But first of all it is recommended to read [**what is new in v5](https://blog.framework7.io/framework7-v5-679176716faa)** and check [**full v5 changelog](https://github.com/framework7io/framework7/blob/master/CHANGELOG.md)** for full list of changes that can be used as a good reference.
+But first of all it is recommended to read [\*\*what is new in v5](https://blog.framework7.io/framework7-v5-679176716faa)** and check [**full v5 changelog](https://github.com/framework7io/framework7/blob/master/CHANGELOG.md)\*\* for full list of changes that can be used as a good reference.
 
 ## Framework7 Core
 
@@ -22,33 +22,37 @@ Framework7 uses new responsive breakpoints to apply different styles based on ap
 
 They are now:
 
-* `xsmall` — width more than 480px
+- `xsmall` — width more than 480px
 
-* `small` — width more than 568px
+- `small` — width more than 568px
 
-* `medium` — width more than 768px
+- `medium` — width more than 768px
 
-* `large` — width more than 1024px
+- `large` — width more than 1024px
 
-* `xlarge` — width more than 1200px
+- `xlarge` — width more than 1200px
 
 If you use `tablet-${n}` and `desktop-${n}` modifiers classes on Layout Grid columns:
+
 ```
 <div class="col-50 tablet-33 desktop-25">...</div>
 ```
 
 they must be changed to the following:
+
 ```
 <div class="col-50 medium-33 large-25">...</div>
 ```
 
 Same for Lists and Block, if you use `tablet-inset` class there, it must be changed to `medium-inset`
+
 ```
 <div class="list tablet-inset">...</div>
 <div class="block tablet-inset">...</div>
 ```
 
 should be changed to:
+
 ```
 <div class="list medium-inset">...</div>
 <div class="block medium-inset">...</div>
@@ -62,11 +66,11 @@ Global app panel parameters (like `panel.swipe = 'left'` ) are not supported any
 
 For example, if we have something like this in v4:
 
-<iframe src="https://medium.com/media/36fb722be58eb5fdb497151b1b2b18d6" frameBorder="0"></iframe>
+<iframe src="https://medium.com/media/36fb722be58eb5fdb497151b1b2b18d6"></iframe>
 
 It must be changed to the following in v5:
 
-<iframe src="https://medium.com/media/e71925f1255791ac953d5aa867b0f711" frameBorder="0"></iframe>
+<iframe src="https://medium.com/media/e71925f1255791ac953d5aa867b0f711"></iframe>
 
 Check updated [Panel Docs](https://framework7.io/docs/panel.html) for all new APIs and examples.
 
@@ -74,11 +78,11 @@ Check updated [Panel Docs](https://framework7.io/docs/panel.html) for all new AP
 
 In v5 Navbar container must have new `navbar-bg` element that should be placed before `navbar-inner`, and new layout looks like:
 
-<iframe src="https://medium.com/media/36564dbbd109c81d99189fdda62f1366" frameBorder="0"></iframe>
+<iframe src="https://medium.com/media/36564dbbd109c81d99189fdda62f1366"></iframe>
 
 Large Navbar (Navbar with large title) now should be enabled by adding `navbar-large` class to Navbar element:
 
-<iframe src="https://medium.com/media/f492c93e52e1703fbabee4c526c222d1" frameBorder="0"></iframe>
+<iframe src="https://medium.com/media/f492c93e52e1703fbabee4c526c222d1"></iframe>
 
 ### New Calendar API
 
@@ -94,28 +98,30 @@ Fast clicks functionality has been completely removed. Following app parameters 
 
 Now it resolves and rejects with a different object.
 
-* will be resolved with `{ data, status, xhr }` object (rather than with just `data` like before)
+- will be resolved with `{ data, status, xhr }` object (rather than with just `data` like before)
 
-* Request “promise” methods now will be rejected with `{ message, status, xhr }` object (rather than with just `status` like before)
+- Request “promise” methods now will be rejected with `{ message, status, xhr }` object (rather than with just `status` like before)
 
-<iframe src="https://medium.com/media/d178e11064c49807832cf48fb1a22cae" frameBorder="0"></iframe>
+<iframe src="https://medium.com/media/d178e11064c49807832cf48fb1a22cae"></iframe>
 
 ### Router Component
 
 Component DOM updates are now asynchronous. It means that it is not guaranteed that DOM will be updated right after calling `$setState`. There is a new `$tick` method that can be safely used to reference DOM and ensure it was updated. Or we can now use new second callback argument in `$setState`
 
-<iframe src="https://medium.com/media/121d9a15eba8c84140bf548c0e7d97d8" frameBorder="0"></iframe>
+<iframe src="https://medium.com/media/121d9a15eba8c84140bf548c0e7d97d8"></iframe>
 
 ## Framework7 Vue & React
 
 ### Framework7 Lite
 
 It is new “Lite” version of Framework7 Core that doesn't contain Core Component functionality. And now it is recommended to use “lite” version with F7-Vue/React packages:
+
 ```
 import Framework7 from 'framework7/framework7-lite.esm.js';
 ```
 
 or bundle version:
+
 ```
 import Framework7 from 'framework7/framework7-lite.esm.bundle.js';
 ```
@@ -123,12 +129,14 @@ import Framework7 from 'framework7/framework7-lite.esm.bundle.js';
 ### **List & Block Components**
 
 `tabletInset` prop has been removed, and new props based on new responsive breakpoints should be used instead: `xsmallInset`, `smallInset`, `mediumInset`, `largeInset`, `xlargeInset`
+
 ```
 <List mediumInset>...</List>
 <Block mediumInset>...</Block>
 ```
 
 and
+
 ```
 <f7-list mediumInset>...</f7-list>
 <f7-block mediumInset>...</f7-block>
@@ -137,11 +145,13 @@ and
 ### **Col Component**
 
 `tabletWidth` and `desktopWidth` props have been removed, and new props based on new responsive breakpoints should be used instead: `xsmall`, `small`, `medium`, `large`, `xlarge` :
+
 ```
 <Col size="50" medium="33" large="25">...</Col>
 ```
 
 and
+
 ```
 <f7-col size="50" medium="33" large="25">...</f7-col>
 ```
@@ -150,7 +160,7 @@ and
 
 Panels got new API, so main app parameters related to Panel are not actual anymore and all panel parameters should be defined on Panel itself:
 
-<iframe src="https://medium.com/media/1a0936c539982438816040bbdc05a965" frameBorder="0"></iframe>
+<iframe src="https://medium.com/media/1a0936c539982438816040bbdc05a965"></iframe>
 
 ### Statusbar Component
 
@@ -162,20 +172,24 @@ Framework7 Icons icon font was also updated to new version 3 with more than 800 
 
 ## That Is All
 
-There is not so much breaking changes in v5, but there are a lot of new features. Check [**what is new in v5](https://blog.framework7.io/framework7-v5-679176716faa)** blog post if you missed it.
+There is not so much breaking changes in v5, but there are a lot of new features. Check [\*\*what is new in v5](https://blog.framework7.io/framework7-v5-679176716faa)\*\* blog post if you missed it.
 
 As next steps it is highly recommended to check all new Framework7 v5 docs and:
 
-* [Framework7 Core documentation](http://framework7.io/docs/)
+- [Framework7 Core documentation](http://framework7.io/docs/)
 
-* [Framework7-Vue documentation](http://framework7.io/vue/)
+- [Framework7-Vue documentation](http://framework7.io/vue/)
 
-* [Framework7-React documentation](http://framework7.io/react/)
+- [Framework7-React documentation](http://framework7.io/react/)
 
-* [Framework7 Forum](http://forum.framework7.io/) — the best place to get F7 support.
+- [Framework7 Forum](http://forum.framework7.io/) — the best place to get F7 support.
 
 ## P.S.
 
 If you love Framework7, please, support project by donating or pledging on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7)
 
 Your support means a lot for us!
+
+export default ({ children }) => (
+  <PostLayout meta={meta}>{children}</PostLayout>
+);

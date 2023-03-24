@@ -1,5 +1,10 @@
-url: https://blog.framework7.io/meet-aurora-new-framework7-desktop-theme-b4064c5b6040
-date: Tue Mar 19 2019 14:14:15 GMT+0300 (Москва, стандартное время)
+
+import { PostLayout } from '@/components/PostLayout.jsx';
+export const meta = {
+  title: "Meet Aurora — New Framework7 Desktop Theme",
+  date: "2019-03-19T11:14:15.000Z"
+}
+
 
 # Meet Aurora — New Framework7 Desktop Theme
 
@@ -154,3 +159,6 @@ As next steps it is recommended to check:
 ## P.S.
 
 If you love Framework7, you can support project by donating or pledging on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7) or by purchasing a nice branded t-shirt at [Framework7 Shop](https://teespring.com/stores/framework7)
+
+
+export default ({ children }) => <PostLayout meta={meta}>{children}</PostLayout>

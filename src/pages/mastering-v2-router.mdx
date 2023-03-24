@@ -1,5 +1,10 @@
-url: https://blog.framework7.io/mastering-v2-router-958ea2dbd24f
-date: Sun Sep 03 2017 15:00:05 GMT+0300 (Москва, стандартное время)
+
+import { PostLayout } from '@/components/PostLayout.jsx';
+export const meta = {
+  title: "Mastering Framework7 v2 Router",
+  date: "2017-09-03T12:00:05.000Z"
+}
+
 
 
 # Mastering Framework7 v2 Router
@@ -774,3 +779,6 @@ Now router has just 2 main methods:
 ## Summary
 
 As you may see Router in v2 is almost something absolutely new. It was reworked, improved in all terms. Yes, some time will be required to accept and understand its new philosophy, but it really worths. And there is much more in new Router, including reworked page transitions (now they are JS-based instead of CSS-based), support for navbar inside of page for iOS theme, scroll position restoration, new Router events, .etc. But more detailed information about such features will be covered in v2 docs.
+
+
+export default ({ children }) => <PostLayout meta={meta}>{children}</PostLayout>

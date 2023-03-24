@@ -1,17 +1,18 @@
-url: https://blog.framework7.io/framework7-svelte-e6634910f2b6
-date: Mon Jan 27 2020 19:11:51 GMT+0300 (Москва, стандартное время)
-
+import { PostLayout } from '@/components/PostLayout.jsx';
+export const meta = {
+  title: 'Framework7 Svelte',
+  date: '2020-01-27T16:11:51.000Z',
+};
 
 # Framework7 Svelte
 
-
-
 I am excited to announce that **Framework7-Svelte** is finally here and available from Framework7 v5.4.0! 🎉
 
-Now we can build ***cybernetically enhanced*** web, desktop and mobile apps with native look and feel!
+Now we can build **_cybernetically enhanced_** web, desktop and mobile apps with native look and feel!
 
 If you are not familiar with Svelte:
-> Svelte is a radical new approach to building user interfaces. Whereas traditional frameworks like React and Vue do the bulk of their work in the *browser*, Svelte shifts that work into a *compile step* that happens when you build your app.
+
+> Svelte is a radical new approach to building user interfaces. Whereas traditional frameworks like React and Vue do the bulk of their work in the _browser_, Svelte shifts that work into a _compile step_ that happens when you build your app.
 > Instead of using techniques like virtual DOM diffing, Svelte writes code that surgically updates the DOM when the state of your app changes.
 
 Svelte will make your apps faster, with less and more clear code to write, and with built-in state management and reactivity.
@@ -20,7 +21,7 @@ Svelte will make your apps faster, with less and more clear code to write, and w
 
 Usage is pretty simple, straightforward and similar to what we have in Framework7-Vue/React. For example:
 
-<iframe src="https://medium.com/media/c430cbb85394a538c9c702cb8ad9a29b" frameBorder="0"></iframe>
+<iframe src="https://medium.com/media/c430cbb85394a538c9c702cb8ad9a29b"></iframe>
 
 And we will get the following output:
 
@@ -31,6 +32,7 @@ And we will get the following output:
 To start creating apps with Framework7 and Svelte, it is recommend to create project with [Framework7 CLI](https://framework7.io/cli/), it allows to choose the framework, target platform, starter templates and many other useful things.
 
 Just run the following command where you want to setup new project:
+
 ```
 npx framework7-cli create --ui
 ```
@@ -43,14 +45,18 @@ And in “Framework” section choose **Framework7 with Svelte:**
 
 Now it is time to try it yourself, and as next steps it is recommended to check the following Framework7 v5 docs:
 
-* [Framework7 CLI docs](https://framework7.io/cli/) — useful information and instructions on how to install and work with CLI
+- [Framework7 CLI docs](https://framework7.io/cli/) — useful information and instructions on how to install and work with CLI
 
-* [Framework7 Svelte docs](https://framework7.io/svelte/) — documentation for Framework7 Svelte components
+- [Framework7 Svelte docs](https://framework7.io/svelte/) — documentation for Framework7 Svelte components
 
-* [Framework7 Core docs](https://framework7.io/docs/) — documentation for core framework APIs
+- [Framework7 Core docs](https://framework7.io/docs/) — documentation for core framework APIs
 
 ## P.S.
 
 If you love Framework7, please, support project by donating or pledging on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7)
 
 Your support means a lot for us!
+
+export default ({ children }) => (
+  <PostLayout meta={meta}>{children}</PostLayout>
+);

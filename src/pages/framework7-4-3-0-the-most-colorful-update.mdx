@@ -1,5 +1,10 @@
-url: https://blog.framework7.io/framework7-4-3-0-the-most-colorful-update-47175a880c5e
-date: Tue Apr 16 2019 18:49:57 GMT+0300 (Москва, стандартное время)
+
+import { PostLayout } from '@/components/PostLayout.jsx';
+export const meta = {
+  title: "Framework7 4.3.0 — The Most Colorful Update",
+  date: "2019-04-16T15:49:57.000Z"
+}
+
 
 # Framework7 4.3.0 — The Most Colorful Update
 
@@ -96,3 +101,6 @@ Framework7 4.3.0 version already released with all the documentation updated. Ch
 ## P.S.
 
 If you love Framework7, you can support project by donating or pledging on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7) or by purchasing a nice branded t-shirt at [Framework7 Shop](https://teespring.com/stores/framework7)
+
+
+export default ({ children }) => <PostLayout meta={meta}>{children}</PostLayout>
