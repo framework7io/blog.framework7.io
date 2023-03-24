@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export const Header = () => {
   const RootLink = (props) => {
     return (
@@ -10,7 +12,7 @@ export const Header = () => {
       </a>
     );
   };
-  const Link = (props) => {
+  const SubLink = (props) => {
     return (
       <a
         className="block rounded-lg px-3 py-2 text-sm font-medium text-primary hover:bg-primary hover:text-on-primary"
@@ -25,61 +27,71 @@ export const Header = () => {
     return <li className="!my-3 block h-px bg-border"></li>;
   };
   return (
-    <header className="flex h-16 items-center justify-between bg-surface-2 px-4 lg:px-6">
-      <div className="flex items-center space-x-2">
+    <header className="relative z-50 flex h-16 items-center justify-between bg-surface-2 px-4 lg:px-6">
+      <Link href="/" className="flex items-center space-x-2">
         <img className="h-12 w-12" src="/logo.svg" alt="framework7" />
         <span className="text-2xl font-semibold text-white">Blog</span>
-      </div>
+      </Link>
       <ul className="flex items-center space-x-1 sm:space-x-2">
         <li className="group relative">
           <RootLink href="https://framework7.io/docs/">Docs</RootLink>
           <ul className="absolute right-0 top-full hidden space-y-0.5 whitespace-nowrap rounded-xl border border-border bg-surface-3 px-4 py-3 text-sm font-medium group-hover:block">
             <li>
-              <Link
+              <SubLink
                 className="block rounded-lg px-3 py-1 text-primary hover:bg-primary hover:text-on-primary"
                 href="https://framework7.io/docs/introduction.html"
               >
                 Getting Started
-              </Link>
+              </SubLink>
             </li>
             <Divider />
             <li>
-              <Link href="https://framework7.io/docs/">
+              <SubLink href="https://framework7.io/docs/">
                 Framework7 Core / API
-              </Link>
+              </SubLink>
             </li>
             <li>
-              <Link href="https://framework7.io/vue/">Framework7 Vue</Link>
+              <SubLink href="https://framework7.io/vue/">
+                Framework7 Vue
+              </SubLink>
             </li>
             <li>
-              <Link href="https://framework7.io/react/">Framework7 React</Link>
+              <SubLink href="https://framework7.io/react/">
+                Framework7 React
+              </SubLink>
             </li>
             <li>
-              <Link href="https://framework7.io/svelte/">
+              <SubLink href="https://framework7.io/svelte/">
                 Framework7 Svelte
-              </Link>
+              </SubLink>
             </li>
             <Divider />
             <li>
-              <Link href="https://framework7.io/cli/">Framework7 CLI</Link>
+              <SubLink href="https://framework7.io/cli/">
+                Framework7 CLI
+              </SubLink>
             </li>
             <li>
-              <Link href="https://framework7.io/icons/">Framework7 Icons</Link>
+              <SubLink href="https://framework7.io/icons/">
+                Framework7 Icons
+              </SubLink>
             </li>
             <li>
-              <Link href="https://framework7.io/docs/dom7.html">Dom7</Link>
+              <SubLink href="https://framework7.io/docs/dom7.html">
+                Dom7
+              </SubLink>
             </li>
             <Divider />
             <li>
-              <Link href="https://framework7.io/release-notes/">
+              <SubLink href="https://framework7.io/release-notes/">
                 Release Notes
-              </Link>
+              </SubLink>
             </li>
             <Divider />
             <li>
-              <Link href="https://v7.framework7.io/" target="_blank">
+              <SubLink href="https://v7.framework7.io/" target="_blank">
                 Framework7 v7
-              </Link>
+              </SubLink>
             </li>
           </ul>
         </li>
@@ -87,21 +99,27 @@ export const Header = () => {
           <RootLink>Resources</RootLink>
           <ul className="absolute right-0 top-full hidden space-y-0.5 whitespace-nowrap rounded-xl border border-border bg-surface-3 px-4 py-3 text-sm font-medium group-hover:block">
             <li>
-              <Link href="https://forum.framework7.io" target="_blank">
+              <SubLink href="https://forum.framework7.io" target="_blank">
                 Community Forum
-              </Link>
+              </SubLink>
             </li>
             <li>
-              <Link href="https://framework7.io/tutorials/">Tutorials</Link>
+              <SubLink href="https://framework7.io/tutorials/">
+                Tutorials
+              </SubLink>
             </li>
             <li>
-              <Link href="https://framework7.io/templates/">Templates</Link>
+              <SubLink href="https://framework7.io/templates/">
+                Templates
+              </SubLink>
             </li>
             <li>
-              <Link href="https://framework7.io/plugins/">Plugins</Link>
+              <SubLink href="https://framework7.io/plugins/">Plugins</SubLink>
             </li>
             <li>
-              <Link href="https://framework7.io/showcase/">Apps Showcase</Link>
+              <SubLink href="https://framework7.io/showcase/">
+                Apps Showcase
+              </SubLink>
             </li>
           </ul>
         </li>

@@ -17,5 +17,17 @@ pre[class*='language-'] {
 }
 
 .prose pre {
-  @apply bg-surface-1;
+  @apply rounded-2xl bg-surface-1;
+}
+
+.prose {
+  iframe {
+    @apply my-8 h-[320px] w-full rounded-lg border border-border;
+  }
+  img {
+    @apply rounded-lg;
+    + em {
+      @apply -mt-6 mb-12 block text-center;
+    }
+  }
 }
