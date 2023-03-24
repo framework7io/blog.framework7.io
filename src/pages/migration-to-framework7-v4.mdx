@@ -1,15 +1,10 @@
-
 import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
-  title: "Migration To Framework7 v4",
-  date: "2019-02-11T13:01:06.000Z"
-}
-
-
+  title: 'Migration To Framework7 v4',
+  date: '2019-02-11T13:01:06.000Z',
+};
 
 # Migration To Framework7 v4
-
-
 
 Framework7 stable 4.0.0 released on February 7, 2019 and it is time to update!
 
@@ -22,12 +17,14 @@ Let's walk through all v3 -> v4 breaking changes to see what needs to be changed
 **If you are using ES-modules then you can skip this section, nothing has changed here.**
 
 Core JS and CSS files have been renamed and restructured a bit, so you need to rename them to new files in your `<link href="...">` and `<script src="...">` tags to the following ones:
+
 ```
 framework7.css -> framework7.bundle.css
 framework7.min.css -> framework7.bundle.min.css
 framework7.lazy.css -> framework7.css
 framework7.lazy.min.css -> framework7.min.css
 ```
+
 ```
 framework7.js -> framework7.bundle.js
 framework7.min.js -> framework7.bundle.min.js
@@ -36,6 +33,7 @@ framework7-lazy.min.js -> framework7.min.js
 ```
 
 And RTL stylesheets:
+
 ```
 framework7.rtl.css -> framework7.bundle.rtl.css
 framework7.rtl.min.css -> framework7.bundle.rtl.min.css
@@ -44,6 +42,7 @@ framework7.lazy.rtl.min.css -> framework7.rtl.min.css
 ```
 
 Theme-specific stylesheets are gone now, so there is no more these files:
+
 ```
 framework7.ios.css
 framework7.md.css
@@ -61,20 +60,23 @@ New documentation has reference for each component's CSS variables, like, for ex
 
 In both iOS and MD themes Toolbar / Tabbar can now be positioned on top or on bottom. And now it is always required to add position-specific class to each Toolbar/Tabbar:
 
-* `toolbar-top` to place Toolbar on top of view/page
+- `toolbar-top` to place Toolbar on top of view/page
 
-* `toolbar-bottom` to place Toolbar on bottom of view/page
+- `toolbar-bottom` to place Toolbar on bottom of view/page
 
 ## Buttons
 
 `big` button modifier renamed to `large` in v4:
+
 ```
 <button class="button button-big">...</button>
 <f7-button big>...</f7-button>
 ```
+
 ```
 <!-- need to be changed to -->
 ```
+
 ```
 <button class="button button-large">
 <f7-button large>...</f7-button>
@@ -89,6 +91,7 @@ Fast clicks, the built-in library that removes 300ms delay from links and form e
 ## Safe Areas
 
 To handle device's safe-areas correctly there were special `ios-edges` classes. This is not iOS-only feature anymore so these classes are renamed too:
+
 ```
 ios-edges -> safe-areas
 ios-left-edge -> safe-area-left
@@ -113,6 +116,7 @@ Framework7 v4 is intended to be used with Framework7 Icons v2. So if you use thi
 `f7-label` / `Label` component has been removed. It was used together with `f7-input` / `Input` component to create inputs in List View. Now instead of that component, we need use new `f7-list-input` / `ListInput` that was recently introduced in latest versions of Framework7 v3.
 
 So if you have something like this (for example in Vue):
+
 ```
 <f7-list-item>
   <f7-label>Name</f7-label>
@@ -126,6 +130,7 @@ So if you have something like this (for example in Vue):
 ```
 
 It needs to be changed to new single component:
+
 ```
 <f7-list-input
   label="Name"
@@ -142,17 +147,18 @@ Yes, there is not so much breaking changes here, but there are a lot of new feat
 
 As next steps it is highly recommended to check all new Framework7 v4 docs and:
 
-* [Framework7 Core documentation](http://framework7.io/docs/)
+- [Framework7 Core documentation](http://framework7.io/docs/)
 
-* [Framework7-Vue documentation](http://framework7.io/vue/)
+- [Framework7-Vue documentation](http://framework7.io/vue/)
 
-* [Framework7-React documentation](http://framework7.io/react/)
+- [Framework7-React documentation](http://framework7.io/react/)
 
-* [Framework7 Forum](http://forum.framework7.io) — the best place to get F7 support.
+- [Framework7 Forum](http://forum.framework7.io) — the best place to get F7 support.
 
 ## P.S.
 
 If you love Framework7, you can support project by donating or pledging on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7) or by purchasing a nice branded t-shirt at [Framework7 Shop](https://teespring.com/stores/framework7)
 
-
-export default ({ children }) => <PostLayout meta={meta}>{children}</PostLayout>
+export default ({ children }) => (
+  <PostLayout meta={meta}>{children}</PostLayout>
+);

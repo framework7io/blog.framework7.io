@@ -1,10 +1,8 @@
-
 import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
-  title: "Migration To Framework7 v2",
-  date: "2018-01-12T14:00:14.000Z"
-}
-
+  title: 'Migration To Framework7 v2',
+  date: '2018-01-12T14:00:14.000Z',
+};
 
 # Migration To Framework7 v2
 
@@ -694,5 +692,6 @@ That was the basics. There is much more to learn about v2 Router. Here is what i
 
 This was the basic guide to migrate your app made with Framework7 v1 to v2. Of course there are a lot more new features which are out of the scope for this guide. As next steps it is highly recommended to check all new [Framework7 v2 Docs](http://framework7.io/docs) and Framework7 [v2 Starter Templates](http://framework7.io/templates/). And don't forget about [Framework7 Forum](http://forum.framework7.io) — the best place to get F7 support.
 
-
-export default ({ children }) => <PostLayout meta={meta}>{children}</PostLayout>
+export default ({ children }) => (
+  <PostLayout meta={meta}>{children}</PostLayout>
+);

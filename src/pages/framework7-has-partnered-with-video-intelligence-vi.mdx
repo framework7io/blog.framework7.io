@@ -1,22 +1,18 @@
-
 import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
-  title: "Framework7 has partnered with video intelligence (vi)",
-  date: "2017-12-18T15:23:52.000Z"
-}
-
-
+  title: 'Framework7 has partnered with video intelligence (vi)',
+  date: '2017-12-18T15:23:52.000Z',
+};
 
 # Framework7 has partnered with video intelligence (vi)
-
-
 
 Great news for all developers who create mobile apps with Framework7. We've partnered with [vi](http://vi.ai) to bring you the best mobile video ad experience on the market.
 
 The **vi** component is built-in to v2 of Framework7. This allows you to easily add video advertising to your Framework7 app, straight out-of-the-box.
-> # *The Framework7 vi component enables you to earn money from your apps right out-of-the-box.*
 
-[**vi](http://vi.ai)**'s interstitial ads can be placed into your app experience at your discretion, showing full screen video ads. Advertisers pay a premium for these ad slots, and they will be directly connected to your app; you'll be able to monetise straight away.
+> # _The Framework7 vi component enables you to earn money from your apps right out-of-the-box._
+
+[\*\*vi](http://vi.ai)\*\*'s interstitial ads can be placed into your app experience at your discretion, showing full screen video ads. Advertisers pay a premium for these ad slots, and they will be directly connected to your app; you'll be able to monetise straight away.
 
 ## How does vi work?
 
@@ -42,29 +38,30 @@ After successful registration you will receive instructions with **vi** dashboar
 
 When you log in to your vi dashboard you will see a list of your apps. If you don't have apps create new one:
 
-![Click “Create New” if you don't have apps here yet](https://cdn-images-1.medium.com/max/5020/1*GAkJTXiI4YbNzMRvd27eDg.png)*Click “Create New” if you don't have apps here yet*
+![Click “Create New” if you don't have apps here yet](https://cdn-images-1.medium.com/max/5020/1*GAkJTXiI4YbNzMRvd27eDg.png)_Click “Create New” if you don't have apps here yet_
 
 When you already have an app, you need to **add placement f**or this app:
 
-![Click** “Add Placement”** to add new placement](https://cdn-images-1.medium.com/max/5020/1*qqw8Sp_OCAweQjO3BqZnLA.png)*Click** “Add Placement”** to add new placement*
+![Click** “Add Placement”** to add new placement](https://cdn-images-1.medium.com/max/5020/1*qqw8Sp_OCAweQjO3BqZnLA.png)_Click** “Add Placement”** to add new placement_
 
-![When you create place choose Placement Type: **“Video Interstitial”**](https://cdn-images-1.medium.com/max/5184/1*cubqttSAcOJ4piWbH2hUsw.png)*When you create place choose Placement Type: **“Video Interstitial”***
+![When you create place choose Placement Type: **“Video Interstitial”**](https://cdn-images-1.medium.com/max/5184/1*cubqttSAcOJ4piWbH2hUsw.png)\*When you create place choose Placement Type: **“Video Interstitial”\***
 
 Ok, after we have placement created we need **placement ID:**
 
-![Choose just created placement](https://cdn-images-1.medium.com/max/4984/1*jfnsYTO6PK2FF3VpN0orbw.png)*Choose just created placement*
+![Choose just created placement](https://cdn-images-1.medium.com/max/4984/1*jfnsYTO6PK2FF3VpN0orbw.png)_Choose just created placement_
 
-![Click “copy” near the placement id string to copy id to the clipboard](https://cdn-images-1.medium.com/max/5168/1*K_havZ4kXOBiGTcfR162Dg.png)*Click “copy” near the placement id string to copy id to the clipboard*
+![Click “copy” near the placement id string to copy id to the clipboard](https://cdn-images-1.medium.com/max/5168/1*K_havZ4kXOBiGTcfR162Dg.png)_Click “copy” near the placement id string to copy id to the clipboard_
 
 ### 3. Configure vi in Framework7 app
 
 After we set the things up at vi dashboard we will have:
 
-* App bundle id (e.g. `**io.framework7.testapp`**)
+- App bundle id (e.g. `**io.framework7.testapp`\*\*)
 
-* Placement id (e.g. `**pltd4o7ibb9rc653x14`**)
+- Placement id (e.g. `**pltd4o7ibb9rc653x14`\*\*)
 
 Now when we have our **vi** placement id we may set it up in Framework7 on the app initialization:
+
 ```
 `var app = new Framework7({
   /*
@@ -72,7 +69,7 @@ Now when we have our **vi** placement id we may set it up in Framework7 on the a
     you have specified when created app in vi dashboard:
   */
   id: 'io.framework7.testapp',
-  
+
   /* add vi placement id under the vi module parameters */
   vi: {
     placementId: 'pltd4o7ibb9rc653x14',
@@ -83,6 +80,7 @@ Now when we have our **vi** placement id we may set it up in Framework7 on the a
 ### 4. Show Ad
 
 That is all, now we can use Framework7's vi API to create and show ads. In simplest way just call the following method when you need to show an ad:
+
 ```
 `app.vi.createAd();`
 ```
@@ -93,5 +91,6 @@ With the final release of v2 documentation (i promise it is going to be very soo
 
 Until then, if you have questions about vi feel free to ask them here or at [Framework7 Forum](http://forum.framework7.io).
 
-
-export default ({ children }) => <PostLayout meta={meta}>{children}</PostLayout>
+export default ({ children }) => (
+  <PostLayout meta={meta}>{children}</PostLayout>
+);

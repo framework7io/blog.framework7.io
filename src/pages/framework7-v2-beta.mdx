@@ -1,11 +1,8 @@
-
 import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
-  title: "Framework7 v2 Beta",
-  date: "2017-09-02T15:51:41.000Z"
-}
-
-
+  title: 'Framework7 v2 Beta',
+  date: '2017-09-02T15:51:41.000Z',
+};
 
 # Framework7 v2 Beta
 
@@ -15,18 +12,20 @@ Great news! Framework7 v2 beta is already available for download and usage. It i
 
 ### Installation
 
-* Download directly from GitHub [https://github.com/framework7io/Framework7/](https://github.com/nolimits4web/Framework7/tree/v2)
+- Download directly from GitHub [https://github.com/framework7io/Framework7/](https://github.com/nolimits4web/Framework7/tree/v2)
 
-* From NPM: `npm install framework7`
+- From NPM: `npm install framework7`
 
 ### Run v2 Kitchen Sink
 
 If you downloaded full GitHub repo (not via npm) execute in project folder:
+
 ```
 $ npm install
 ```
 
 and then :
+
 ```
 $ npm run prod
 ```
@@ -44,6 +43,7 @@ Let's stop on some interesting features in more details.
 As i stated above Framework7 has new ES-next modular structure. What does it mean?
 
 First of all good news for bundlers with ES imports support (Webpack, Rollup). Now you can do:
+
 ```
 import Framework7 from 'framework7';
 ```
@@ -55,14 +55,17 @@ Also the default `framework7.js` package is now a valid UMD script, so can be co
 New modular structure now allows to create more sophisticated custom builds. Framework7 build script is easily configurable and almost any modules can be included/excluded from the package, same true for styles.
 
 With the next beta (beta-3) even more modular package will be available to do custom builds directly in bundlers:
+
 ```
 import { Framework7, Swiper, Modal, Popup, Tabs} from 'framework7/dist/framework7.modular`
 ```
+
 ```
 Framework7.use(Swiper, Modal, Popup);
 ```
 
 What is that `.use` ? This is how new F7 modules/components work. Such new structure allows to create more additional plugins or components for the framework. Let's say we want to create a debugger plugin for F7, here is how its code may look like:
+
 ```
 const Debugger = {
   // Extend default app params with "debugger" parameter to enable disable debugger
@@ -92,6 +95,7 @@ const Debugger = {
 ```
 
 And to install such plugin to Framework7 we will need to call the following line:
+
 ```
 Framework7.use(Debugger);
 ```
@@ -103,29 +107,31 @@ Themes and the way how they work is highly reworked as well. Now there is no nee
 But in case you develop the app only the single platform (or want it to look like ios or md app on both platforms), the `framework7.ios.css` and `framework7.md.css` stylesheets are also available.
 
 But what with HTML layout difference for iOS and Material themes? One more good news here:
+
 > **In Framework7 v2 there is no difference in HTML layout for different themes!**
 
 That is right, all components have been reworked to have same layout for both themes!
 
 ### Navbars/Toolbars
 
-But hey, we remember that pretty uncomfortable thing when Navbar for iOS theme must be under the View element and under the Page element for Material theme, and that hard to manage “*navbar-fixed*, *navbar-through*, *toolbar-fixed*, *toolbar-through” *additional classes* *thing. This is in the past. Now all styles and required page content offset is based on layout structure and elements order. And there are few new rules for Page bars:
+But hey, we remember that pretty uncomfortable thing when Navbar for iOS theme must be under the View element and under the Page element for Material theme, and that hard to manage “_navbar-fixed_, _navbar-through_, _toolbar-fixed_, *toolbar-through” *additional classes\* \*thing. This is in the past. Now all styles and required page content offset is based on layout structure and elements order. And there are few new rules for Page bars:
 
-* If we have Navbar for page, then it should be always inside of a Page
+- If we have Navbar for page, then it should be always inside of a Page
 
-* Toolbar/Tabbar must always follow the Navbar (if Navbar exist on a page)
+- Toolbar/Tabbar must always follow the Navbar (if Navbar exist on a page)
 
-* Subnavbar/Searchbar/Messagebar/…anotherbar must always follow Toolbar (if you have it) or Navbar (if you don't have Toolbar).
+- Subnavbar/Searchbar/Messagebar/…anotherbar must always follow Toolbar (if you have it) or Navbar (if you don't have Toolbar).
 
-* All kind of bars must be direct child of Page (if we want them to be fixed)
+- All kind of bars must be direct child of Page (if we want them to be fixed)
 
 For example, the page with all kind of bars will look like:
+
 ```
 <div class="page">
   <div class="navbar">...</div>
   <div class="toolbar">...</div>
   <div class="searchbar">...</div>
-  
+
   <div class="page-content">...</div>
 </div>
 ```
@@ -145,6 +151,7 @@ So second, colors now are component based and configurable via build script. You
 HTML layout is not only unified for both themes but also simplified where possible.
 
 Lists**. **Before, if we need just a simple (without icons, subtitle, etc.) list of items or links, we used something like:
+
 ```
 <!-- Display simple data -->
 <div class="list-block">
@@ -158,6 +165,7 @@ Lists**. **Before, if we need just a simple (without icons, subtitle, etc.) list
   </ul>
 </div>
 ```
+
 ```
 <!-- Display simple links -->
 <div class="list-block">
@@ -175,6 +183,7 @@ Lists**. **Before, if we need just a simple (without icons, subtitle, etc.) list
 ```
 
 Now there are new lists modifications, called “links-list” and “simple-list” which saves a lot of time and markup:
+
 ```
 <!-- Simple List to display simple data -->
 <div class="list simple-list">
@@ -184,6 +193,7 @@ Now there are new lists modifications, called “links-list” and “simple-lis
   </ul>
 </div>
 ```
+
 ```
 <!-- Links List to display simple links list -->
 <div class="list links-list">
@@ -195,6 +205,7 @@ Now there are new lists modifications, called “links-list” and “simple-lis
 ```
 
 App structure/Views**. **If you remember the minimal required layout was:
+
 ```
 <body>
   <div class="views">
@@ -215,6 +226,7 @@ App structure/Views**. **If you remember the minimal required layout was:
 ```
 
 Now, to achieve the same:
+
 ```
 <body>
   <div class="view">
@@ -231,11 +243,11 @@ Now, to achieve the same:
 
 As we may see:
 
-* Views element is not required anymore (only in case you have a tabbar app with multiple views)
+- Views element is not required anymore (only in case you have a tabbar app with multiple views)
 
-* Pages element is removed, not needed anymore
+- Pages element is removed, not needed anymore
 
-* Navbar is also required only in single position under the Page
+- Navbar is also required only in single position under the Page
 
 ### New Router
 
@@ -253,18 +265,20 @@ Almost all components from v1 are ported to v2, except “Autocomplete”, “Pi
 
 There are still many things to implement in/with v2:
 
-* First of all, port the rest of components from v1.
+- First of all, port the rest of components from v1.
 
-* Implement/integrate some Cordova APIs for work with: Splash screen, Status bar, Push notifications
+- Implement/integrate some Cordova APIs for work with: Splash screen, Status bar, Push notifications
 
-* Rework Framework7Vue plugin for version 2
+- Rework Framework7Vue plugin for version 2
 
-* and many more…
+- and many more…
 
 Follow Framework7 to be notified and start using it now!
+
 ```
 $ npm install framework7
 ```
 
-
-export default ({ children }) => <PostLayout meta={meta}>{children}</PostLayout>
+export default ({ children }) => (
+  <PostLayout meta={meta}>{children}</PostLayout>
+);
