@@ -17,6 +17,7 @@
     "exec-sh": "^0.4.0",
     "next": "13.2.4",
     "node-fetch": "^3.3.1",
+    "postscribe": "^2.0.8",
     "prettier": "^2.8.7",
     "prettier-plugin-tailwindcss": "^0.2.5",
     "react": "18.2.0",

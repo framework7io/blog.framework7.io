@@ -1,3 +1,4 @@
+import { Gist } from '@/components/Gist.jsx';
 import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Framework7, Next.js & Server-Side Rendering? Yes!',
@@ -40,7 +41,7 @@ In project root folder we need to create two `env` files:
 
 In this files we need to define `NEXT_PUBLIC_HOST` variable, that will point to our webapp host. During development it will be `[http://localhost:3000`](http://localhost:3000,) (default Next.js dev server), and for production you need to specify the host where the app will be deployed:
 
-<iframe src="https://medium.com/media/2430917fe1dc7fb7280be27ea9f32137"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/71535ae1bd0f945bbceaa2b50b4489ba.js" />
 
 ## Routing
 
@@ -60,7 +61,7 @@ For example, if we have the following pages in our Next.js app:
 
 We need to match it to Framework7 React router and pass this routes to our Framework7 App. So Framework7 routes for such structure will be the following:
 
-<iframe src="https://medium.com/media/e5a70b4ff33b5667b6047f374ba86900"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/3f64420ae8bd0ba4d7f55dbff6b0faa2.js" />
 
 Pay attention that we use `asyncComponent` because we don't want (and more likely don't need) to add all routes/pages content into initial page JavaScript file.
 
@@ -68,17 +69,17 @@ Pay attention that we use `asyncComponent` because we don't want (and more likel
 
 Now, let's move to our main app component. We need to setup and tweak our main App layout in `pages/_app.js` file. By default (created by `create-next-app`) it should look like this:
 
-<iframe src="https://medium.com/media/f5bddc8788738b80762ce749cddb8732"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/a828ce1c27c195ef024509dd191e4358.js" />
 
 Let's modify it to the following:
 
-<iframe src="https://medium.com/media/17f423432b4a3ff28c0b462235ae7c40"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/352dc3f2fc8f2013b8ba0966c7fc9a29.js" />
 
 ## index.js
 
 We are almost ready. What is left is to change our main index page (located in `index.js` ) to be a Framework7-React page:
 
-<iframe src="https://medium.com/media/ead3fa7b33e6e5382e6783b282f19a77"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/d336679eafefbe39556479bcaca8929a.js" />
 
 ## Launch 🚀
 
@@ -104,11 +105,11 @@ As mentioned above for navigating and router we use ONLY Framework7's router, it
 
 Let's create dynamic route page in `./pages/blog/[postID].js` file with the following content:
 
-<iframe src="https://medium.com/media/da240d1d0a711db3e8e3b73c0339d017"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/9c0c6321f89f79020a4ec888ee98dbf9.js" />
 
 And now we need to add this route to our Framework7 routes in `_app.js` :
 
-<iframe src="https://medium.com/media/1574292636e5f0e3be802487d9529ec2"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/e0a890297e9318d13b71cc4e533f4bf2.js" />
 
 And link to the page, somewhere on our home page:
 
@@ -143,11 +144,11 @@ Simple solution will be to just use single theme. But that is not for us. With N
 
 To do so, let's add `getInitialProps` function to our `_app.js` and see how get and use user-agent:
 
-<iframe src="https://medium.com/media/493e3bdf17b0986bb8f48f5aa6413d11"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/b65c3c6c97660022b042d8d18fe6c6a2.js" />
 
 Now, theme detection will work correctly and we can safely use condition rendering even on server-side, e.g.:
 
-<iframe src="https://medium.com/media/33fa40527cecc30e0de262c02ffcd278"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/74341ea13a2b7b6f234b6960bf4005f6.js" />
 
 ## P.S.
 

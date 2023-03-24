@@ -1,3 +1,4 @@
+import { Gist } from '@/components/Gist.jsx';
 import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Migration to Framework7 v5',
@@ -66,11 +67,11 @@ Global app panel parameters (like `panel.swipe = 'left'` ) are not supported any
 
 For example, if we have something like this in v4:
 
-<iframe src="https://medium.com/media/36fb722be58eb5fdb497151b1b2b18d6"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/61d9e4c9a54b6f8ae808921fc8cd6c05.js" />
 
 It must be changed to the following in v5:
 
-<iframe src="https://medium.com/media/e71925f1255791ac953d5aa867b0f711"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/8be068f8d5ee171ebc4c42582eb2544d.js" />
 
 Check updated [Panel Docs](https://framework7.io/docs/panel.html) for all new APIs and examples.
 
@@ -78,11 +79,11 @@ Check updated [Panel Docs](https://framework7.io/docs/panel.html) for all new AP
 
 In v5 Navbar container must have new `navbar-bg` element that should be placed before `navbar-inner`, and new layout looks like:
 
-<iframe src="https://medium.com/media/36564dbbd109c81d99189fdda62f1366"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/b45417faf60326c092234de7c4983967.js" />
 
 Large Navbar (Navbar with large title) now should be enabled by adding `navbar-large` class to Navbar element:
 
-<iframe src="https://medium.com/media/f492c93e52e1703fbabee4c526c222d1"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/c1305042e17bd37173b9232652ba9367.js" />
 
 ### New Calendar API
 
@@ -102,13 +103,13 @@ Now it resolves and rejects with a different object.
 
 - Request “promise” methods now will be rejected with `{ message, status, xhr }` object (rather than with just `status` like before)
 
-<iframe src="https://medium.com/media/d178e11064c49807832cf48fb1a22cae"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/476f4ff2579d4b546d06f1fce286d48c.js" />
 
 ### Router Component
 
 Component DOM updates are now asynchronous. It means that it is not guaranteed that DOM will be updated right after calling `$setState`. There is a new `$tick` method that can be safely used to reference DOM and ensure it was updated. Or we can now use new second callback argument in `$setState`
 
-<iframe src="https://medium.com/media/121d9a15eba8c84140bf548c0e7d97d8"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/b3e543ddf9de74308a75a1963a473fd5.js" />
 
 ## Framework7 Vue & React
 
@@ -160,7 +161,7 @@ and
 
 Panels got new API, so main app parameters related to Panel are not actual anymore and all panel parameters should be defined on Panel itself:
 
-<iframe src="https://medium.com/media/1a0936c539982438816040bbdc05a965"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/c95ae304a0662d54ca903c6bb4fcc530.js" />
 
 ### Statusbar Component
 

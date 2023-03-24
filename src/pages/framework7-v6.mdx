@@ -1,3 +1,4 @@
+import { Gist } from '@/components/Gist.jsx';
 import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Framework7 v6',
@@ -37,7 +38,7 @@ New **Area Chart** & **Pie Chart** components that generate pure SVG charts:
 
 New **Menu List **component (modification for existing list). Menu List unlike usual links list is designed to indicate currently active screen (or section) of your app.
 
-<iframe src="https://medium.com/media/451afddfe062f887ad54f4644fe7f265"></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eDRNlubgFMg" allowFullScreen></iframe>
 
 New **Preloader Buttons** to indicate loading state:
 
@@ -142,17 +143,17 @@ Also component definition is now a function rather then object with `data` , `me
 
 For example if we had something like this in v5:
 
-<iframe src="https://medium.com/media/ceb12502ffe42698ff7029b3e2317aba"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/291478c2df97923fd724a0ed42abf34b.js" />
 
 In v6 will look like this:
 
-<iframe src="https://medium.com/media/4edae7443d55406b2c47240de433771d"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/d1ab619b7bdeee7dffa0ba32d7f72a67.js" />
 
 Having component in single function body provides much better readability, structuring and opens a lot of possibilities for reusing code and logic across components.
 
 And now, it is even possible to write Router Components with JSX:
 
-<iframe src="https://medium.com/media/2b702c500ddefc1d29f45bac4ed4ea95"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/14eb293779d2568c99237e1c73d9f120.js" />
 
 ### Store
 
@@ -160,15 +161,15 @@ There is also a totally new application state management solution built-in. As y
 
 First, we create store (for example in `store.js` file):
 
-<iframe src="https://medium.com/media/1b31f46082c5a27623e419a1e15b76e1"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/b0fe318e6d633dfe86121884d215af68.js" />
 
 Next we pass this store to Framework7 app on init:
 
-<iframe src="https://medium.com/media/deab3ea72f74a2d416e77cbb7cb8ea59"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/fa9114ac83131c2c6b49aa238d92955b.js" />
 
 And we can use store in our components:
 
-<iframe src="https://medium.com/media/a9f7c15ee97a7c4769bf7df16fd31996"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/194441a3eaaff7117cee5e6a6c259778.js" />
 
 Awesome thing with Store is that it will automatically update (re-render) dependant components on state/getters update.
 

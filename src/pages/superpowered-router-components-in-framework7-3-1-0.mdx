@@ -1,3 +1,4 @@
+import { Gist } from '@/components/Gist.jsx';
 import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Superpowered Router Components in Framework7 3.1.0',
@@ -12,13 +13,13 @@ But there was one feature that was really missing. It is auto re-rendering (layo
 
 Let's look at the following simple router component:
 
-<iframe src="https://medium.com/media/c4c3cdba7baac4e704db8bd54eed6cd5"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/ee1bd312059bf957996c112f317e381a.js" />
 
 Everything is simple here, when page is initially rendered, it is already has `user` data so it will be rendered as expected.
 
 But what if we request user data later, after page was already rendered:
 
-<iframe src="https://medium.com/media/ed4c54e91d8682c20af045699383d07c"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/35b232d9f359f9594b2076e35bea1462.js" />
 
 This won't work as expected at all, and in such cases developers usually use direct DOM manipulations (via Dom7 lib) to update layout manually.
 
@@ -36,7 +37,7 @@ So how does Framework7 router component rendering work now? Now component templa
 
 Now let's look again at that user profile component that will auto update layout when we request user data:
 
-<iframe src="https://medium.com/media/508f12c9067193cd768c489adc1652f1"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/129c500b441ad00fbb3fe8e960dba9c7.js" />
 
 Noticed that `self.$setState()` method we call in previous example to update component state?
 
@@ -64,11 +65,11 @@ console.log(`Fifteen is ${a + b} and not ${2 * a + b}.`);`
 
 To enable your component template being treated as template literal we need to add `es` attribute to `<template>` tag. The template from previous example will look like:
 
-<iframe src="https://medium.com/media/575758451a12a6d0bd4d0a8d2dc19b32"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/343cd554e8ca1c575ea4cc64739800e2.js" />
 
 To iterate over array items in template literals we can use `Array.map`:
 
-<iframe src="https://medium.com/media/0293f459a108fa4b887ca47606bbe3bb"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/b068ca23077bfa821d9ca850e60babfb.js" />
 
 ## Auto Init Components
 

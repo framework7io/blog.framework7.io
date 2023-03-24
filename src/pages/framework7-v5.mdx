@@ -1,3 +1,4 @@
+import { Gist } from '@/components/Gist.jsx';
 import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Framework7 v5',
@@ -124,11 +125,11 @@ var app = new Framework7({
 
 In v5 Navbar container must have new `navbar-bg` element that should be placed before `navbar-inner`, and new layout looks like:
 
-<iframe src="https://medium.com/media/36564dbbd109c81d99189fdda62f1366"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/b45417faf60326c092234de7c4983967.js" />
 
 Large Navbar (Navbar with large title) now should be enabled by adding `navbar-large` class to Navbar element:
 
-<iframe src="https://medium.com/media/f492c93e52e1703fbabee4c526c222d1"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/c1305042e17bd37173b9232652ba9367.js" />
 
 Also, iOS theme' dynamic Navbar behavior has been totally reworked. Now it doesn't take `navbar-inner` from the page's Navbar, but takes whole Navbar element. It makes it easier to customize each navbar (background color, text color, hairlines (borders), shadows) and such behavior brings better transitions between them.
 
@@ -147,7 +148,7 @@ There is new “transparent” modification of Large Navbar. It makes Navbar and
 
 To make large title transparent we need to add `navbar-large-transparent` class to large Navbar:
 
-<iframe src="https://medium.com/media/182cd1a14ba16e5e04454ed4b3dd3be5"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/79d0d1de88b0c0bded66809964bc26e4.js" />
 
 ## Reworked “Statusbar” Layout
 
@@ -255,7 +256,7 @@ There is a new simple Connection API that allows to determine if the app is conn
 
 There is a new `app.online` property which is `true` when app is online and there are new `online`, `offline` and `connection` app events:
 
-<iframe src="https://medium.com/media/67cdef58744d3e6ca0b4dd7317459ac1"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/527ceddaf117325e8be3ee2e91f6bdca.js" />
 
 ## No More Fast Clicks
 
@@ -269,7 +270,7 @@ There is a change in Request Promise API. Now it resolves and rejects with a dif
 
 - Request “promise” methods now will be rejected with `{ message, status, xhr }` object (rather than with just `status` like before)
 
-<iframe src="https://medium.com/media/d178e11064c49807832cf48fb1a22cae"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/476f4ff2579d4b546d06f1fce286d48c.js" />
 
 ## Custom Page Transitions
 
@@ -296,11 +297,11 @@ Global app panel parameters (like `panel.swipe = 'left'` ) are not supported any
 
 For example, if we have something like this in v4:
 
-<iframe src="https://medium.com/media/36fb722be58eb5fdb497151b1b2b18d6"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/61d9e4c9a54b6f8ae808921fc8cd6c05.js" />
 
 It must be changed to the following in v5:
 
-<iframe src="https://medium.com/media/e71925f1255791ac953d5aa867b0f711"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/8be068f8d5ee171ebc4c42582eb2544d.js" />
 
 Also there is a new feature called `collapsedBreakpoint` where we can specify app width when Panel becomes partially visible.
 
@@ -318,23 +319,23 @@ Core router components got a lot of improvements and new features.
 
 First of all, it now supports async data (where it should return a Promise). This can be used if we need to load data before loading the component:
 
-<iframe src="https://medium.com/media/25c9a1eb86eb93cfccc87d327e753ba3"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/e0c8765d663e66a20ed5d5731fea814d.js" />
 
 Component DOM updates are now asynchronous. It means that it is not guaranteed that DOM will be updated right after calling `$setState`. There is a new `$tick` method that can be safely used to reference DOM and ensure it was updated. Or we can now use new second callback argument in `$setState`
 
-<iframe src="https://medium.com/media/121d9a15eba8c84140bf548c0e7d97d8"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/b3e543ddf9de74308a75a1963a473fd5.js" />
 
 Added support for mixins that can be re-used in components. Mixin can extend any component lifecycle hook, methods and `data`
 
-<iframe src="https://medium.com/media/b0e6a7e4fe39387fc730c2e37006ffea"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/99b8334cb09e892024e360ecd4e79593.js" />
 
 Added support for new Class based syntax for better TypeScript support:
 
-<iframe src="https://medium.com/media/dd6f8e21f9a5aa5123e8426104adcc04"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/8ae231bfebeb93f86b42da31465a0635.js" />
 
 And support for custom reusable components:
 
-<iframe src="https://medium.com/media/636c966ba8093cc979d14774feb93863"></iframe>
+<Gist src="https://gist.github.com/nolimits4web/9ce7cb406d09ac3a412274c5a3b6883a.js" />
 
 ## New Framework7 Icons v3
 
