@@ -1,0 +1,156 @@
+url: https://blog.framework7.io/meet-aurora-new-framework7-desktop-theme-b4064c5b6040
+date: Tue Mar 19 2019 14:14:15 GMT+0300 (Москва, стандартное время)
+
+
+# Meet Aurora — New Framework7 Desktop Theme
+
+
+
+With modern web technologies we can build any kind of apps: native mobile apps (with Cordova or WebView), web apps, progressive web apps, native desktop apps (with Electron). And Framework7 with its unreachable set of ready to use components and UI is a great choice for all of them.
+
+But when it comes to native desktop apps and desktop-related features, it could be hard to choose what fits better — iOS or MD theme, and this is the area where Framework7 could lack a little bit, becoming not so obvious choice for desktop apps.
+
+And now, there is a solution for desktop apps.
+
+## Aurora
+
+So here comes the **Aurora** — **all new desktop theme which is now a part of the Framework7 and available from Framework7 4.2.0**.
+
+We have **redesigned and tweaked each and every component in Aurora theme** to look, feel and behave better in desktop apps.
+
+Main idea of Aurora theme is to provide styles more closer to what we have in desktop apps, so using this theme should require a much less efforts to customize it.
+
+We decided to go with some none-relevant name rather than call it Desktop to avoid confusing with “desktop” as device/platform in API and styles.
+
+Here is a sneak peak of what you can quickly build with Aurora:
+
+![macOs Mail app](https://cdn-images-1.medium.com/max/5760/1*DMoam_HJbGuo8MW4rmQZmg.png)*macOs Mail app*
+
+![Whatsapp desktop app](https://cdn-images-1.medium.com/max/5760/1*y3b00qz9LDZteHiVjfcN4Q.png)*Whatsapp desktop app*
+
+![Desktop Slack app](https://cdn-images-1.medium.com/max/5760/1*Y8455YMhD0OJZdVoO6Qn-Q.png)*Desktop Slack app*
+
+![Google Chrome](https://cdn-images-1.medium.com/max/5760/1*ohU9Lqh3vmftbvYycGEQaA.png)*Google Chrome*
+
+All these Aurora demo layouts available in [Framework7 Recipes](https://github.com/framework7io/framework7-recipes) repository where you can see them live.
+
+## Enable Aurora
+
+To enable Aurora theme we just need to specify `theme: 'aurora'` in app parameters:
+```
+new Framework7({
+  theme: 'aurora',
+})
+```
+
+In case if we have `theme: 'auto'` Aurora will be enabled automatically only if app runs under [Electron](https://electronjs.org) environment.
+
+## API Changes
+
+There is no any breaking changes, but there is a bunch of new aurora-related parameters and properties added to components.
+
+All app's and components' theme-related parameters that were prefixed with theme name, like `app.touch.iosTouchRipple`, `view.iosSwipeBack`, `navbar.mdCenterTitle`, now available with `aurora` prefix, e.g. `auroraTouchRipple`, `auroraSwipeBack`, `auroraCenterTitle`, etc.
+
+All buttons and same kind modifier classes and component props are also available with `aurora` suffix, e.g. `button-round-aurora` makes button round only in Aurora theme.
+
+## Theme Conditional Rendering
+
+In Framework7 Vue and React, and in Framework7 Router Components we use `this.$theme.ios` and `this.$theme.md` to differentiate theme-based output. Now, if you develop with Aurora theme, you also need to consider `this.$theme.aurora` property that will be `true` for this theme.
+
+In Framework7 Core html templates we used `if-ios`/`ios-only` and `if-md`/`md-only` classes on elements that were automatically removed (or hidden) if other theme in use. With Aurora release this set of classes expands to:
+
+* `if-ios` — element will be rendered only for iOS theme
+
+* `if-not-ios` — element will be removed/hidden for theme other than iOS
+
+* `if-md` — element will be rendered only for MD theme
+
+* `if-not-md` — element will be removed/hidden for theme other than MD
+
+* `if-aurora` — element will be rendered only for Aurora theme
+
+* `if-not-aurora` — element will be removed/hidden for theme other than Aurora
+
+So, in previous versions when we had only two themes, we used the following code to hide Navbar's back button text for MD theme:
+```
+<div class="navbar">
+  <div class="navbar-inner sliding">
+    <div class="left">
+      <a href="#" class="link back">
+        <i class="icon icon-back"></i>
+        <span class="if-ios">Back</span>
+      </a>
+    </div>
+    ...
+  </div>
+</div>
+```
+
+But now this code will also hide back button text in Aurora theme. So if we develop for Aurora theme too, we need to change it to:
+```
+<div class="navbar">
+  <div class="navbar-inner sliding">
+    <div class="left">
+      <a href="#" class="link back">
+        <i class="icon icon-back"></i>
+        <span class="if-not-md">Back</span>
+      </a>
+    </div>
+    ...
+  </div>
+</div>
+```
+
+## Picker With Mousewheel
+
+Just having only a desktop look is not enough. You know Framework7's attention to details is outstanding. So many components tweaked to also behave better on desktop.
+
+Picker was basically one of the touch-only and absolutely not mouse-friendly component. Now it is possible to scroll Picker values with mousewheel, which is now enabled by default.
+
+![](https://cdn-images-1.medium.com/max/2000/1*yYl9t-SYJIqGEJt9ae1GwA.gif)
+
+## Pull To Refresh With Mousewheel
+
+One more no-go for desktops feature and component can work now with mousewheel. To enable it we just need to add `data-ptr-mousewheel="true"` attribute to PTR content.
+
+![](https://cdn-images-1.medium.com/max/2000/1*7VkhaL-h_a-Yx36iV5FYng.gif)
+
+## Hovers
+
+And of course hovers. Buttons, List Buttons and List Links have hover effect in Aurora theme:
+
+![](https://cdn-images-1.medium.com/max/2000/1*9GwAL084jU2yvjG5rniDZg.gif)
+
+## New Appbar Component
+
+Aurora comes with new Appbar component which is designed to be used in desktop apps with Aurora theme. It is the main app bar, which looks mostly the same as Navbar/Toolbar, with actions on top of the whole app.
+
+For example, in macOs Mail demo app layout you can see two Appbars on top of the app:
+
+![macOs Mail app with two Appbars on top](https://cdn-images-1.medium.com/max/5760/1*DMoam_HJbGuo8MW4rmQZmg.png)*macOs Mail app with two Appbars on top*
+
+## Inline Searchbar
+
+This is a new Searchbar modification that comes in 4.2.0 update. It has a bit simplified layout and, as title says, it made to be easier integrated into other components and custom layouts. Like, for example, into the Appbar in macOs Mail app demo layout above.
+
+![Inline Searchbar in Appbar](https://cdn-images-1.medium.com/max/2000/1*dYuKkiNEJrtiFoeWI8gjig.png)*Inline Searchbar in Appbar*
+
+## Conclusion
+
+Framework7 was originally developed as a mobile-only framework. First version of Framework7 was released exactly 5 years ago 🎉 and during this period of time it became unreachable in terms of UI quality. And Aurora, is our 5 years celebration of Framework7, Aurora — is our huge next step — step towards desktop apps to make Framework7 even more cross-platform friendly! All of this wouldn't happen without you — app developers!
+
+You can already try Aurora theme right now by updating your Framework7 version to 4.2.0.
+
+This release contains a lot more new micro features, fixes and improvements. Check the [full changelog](https://github.com/framework7io/framework7/blob/master/CHANGELOG.md) for more details.
+
+As next steps it is recommended to check:
+
+* [Framework7 Aurora-updated docs](http://framework7.io/docs/)
+
+* [Framework7 Forum](http://forum.framework7.io) — the best place to get F7 support
+
+* New [Framework7 Recipes](https://github.com/framework7io/framework7-recipes) repository with new Aurora demo layouts
+
+## P.S.
+
+If you love Framework7, you can support project by donating or pledging on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7) or by purchasing a nice branded t-shirt at [Framework7 Shop](https://teespring.com/stores/framework7)

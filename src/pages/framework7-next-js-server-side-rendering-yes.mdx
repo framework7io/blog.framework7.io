@@ -1,0 +1,148 @@
+url: https://blog.framework7.io/framework7-next-js-server-side-rendering-yes-1f6c9334dc03
+date: Fri Mar 05 2021 17:26:52 GMT+0300 (Москва, стандартное время)
+
+
+# Framework7, Next.js & Server-Side Rendering? Yes!
+
+
+
+In [Framework7 v6 release announcement](https://blog.framework7.io/framework7-v6-d5b843abe8e7) we mentioned the full server-side rendering support. Now it is time for practice.
+
+## TL;DR
+
+You can fork this [**framework7-nextjs-starter](https://github.com/framework7io/framework7-nextjs-starter)** project right away and start hacking on it.
+
+## Create Next.js Project
+
+First, we need to create a new Next.js project. We will use `create-next-app` CLI tool. Run in terminal:
+```
+npx create-next-app f7-next-app
+```
+
+This command will create a project in a `/f7-next-app` directory.
+
+## Install Framework7
+
+Let's move to our project directory (`/f7-next-app`) directory and install required Framework7 dependencies. We need to install Framework7 itself, Framework7-React (as we develop a React app), Framework7 and Material icons:
+```
+npm i framework7 framework7-react framework7-icons material-icons
+```
+
+## Setup Environment Variables
+
+In project root folder we need to create two `env` files:
+
+* `.env.development` — with environment variables for development
+
+* `.env.production` — with environment variables for production build
+
+In this files we need to define `NEXT_PUBLIC_HOST` variable, that will point to our webapp host. During development it will be `[http://localhost:3000`](http://localhost:3000,) (default Next.js dev server), and for production you need to specify the host where the app will be deployed:
+
+<iframe src="https://medium.com/media/2430917fe1dc7fb7280be27ea9f32137" frameBorder="0"></iframe>
+
+## Routing
+
+Before, we start hacking into our app files, let's figure out how to handle routing here.
+
+Next.js has an amazing built-in router, but unfortunately it doesn't fit for complex page transitions used in Framework7. To solve this issues we need to use both Next.js (to get initial page component on server-side) and Framework7 (on client-side) routers.
+
+To support server-side routing and have a correct response with initially requested page we must keep our pages in structure required by Next.js (e.g. in `./pages` folder). And we need to match our Framework7 router to this pages.
+
+For example, if we have the following pages in our Next.js app:
+
+* `./pages/index.js`
+
+* `./pages/about.js`
+
+* `./pages/blog/[postID].js` — dynamic route
+
+We need to match it to Framework7 React router and pass this routes to our Framework7 App. So Framework7 routes for such structure will be the following:
+
+<iframe src="https://medium.com/media/e5a70b4ff33b5667b6047f374ba86900" frameBorder="0"></iframe>
+
+Pay attention that we use `asyncComponent` because we don't want (and more likely don't need) to add all routes/pages content into initial page JavaScript file.
+
+## _app.js
+
+Now, let's move to our main app component. We need to setup and tweak our main App layout in `pages/_app.js` file. By default (created by `create-next-app`) it should look like this:
+
+<iframe src="https://medium.com/media/f5bddc8788738b80762ce749cddb8732" frameBorder="0"></iframe>
+
+Let's modify it to the following:
+
+<iframe src="https://medium.com/media/17f423432b4a3ff28c0b462235ae7c40" frameBorder="0"></iframe>
+
+## index.js
+
+We are almost ready. What is left is to change our main index page (located in `index.js` ) to be a Framework7-React page:
+
+<iframe src="https://medium.com/media/ead3fa7b33e6e5382e6783b282f19a77" frameBorder="0"></iframe>
+
+## Launch 🚀
+
+Now, let's launch our dev server
+```
+npm run dev
+```
+
+And we should see something similar to this on `http://localhost:3000`
+
+![](https://cdn-images-1.medium.com/max/4104/1*GxGMCoJNUntpb0I-73uJeg.png)
+
+But was it rendered on server-side? Let's check response source code:
+
+![](https://cdn-images-1.medium.com/max/4104/1*OiD3Hc9Mrdl8Bl3GvuidLQ.png)
+
+Great, as we see server-side rendering works.
+
+## Navigation
+
+As mentioned above for navigating and router we use ONLY Framework7's router, its methods and components.
+
+Let's create dynamic route page in `./pages/blog/[postID].js` file with the following content:
+
+<iframe src="https://medium.com/media/da240d1d0a711db3e8e3b73c0339d017" frameBorder="0"></iframe>
+
+And now we need to add this route to our Framework7 routes in `_app.js` :
+
+<iframe src="https://medium.com/media/1574292636e5f0e3be802487d9529ec2" frameBorder="0"></iframe>
+
+And link to the page, somewhere on our home page:
+```
+<a href="/blog/45">Blog post</a>
+```
+
+Everything works as intended:
+
+<center><iframe width="560" height="315" src="https://www.youtube.com/embed/h1FpBBkF0cw" frameBorder="0" allowFullScreen></iframe></center>
+
+## Bonus: Server-Side Theme Detection
+
+As you may know Framework7 supports iOS, Material Design and Aurora themes. Theme can be specified on main App component like so:
+```
+<App theme="ios">
+```
+
+Or it can be set to `auto` and Framework7 will decide which theme to use based on user device. And if we use server-side rendering, it is not recommended to use `auto` theme senselessly.
+
+For example, we set theme to `auto`, and user visits our web app with iOS device. Framework7 will be initialized on server-side, and apparently it will not detect server environment as iOS device and will enable `material` theme. Then on client side, it will detect it as iOS device and set theme to `ios` , but HTML layout rendered on server-side can be different (the one that required for `material` theme), which can produce as server-client layouts will not match.
+
+Simple solution will be to just use single theme. But that is not for us. With Next.js `getInitialProps` we can actually correctly detect user's device on server-side based on his `user-agent` !
+
+To do so, let's add `getInitialProps` function to our `_app.js` and see how get and use user-agent:
+
+<iframe src="https://medium.com/media/493e3bdf17b0986bb8f48f5aa6413d11" frameBorder="0"></iframe>
+
+Now, theme detection will work correctly and we can safely use condition rendering even on server-side, e.g.:
+
+<iframe src="https://medium.com/media/33fa40527cecc30e0de262c02ffcd278" frameBorder="0"></iframe>
+
+## P.S.
+
+If you love Framework7, please, support project by donating or pledging:
+
+* on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7)
+
+* on Open Collective: [http://opencollective.com/framework7](http://opencollective.com/framework7)
+
+Your support means a lot for us!

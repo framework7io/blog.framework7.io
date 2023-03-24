@@ -1,0 +1,89 @@
+url: https://blog.framework7.io/framework7-has-partnered-with-video-intelligence-vi-c16f6705c112
+date: Mon Dec 18 2017 18:23:52 GMT+0300 (Москва, стандартное время)
+
+
+# Framework7 has partnered with video intelligence (vi)
+
+
+
+Great news for all developers who create mobile apps with Framework7. We've partnered with [vi](http://vi.ai) to bring you the best mobile video ad experience on the market.
+
+The **vi** component is built-in to v2 of Framework7. This allows you to easily add video advertising to your Framework7 app, straight out-of-the-box.
+> # *The Framework7 vi component enables you to earn money from your apps right out-of-the-box.*
+
+[**vi](http://vi.ai)**'s interstitial ads can be placed into your app experience at your discretion, showing full screen video ads. Advertisers pay a premium for these ad slots, and they will be directly connected to your app; you'll be able to monetise straight away.
+
+## How does vi work?
+
+**vi** has a system directly connected to advertising sources around the world. Once the interstitial ads are installed into your app, vi's system will be notified, and run an ‘ad call'. If advertisers want to reach your audience, you'll begin to see commercials shown.
+
+**vi** provide a dashboard that you can login to to monitor and control the advertising campaigns in your app.
+
+## How does vi compare to competitors?
+
+**vi** place the emphasis on a simple integration (see below), and great user experience — for you and your users.
+
+## Getting started with vi
+
+### 1. Sign up for Framework7 vi publisher account
+
+First of all as a mobile publisher you need to create **vi **publisher account. To signup for Framework7 vi account go to [http://vi.framework7.io/](http://vi.framework7.io/) and fill up the following form:
+
+![](https://cdn-images-1.medium.com/max/3932/1*nBilrmq-Wl7XBcAu5rlC0Q.png)
+
+### 2. Setup your app at vi
+
+After successful registration you will receive instructions with **vi** dashboard link and temporary password to the specified email.
+
+When you log in to your vi dashboard you will see a list of your apps. If you don't have apps create new one:
+
+![Click “Create New” if you don't have apps here yet](https://cdn-images-1.medium.com/max/5020/1*GAkJTXiI4YbNzMRvd27eDg.png)*Click “Create New” if you don't have apps here yet*
+
+When you already have an app, you need to **add placement f**or this app:
+
+![Click** “Add Placement”** to add new placement](https://cdn-images-1.medium.com/max/5020/1*qqw8Sp_OCAweQjO3BqZnLA.png)*Click** “Add Placement”** to add new placement*
+
+![When you create place choose Placement Type: **“Video Interstitial”**](https://cdn-images-1.medium.com/max/5184/1*cubqttSAcOJ4piWbH2hUsw.png)*When you create place choose Placement Type: **“Video Interstitial”***
+
+Ok, after we have placement created we need **placement ID:**
+
+![Choose just created placement](https://cdn-images-1.medium.com/max/4984/1*jfnsYTO6PK2FF3VpN0orbw.png)*Choose just created placement*
+
+![Click “copy” near the placement id string to copy id to the clipboard](https://cdn-images-1.medium.com/max/5168/1*K_havZ4kXOBiGTcfR162Dg.png)*Click “copy” near the placement id string to copy id to the clipboard*
+
+### 3. Configure vi in Framework7 app
+
+After we set the things up at vi dashboard we will have:
+
+* App bundle id (e.g. `**io.framework7.testapp`**)
+
+* Placement id (e.g. `**pltd4o7ibb9rc653x14`**)
+
+Now when we have our **vi** placement id we may set it up in Framework7 on the app initialization:
+```
+`var app = new Framework7({
+  /*
+    common app bundle id must match the one
+    you have specified when created app in vi dashboard:
+  */
+  id: 'io.framework7.testapp',
+  
+  /* add vi placement id under the vi module parameters */
+  vi: {
+    placementId: 'pltd4o7ibb9rc653x14',
+  },
+});`
+```
+
+### 4. Show Ad
+
+That is all, now we can use Framework7's vi API to create and show ads. In simplest way just call the following method when you need to show an ad:
+```
+`app.vi.createAd();`
+```
+
+## What is Next
+
+With the final release of v2 documentation (i promise it is going to be very soon) there will be more information about vi API and usage examples (which are now available in v2 Kitchen Sink at [vi demo page](https://github.com/framework7io/framework7/blob/master/kitchen-sink/pages/vi.html).
+
+Until then, if you have questions about vi feel free to ask them here or at [Framework7 Forum](http://forum.framework7.io).

@@ -1,0 +1,272 @@
+url: https://blog.framework7.io/framework7-v6-d5b843abe8e7
+date: Thu Dec 31 2020 13:25:29 GMT+0300 (Москва, стандартное время)
+
+
+# Framework7 v6
+
+
+
+It's been a crazy year and a long road, but, finally, all new Framework7 v6 has been released! 🎉
+
+## TL;DR
+
+* New UI Components: Area Chart, Pie Chart, Menu List, Preloader Buttons
+
+* Highly reworked Aurora theme look and feel
+
+* Updated Material Design theme look and feel
+
+* All new core Router Components
+
+* New Store library for application state management
+
+* Capacitor support
+
+* Full Vue.js v3 support
+
+* React functional components
+
+* Server-side rendering support
+
+* Full [v6 changelog](https://github.com/framework7io/framework7/blob/master/CHANGELOG.md#v600---december-31-2020)
+
+## Framework7 Core
+
+First, let's check largest changes in core version and APIs.
+
+### New UI Components & Improvements
+
+There are few new UI components landed in version 6.
+
+New **Area Chart** & **Pie Chart** components that generate pure SVG charts:
+
+![Area Chart](https://cdn-images-1.medium.com/max/3920/1*dsI6Sh_7A5EY40-mzoGTww.png)*Area Chart*
+
+![Pie Chart](https://cdn-images-1.medium.com/max/3920/1*w95XPp-SnEbkAwwndTuZ5A.png)*Pie Chart*
+
+New **Menu List **component (modification for existing list). Menu List unlike usual links list is designed to indicate currently active screen (or section) of your app.
+
+<iframe src="https://medium.com/media/451afddfe062f887ad54f4644fe7f265" frameBorder="0"></iframe>
+
+New **Preloader Buttons** to indicate loading state:
+
+<center><iframe width="560" height="315" src="https://www.youtube.com/embed/h0-rXMkYsm8" frameBorder="0" allowFullScreen></iframe></center>
+
+Support for **nested side panels**. Now, in addition to global app side panels, we can put them right inside of every Page:
+
+<center><iframe width="560" height="315" src="https://www.youtube.com/embed/3OUFJhtfpRw" frameBorder="0" allowFullScreen></iframe></center>
+
+New and reworked **Touch Ripple effect** (used in Material theme) to better match updated official Material theme look and feel:
+
+<center><iframe width="560" height="315" src="https://www.youtube.com/embed/NdPy9BslTL8" frameBorder="0" allowFullScreen></iframe></center>
+
+**Highly reworked and redesigned Aurora theme** (the desktop theme). All components styles have been tweaked to bring all new look:
+
+![All new Aurora Theme](https://cdn-images-1.medium.com/max/5368/1*v7QrEwiLyJ2Ri0jGuryysQ.png)*All new Aurora Theme*
+
+### Request Library
+
+Built-in `request` library now only uses Promises API:
+
+If in v5 we had something like:
+```
+request.get('some-url', (data) => {
+  console.log(res.data);
+});
+```
+
+In v6 we should use new Promise sytax:
+```
+request.get('some-url').then((res) => {
+  console.log(res.data);
+});
+```
+
+### Dom7 Library
+
+Built-in library for DOM manipulation has been updated to new version 3, which, under the hood, has been rewritten as `Array` class extension instead of custom class.
+
+And because of that it inherits all native Array.prototype methods, but at the some time introduces some breaking changes in “iteration” methods to match native Array methods:
+
+If in v5 we used, for example, `.each` method like this:
+```
+$('p').each((index, el) => {   *// ...* })
+```
+
+Now, arguments of callback are swapped, and in Framework7 v6 it should be the following:
+```
+$('p').each((el, index) => {   *// ...* })
+```
+
+### Skeleton Elements
+
+Skeleton layouts was released as a standalone [Skeleton Elements](http://skeleton-elements.dev) library with “native” components for React, Vue, Svelete and Angular. It is now integrated into Framework7 v6 as a dependency.
+
+### Swiper
+
+In meanwhile, [Swiper](http://swiperjs.com) also got huge v6 update with a lot of new features, and own “native” components for React, Vue, Svelte and Angular. And now it is also integrated into Framework7 v6 as a dependency.
+
+### Template7 Library
+
+Template7 template engine has been completely removed from Framework7, as it produces more confusion and limitations, especially when comparing to native JS template literals.
+
+If you still rely on it in your custom logic, you can install it as dependency
+```
+npm i template7
+```
+
+### Router Component
+
+One of the largest addition in core version of Framework7 v6 is totally new Router Components.
+
+With Template7 removal, they use JS tagged template literals as template engine. It provides much more flexibility over previously used Template7 templates, but may require some extra efforts migrating your existing components.
+
+Also component definition is now a function rather then object with `data` , `methods`, and other options.
+
+For example if we had something like this in v5:
+
+<iframe src="https://medium.com/media/ceb12502ffe42698ff7029b3e2317aba" frameBorder="0"></iframe>
+
+In v6 will look like this:
+
+<iframe src="https://medium.com/media/4edae7443d55406b2c47240de433771d" frameBorder="0"></iframe>
+
+Having component in single function body provides much better readability, structuring and opens a lot of possibilities for reusing code and logic across components.
+
+And now, it is even possible to write Router Components with JSX:
+
+<iframe src="https://medium.com/media/2b702c500ddefc1d29f45bac4ed4ea95" frameBorder="0"></iframe>
+
+### Store
+
+There is also a totally new application state management solution built-in. As you remember in v5 we could have global app `data` and `methods` defined on app init, now this is gone in favor of new Store.
+
+First, we create store (for example in `store.js` file):
+
+<iframe src="https://medium.com/media/1b31f46082c5a27623e419a1e15b76e1" frameBorder="0"></iframe>
+
+Next we pass this store to Framework7 app on init:
+
+<iframe src="https://medium.com/media/deab3ea72f74a2d416e77cbb7cb8ea59" frameBorder="0"></iframe>
+
+And we can use store in our components:
+
+<iframe src="https://medium.com/media/a9f7c15ee97a7c4769bf7df16fd31996" frameBorder="0"></iframe>
+
+Awesome thing with Store is that it will automatically update (re-render) dependant components on state/getters update.
+
+### Capacitor
+
+Framework7 now officially support Capacitor. We added support for core APIs when app is running under Capacitor environment (core Statusbar methods, automatic disabling of service workers and router browser history, etc.)
+
+## Framework7 React
+
+Framework7 React also got a large update.
+
+First, of course, there are new React components for new UI elements: Area & Pie charts, Menu List, Preloader buttons, etc.
+
+As you could know, since Framework7 v3 we used Phenome.js library that allows us to write components once, and then auto compile them to Vue and React components. But such approach has some limitations and didn't allow to use some framework-specific features.
+
+In v6 we removed Phenome.js components and rewrote all Framework7 React components from scratch as function components (using hooks). Such change should provide a noticeable performance boost and much better support for Fast refresh (hot reload).
+
+We also changed a bit how Router works in React, and now initial page components (initial routes) should be loaded much faster - on first initial app rendering.
+
+And finally, full server-side rendering (SSR and SSG) support (with Next.js)! 🎉
+
+## Framework7 Vue
+
+Framework7 Vue got an even bigger update, with full new Vue.js v3 support.
+
+* In v6 we rewrote all Framework7 Vue components from scratch as function components (using new Composition API).
+
+* There are new Vue.js components for new UI elements: Area & Pie charts, Menu List, Preloader buttons, etc.
+
+* Same as in Framework7 React — now initial page components (initial routes) should be loaded much faster — on first initial app rendering.
+
+* Server-side support is coming as well, with upcoming Nuxt.js v3.
+
+* As we migrated to pure Vue.js components, support for `v-bind` came back and can be used with all kind of form elements components and modals!
+
+## Framework Svelte
+
+New Framework7 Svelte already had own “native” components so not much updates here.
+
+* There are new Svelte components for new UI elements: Area & Pie charts, Menu List, Preloader buttons, etc.
+
+* Same as in Framework7 React — now initial page components (initial routes) should be loaded much faster — on first initial app rendering.
+
+* Added support for `bind:$property` props for form elements components and modals
+
+## Framework7 CLI
+
+CLI got a large update too:
+
+* Now it generates Framework7 v6 projects (with new Router Components for Core version)
+
+* Webpack projects updated to use latest webpack 5
+
+* Now, in addition to Cordova, it can generate Capacitor project (for native iOS and Android apps)
+
+![](https://cdn-images-1.medium.com/max/5368/1*iKiRy8hiO_v8H-P808LItA.png)
+
+## What's Next?
+
+That was just a brief overview of most significant changes.
+
+There are also a lot of minor improvements and fixes across whole Framework7. For all changes list please refer to [full v6 changelog](https://github.com/framework7io/framework7/blob/master/CHANGELOG.md) which can also be helpful for migration from previous version.
+
+As next steps it is recommended to check the following new and updated Framework7 v6 docs:
+
+**Framework7 Core**
+
+* [Migration guide from v5](https://framework7.io/docs/migration-from-v5.html)
+
+* [Router Component docs](https://framework7.io/docs/router-component.html) — updated documentation for all new Router Component
+
+* [Store docs](https://framework7.io/docs/store.html) — documentation for all new Store library
+
+* [Area Chart docs](https://framework7.io/docs/area-chart.html) — new Area Chart component
+
+* [Pie Chart docs](https://framework7.io/docs/pie-chart.html) — new Pie Chart component
+
+* [Menu List docs](https://framework7.io/docs/menu-list.html) — new Pie Chart component
+
+**Framework7 React**
+
+* [Migration guide from Framework7 React v5](https://framework7.io/react/migration-from-v5.html)
+
+* [Store docs](https://framework7.io/react/store.html) — on how to use new Store with Framework7 React
+
+**Framework7 Vue**
+
+* [Migration guide from Framework7 Vue v5](https://framework7.io/vue/migration-from-v5.html)
+
+* [Store docs](https://framework7.io/vue/store.html) — on how to use new Store with Framework7 Vue
+
+**Framework7 Svelte**
+
+* [Migration guide from Framework7 Svelte v5](https://framework7.io/svelte/migration-from-v5.html)
+
+* [Store docs](https://framework7.io/svelte/store.html) — on how to use new Store with Framework7 Svelte
+
+And docs in general:
+
+* [Framework7 Core documentation](http://framework7.io/docs/)
+
+* [Framework7-Vue documentation](http://framework7.io/vue/)
+
+* [Framework7-React documentation](http://framework7.io/react/)
+
+* [Framework7 Forum](http://forum.framework7.io/) — the best place to get F7 support.
+
+## P.S.
+
+If you love Framework7, please, support project by donating or pledging:
+
+* on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7)
+
+* on Open Collective: [http://opencollective.com/framework7](http://opencollective.com/framework7)
+
+Your support means a lot for us!
+
+Happy New Year! 🎄

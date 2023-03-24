@@ -1,0 +1,71 @@
+url: https://blog.framework7.io/built-with-framework7-brief-customer-messaging-app-76497d56a2d3
+date: Wed Jan 31 2018 09:54:51 GMT+0300 (Москва, стандартное время)
+
+
+# Built with Framework7: Brief — Customer messaging app
+
+
+
+[Brief](https://letsbrief.com) — is the mobile customer messaging app (and desktop webapp) for teams. You can think about it like Slack, but Brief fits much better for teams that has a lot of communication with external customers, e.g. e-commerce companies.
+
+It has an amazing set of features:
+
+* Connect your team to website live chat, forum, shared email inbox and Facebook page messaging;
+
+* Internal team chat rooms to discuss certain topics;
+
+* Works on desktop, tablet and phone;
+
+* Team wall (posts list);
+
+* Files sharing
+
+So basically, brief provides a way of having all customers conversations in one place!
+
+Under the hood, Brief built with Framework7 and Vue.js. Masod Saidi, Brief CEO, says:
+
+“When we started Brief two years ago, we decided to go with Hybrid-app approach because we can reuse same codebase, look and feel across mobile apps and desktop app with much less efforts. We checked all possible solutions and picked Framework7. It has the best UI and performance. For the data-binding we chose Vue.js. That time there wasn't official Framework7-Vue plugin, so we did the Framework7 + Vue integration on our own, we had few issues with routing, but all of them were resolved with official Framework7-Vue package a bit later”.
+
+Later, with Framework7 v2 release, Brief team decided to migrate to v2, Masod continues:
+
+“When v2 came out, we decided to migrate to v2, we wanted to get latest features and fixes. Migration to v2 took about a month for us, but it was definitely worth it:
+
+* memory management in our mobile apps became a lot more better, we don't have any issues with memory anymore — no more app crashes, at all;
+
+* the new Router — this is what is now a pleasure to use, and I like improved browser history management, it is very important for our desktop app;
+
+* many F7 core issues was fixed;
+
+* was great to get F7 native support for iPhone X”
+
+Masod sums up: *“Summarizing — we are happy that we have found Framework7. Now we have mobile app that works and looks great on iPhones, iPads, variety of Android devices and, as a web app, in desktop browsers. Framework7 helped us to build a huge app with really great user experience, in the end we have a lot of happy customers enjoying [Brief](https://letsbrief.com/) which helps them in their daily tasks!”*
+
+Luckily, I had a chance to take a look at Brief app source code, and want to say — this is huge! I was allowed to undercover some tech things from under the hood:
+
+* Brief uses official Framework7 + Framework7-Vue packages;
+
+* It has custom color theme and many UI components' styles a bit tweaked;
+
+* Brief app uses almost all Framework7 components;
+
+* The project structure is almost the same what Framework7-Vue package recommends: all pages/routes are in separate `.vue` files;
+
+* They use Rollup for building because of much cleaner output and less package size;
+
+* Almost all lists in the app are made with Virtual List + Infinite Scroll combination;
+
+* Chats is totally awesome here (Infinite Scroll + Messages + Messagebar components). They did file sharing, images previews, URL preview, user mentions and many more. Worth to check out;
+
+* For the state management Brief uses custom “Store” library that is automatically synchronized with their API server and supports automatic continuous sending (in case of network issues);
+
+* Brief mobile app uses Cordova for building with variety of cordova plugins for Push Notifications and Universal Links support, WKWebView plugin for iOS app and Crosswalk for Android app, Facebook plugin for Facebook auth.
+
+I, personally, tried to use Brief app and really like what Brief team did, I enjoy the idea of how it can be easy to organise all communication channels in one place: emails, facebook conversations, chats, website, forum, everything here, no more need to switch between multiple apps and/or websites. It is very useful and makes life a lot more easier, and can't even imagine how helpful Brief will be for teams with a lot of communication with external customers! And it is **free**!
+
+Go try Brief, it is free, and maybe this is what you are looking for:
+
+* [Brief on App Store](https://itunes.apple.com/us/app/brief-customer-messaging/id1248044218?mt=8)
+
+* [Brief on Google Play](https://play.google.com/store/apps/details?id=com.letsbrief.app)
+
+* [Brief Webapp](https://letsbrief.com)

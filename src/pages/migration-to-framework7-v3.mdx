@@ -1,0 +1,203 @@
+url: https://blog.framework7.io/migration-to-framework7-v3-928a21a1eac9
+date: Mon Jul 09 2018 14:49:11 GMT+0300 (Москва, стандартное время)
+
+
+# Migration to Framework7 v3
+
+
+
+Framework7 v3.0.0 was released on July 5, 2018 with all the new v3 documentation.
+
+You may ask yourself, do I need to upgrade? Answer is the same as in v2 migration guide:
+> In case you have a fully functional and released app made with v1/v2, and you are not going to implement there new features and you are happy with its performance and functionality then you, probably, don't need to change your app to v3. But in case your app is still in development or you are going to release updates for your existing app, then v3 is a must. It has much more features, less bugs, and of course this is the main version/branch that will be maintained in future (including new features and bug fixes).
+
+In this guide we will check what need to be changed in your Framework7 v2 app to switch it to v3. If you update from v1 then it is better to follow [v2 Migration Guide](https://blog.framework7.io/migration-to-framework7-v2-eb6dc38ede3b) first.
+
+## Framework7 Core Library Upgrade
+
+In case you use only vanilla JavaScript Framework7 version (without Framework7-Vue/React), then you almost don't have to do anything. API has not changed at all. The only change is the new project files structure, there is no more`dist` folder and all assets are just under the root project folder.
+
+Before:
+```
+framework7/
+  - dist/
+    - components/
+    - css/
+    - js/
+    - framework7.esm.bundle.js
+    - framework7.esm.js
+    - framework7.less
+```
+
+Now:
+```
+framework7/
+  - components/
+  - css/
+  - js/
+  - framework7.esm.bundle.js
+  - framework7.esm.js
+  - framework7.less
+```
+
+So if you included Framework7 using npm and had something like:
+```
+import Framework7 from 'framework7/dist/framework7.esm.bundle.js';
+import Searchbar from 'framework7/dist/components/searchbar/searchbar.js';
+```
+
+You just need to remove `dist/` folder from paths:
+```
+import Framework7 from 'framework7/framework7.esm.bundle.js';
+import Searchbar from 'framework7/components/searchbar/searchbar.js';
+```
+
+That is all you need to worry about migrating core Framework7 library from v2 to v3 🎉
+
+## Framework7-Vue Upgrade
+
+Situation here is a bit more complex but also shouldn't take a lot of time, we were able to migrate few client's large Framework7-Vue apps in about an hour.
+
+You can check these commits of how we migrated official Framework7-Vue templates to see the whole picture of update:
+
+* [Framework7-Vue Simple Template](https://github.com/framework7io/framework7-template-vue-simple/commit/10ef597b85b225795565ed3d771bf5b45a69e8d7)
+
+* [Framework7-Vue Webpack Template](https://github.com/framework7io/framework7-template-vue-webpack/commit/d6c37b79e4560a0c5e0af658c97068119283ac81)
+
+### 1. Framework7-Vue Plugin Installation
+
+In v2 to install and init Framework7, and Framework7-Vue we do the following:
+```
+*import* Vue *from* 'vue';
+*import* Framework7Vue *from* 'framework7-vue';
+*import* Framework7 *from* 'framework7';
+```
+```
+/* 
+or bundle versions (with all components):
+*import* Framework7Vue *from* 'framework7-vue/dist/framework7-vue.esm.bundle';
+*import* Framework7 *from* 'framework7/dist/framework7.esm.bundle';
+*/
+```
+```
+*// Install F7-Vue plugin/router
+*Vue.use(Framework7Vue, Framework7);
+```
+```
+*// Init App
+*new Vue({
+  el: '#app',
+  *// Init Framework7 by passing parameters here
+  *framework7: {
+    *// f7 params
+    // ...
+  *}
+});
+```
+
+In v3 we need to do it in this way:
+```
+*import* Vue *from* 'vue';
+*import* Framework7Vue *from* 'framework7-vue';
+*import* Framework7 *from* 'framework7';
+```
+```
+/* 
+or bundle versions (with all components):
+*import* Framework7Vue *from* 'framework7-vue/framework7-vue.esm.bundle';
+*import* Framework7 *from* 'framework7/framework7.esm.bundle';
+*/
+```
+```
+*// Different F7-Vue plugin initialization
+*Framework7.use(Framework7Vue);
+```
+```
+*// Init App
+*new Vue({
+  el: '#app',
+  *// No more Framework7 init here
+*});
+```
+
+### 2. Framework7 Initialization
+
+There is no more Framework7 params under `framework7` root Vue.js properties. Now F7 init moves to new `**<f7-app>`** component in your main app template:
+
+**App.vue:**
+```
+<template>
+  <!-- Framework7 params are now passed here -->
+  <f7-app :params="f7params">
+    <f7-statusbar></f7-statusbar>
+    <f7-view url="/" :main="true" class="ios-edges"></f7-view>
+  </f7-app>
+</template>
+<script>
+  import routes from './routes';
+  
+  export default {
+    data() {
+      return {
+        f7params: {
+          theme: 'auto',
+          routes,
+          id: 'io.framework7.testapp',
+        },
+      };
+    },
+  };
+</script>
+```
+
+### 3. onF7Ready Method
+
+`onF7Ready` Vue component method to execute F7 related API code was removed in favour of new`$f7ready` prototype method which is recommend to use in `mounted` hook:
+
+In v2:
+```
+// Vue Page Component
+export default {
+  // ...
+  onF7Ready(f7) {
+    f7.dialog.alert('Component mounted');
+  }
+}
+```
+
+In v3:
+```
+// Vue Page Component
+export default {
+  // ...
+  mounted() {
+    this.$f7ready((f7) => {
+      f7.dialog.alert('Component mounted');
+    })
+  }
+}
+```
+
+And that is basically all major changes to worry about migrating your Framework7-Vue app from v2 to v3.
+
+## Framework7-React Upgrade
+
+Here it will be even more complex, because there was no Framework7-React v2 library available. So updating from Framework-React v1 to v3 will require to rewrite most of the existing Framework7-React v1 app. It is better to follow official [Framework7-React](http://framework7.io/react/) documentation to get started here.
+
+## What is Next?
+
+This was the basic guide to migrate your app made with Framework7 v2 to v3. Of course there are a lot more new features which are out of the scope for this guide. As next steps it is highly recommended to check all new Framework7 v3 docs and starter app templates:
+
+* [Framework7 Core documentation](http://framework7.io/docs/)
+
+* [Framework7-Vue documentation](http://framework7.io/vue/)
+
+* [Framework7-React documentation](http://framework7.io/react/)
+
+* [Framework7 Starter templates](http://framework7.io/templates/)
+
+* [Framework7 Forum](http://forum.framework7.io) — the best place to get F7 support.
+
+## P.S.
+
+And don't forget, if you love Framework7, you can support project by donating or pledging on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7)

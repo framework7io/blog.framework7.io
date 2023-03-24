@@ -1,0 +1,150 @@
+url: https://blog.framework7.io/migration-to-framework7-v4-89d1ce49f4c0
+date: Mon Feb 11 2019 16:01:06 GMT+0300 (Москва, стандартное время)
+
+
+# Migration To Framework7 v4
+
+
+
+Framework7 stable 4.0.0 released on February 7, 2019 and it is time to update!
+
+Do you need to update? Framework7 v4 targets modern devices with CSS Custom Properties support. So if your app targets old iOS (< 10) and Android (< 5) devices, or other [platforms that don't support this technology](https://caniuse.com/#feat=css-variables), then you shouldn't migrate.
+
+Let's walk through all v3 -> v4 breaking changes to see what needs to be changed to upgrade your app to new Framework7 v4.
+
+## Framework7 Core Files Structure
+
+**If you are using ES-modules then you can skip this section, nothing has changed here.**
+
+Core JS and CSS files have been renamed and restructured a bit, so you need to rename them to new files in your `<link href="...">` and `<script src="...">` tags to the following ones:
+```
+framework7.css -> framework7.bundle.css
+framework7.min.css -> framework7.bundle.min.css
+framework7.lazy.css -> framework7.css
+framework7.lazy.min.css -> framework7.min.css
+```
+```
+framework7.js -> framework7.bundle.js
+framework7.min.js -> framework7.bundle.min.js
+framework7-lazy.js -> framework7.js
+framework7-lazy.min.js -> framework7.min.js
+```
+
+And RTL stylesheets:
+```
+framework7.rtl.css -> framework7.bundle.rtl.css
+framework7.rtl.min.css -> framework7.bundle.rtl.min.css
+framework7.lazy.rtl.css -> framework7.rtl.css
+framework7.lazy.rtl.min.css -> framework7.rtl.min.css
+```
+
+Theme-specific stylesheets are gone now, so there is no more these files:
+```
+framework7.ios.css
+framework7.md.css
+framework7.ios.rtl.css
+framework7.md.rtl.css
+```
+
+## CSS Custom Properties (CSS Variables)
+
+This is the most significant and most complex part of new update. All CSS styles were reworked to use [CSS Variables (Custom Properties)](https://developer.mozilla.org/docs/Web/CSS/Using_CSS_variables). It shouldn't break any default styles that were in v3. But if you have a lot of custom styles, then some of them may become invalid. In v4, it is recommended to do custom styling with CSS Custom properties.
+
+New documentation has reference for each component's CSS variables, like, for example, on this [Button CSS variables docs](http://framework7.io/docs/button.html#css-variables). There is also [reference of all available CSS variables](http://framework7.io/docs/css-variables.html).
+
+## Unified Toolbars Position
+
+In both iOS and MD themes Toolbar / Tabbar can now be positioned on top or on bottom. And now it is always required to add position-specific class to each Toolbar/Tabbar:
+
+* `toolbar-top` to place Toolbar on top of view/page
+
+* `toolbar-bottom` to place Toolbar on bottom of view/page
+
+## Buttons
+
+`big` button modifier renamed to `large` in v4:
+```
+<button class="button button-big">...</button>
+<f7-button big>...</f7-button>
+```
+```
+<!-- need to be changed to -->
+```
+```
+<button class="button button-large">
+<f7-button large>...</f7-button>
+```
+
+All buttons modifiers (`raised`, `outline`, `fill`, `small`, `large`) now supported in both iOS and MD themes in same way. For example the “raised” button which worked only in MD theme before will become “raised” in iOS theme as well. So don't forget to tweak this behavior.
+
+## Fast Clicks Disabled
+
+Fast clicks, the built-in library that removes 300ms delay from links and form elements in mobile browser while you click them, is now disabled by default to avoid unnecessary issues, especially with 3rd party libraries. And it must be enabled if you target older devices, like iOS < 10, with `touch.fastClicks: true` app's parameter.
+
+## Safe Areas
+
+To handle device's safe-areas correctly there were special `ios-edges` classes. This is not iOS-only feature anymore so these classes are renamed too:
+```
+ios-edges -> safe-areas
+ios-left-edge -> safe-area-left
+ios-right-edge -> safe-area-right
+no-ios-edges -> no-safe-areas
+no-ios-left-edge -> no-safe-area-left
+no-ios-right-edge -> no-safe-area-right
+```
+
+You can read more about these classes in [Safe Areas documentation](http://framework7.io/docs/safe-areas.html).
+
+## Unified Navigation Bars Styling
+
+In v4 we unified color scheme for navigation bars (Navbar, Toolbar, Subnavbar) in iOS and MD themes. So you need to check and make required styles tweaks if it breaks your custom styles.
+
+## New Framework7 Icons
+
+Framework7 v4 is intended to be used with Framework7 Icons v2. So if you use this icon font, then you need to update it to latest version too. Check [this blog post](https://blog.framework7.io/framework7-icons-v2-1bb74ef5055a) to learn more about new icons font.
+
+## Framework7 React & Vue Components Changes
+
+`f7-label` / `Label` component has been removed. It was used together with `f7-input` / `Input` component to create inputs in List View. Now instead of that component, we need use new `f7-list-input` / `ListInput` that was recently introduced in latest versions of Framework7 v3.
+
+So if you have something like this (for example in Vue):
+```
+<f7-list-item>
+  <f7-label>Name</f7-label>
+  <f7-input
+    type="text"
+    :value="userName"
+    placeholder="Your name"
+    [@input](http://twitter.com/input)="updateUserName"
+  />
+</f7-list-item>
+```
+
+It needs to be changed to new single component:
+```
+<f7-list-input
+  label="Name"
+  type="text"
+  :value="userName"
+  placeholder="Your name"
+  [@input](http://twitter.com/input)="updateUserName"
+/>
+```
+
+## This Is It
+
+Yes, there is not so much breaking changes here, but there are a lot of new features. Check [What Is New In v4](https://blog.framework7.io/the-best-framework7-yet-what-is-new-in-v4-74b2b467047c) blog post if you missed it.
+
+As next steps it is highly recommended to check all new Framework7 v4 docs and:
+
+* [Framework7 Core documentation](http://framework7.io/docs/)
+
+* [Framework7-Vue documentation](http://framework7.io/vue/)
+
+* [Framework7-React documentation](http://framework7.io/react/)
+
+* [Framework7 Forum](http://forum.framework7.io) — the best place to get F7 support.
+
+## P.S.
+
+If you love Framework7, you can support project by donating or pledging on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7) or by purchasing a nice branded t-shirt at [Framework7 Shop](https://teespring.com/stores/framework7)

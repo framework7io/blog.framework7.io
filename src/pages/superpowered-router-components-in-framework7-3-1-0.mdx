@@ -1,0 +1,88 @@
+url: https://blog.framework7.io/superpowered-router-components-in-framework7-3-1-0-296f598aeb99
+date: Thu Jul 26 2018 11:37:33 GMT+0300 (Москва, стандартное время)
+
+
+# Superpowered Router Components in Framework7 3.1.0
+
+
+
+We all love [Router Components](http://framework7.io/docs/router-component.html) in core Framework7 library. They help structure our apps better, keep things in appropriate place, and make many things quicker and in a more clear and comfortable way.
+
+But there was one feature that was really missing. It is auto re-rendering (layout update) when we update component state (data). Which is especially useful when we request component data asynchronously like with XHR request.
+
+Let's look at the following simple router component:
+
+<iframe src="https://medium.com/media/c4c3cdba7baac4e704db8bd54eed6cd5" frameBorder="0"></iframe>
+
+Everything is simple here, when page is initially rendered, it is already has `user` data so it will be rendered as expected.
+
+But what if we request user data later, after page was already rendered:
+
+<iframe src="https://medium.com/media/ed4c54e91d8682c20af045699383d07c" frameBorder="0"></iframe>
+
+This won't work as expected at all, and in such cases developers usually use direct DOM manipulations (via Dom7 lib) to update layout manually.
+
+And in Framework7 3.1.0 this issue has been finally solved.
+
+## Virtual DOM
+
+In Framework 3.1.0 Router Component is highly reworked and powered with Virtual DOM!
+> The virtual DOM (VDOM) is a programming concept where an ideal, or “virtual”, representation of a UI is kept in memory and synced with the “real” DOM. It allows us to express our application's view as a function of its state.
+
+Instead of own custom Virtual DOM implementation, we decided to use VDOM library called [**Snabbdom](https://github.com/snabbdom/snabbdom)** because it is extremely lightweight, fast and fits great for Framework7 environment. Fork of Snabbdom is also used in Vue.js VDOM implementation.
+
+So how does Framework7 router component rendering work now? Now component template is converted to VDOM instead of directly inserting to DOM. Later, when component state changes, it creates new VDOM and compares it with previous VDOM. And based on that diff it patches real DOM by changing only elements and attributes that need to be changed. And all this happens automatically!
+
+Now let's look again at that user profile component that will auto update layout when we request user data:
+
+<iframe src="https://medium.com/media/508f12c9067193cd768c489adc1652f1" frameBorder="0"></iframe>
+
+Noticed that `self.$setState()` method we call in previous example to update component state?
+
+## `$setState`
+
+`.$setState()` — is the new component method where you pass `mergeState` object that will be merged with current component state. It is the method that tells to component that its state has been changed and it must be rerendered. It launches the process of VDOM comparison and patching of necessary elements and attributes in real DOM.
+
+Such mechanism is similar to React's approach and its `setState()` method. It allows to control rendering and avoid unnecessary renders.
+
+**Note, that direct assignment to component state won't trigger layout update. And if we in previous example used `this.user = user` it wouldn't be updated. Use `$setState` whenever you need to update component layout!**
+
+## ES Template Literals
+
+When we use single file component, the everything what is under `<template>` tag is compiled as Template7 template. In some situations it may bring more complexity, if you need to do a lot of complex checks and modifications right in the template. With Template7 you may need to register a bunch of helpers.
+
+So one more new feature of this 3.1.0 update is that single file component template can be treated as native JavaScript [Template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
+> Template literals are string literals allowing embedded expressions. You can use multi-line strings and string interpolation features with them. They were called “template strings” in prior editions of the ES2015 specification.
+```
+`var a = 5;
+var b = 10;
+console.log(`Fifteen is ${a + b} and not ${2 * a + b}.`);`
+```
+
+To enable your component template being treated as template literal we need to add `es` attribute to `<template>` tag. The template from previous example will look like:
+
+<iframe src="https://medium.com/media/575758451a12a6d0bd4d0a8d2dc19b32" frameBorder="0"></iframe>
+
+To iterate over array items in template literals we can use `Array.map`:
+
+<iframe src="https://medium.com/media/0293f459a108fa4b887ca47606bbe3bb" frameBorder="0"></iframe>
+
+## Auto Init Components
+
+You are probably familiar with auto initialized Framework7 components like Range Slider, Gauge and others that will be automatically initialized on page init if they have `range-slider-init`, `gauge-init`, etc., classes.
+
+Such components are also destroyed automatically when page removed from DOM. But now with VDOM we need to cover more cases because such elements can be added/removed during page life cycle.
+
+Thankfully, Snabbdom has special hooks that allow us to know when such elements are inserted or removed from DOM, so we have covered such cases and you may not worry about it and freely add/remove such elements in VDOM updates so they will initialized and destroyed automatically as well.
+
+## In Conclusion
+
+We put a lot of efforts to bring all these new component features and hope they should really speed up development and make developers life even more easier.
+
+These features supposed to be landed in original 3.0.0 release but it took a bit more time to implement so they arrive now in 3.1.0 Framework7 update.
+
+Don't waste your time and go try new 3.1.0 update with router components powered with VDOM!
+
+## P.S.
+
+If you love Framework7, you can support project by donating or pledging on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7)

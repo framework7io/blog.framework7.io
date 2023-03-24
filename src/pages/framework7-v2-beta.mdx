@@ -1,0 +1,262 @@
+url: https://blog.framework7.io/framework7-v2-beta-41f983d6e89d
+date: Sat Sep 02 2017 18:51:41 GMT+0300 (Москва, стандартное время)
+
+
+# Framework7 v2 Beta
+
+Update from December 3, 2017. The stable v2.0.0 has been released and available at https://github.com/framework7io/Framework7/
+
+Great news! Framework7 v2 beta is already available for download and usage. It is pretty stable so it can be safety used in production apps.
+
+### Installation
+
+* Download directly from GitHub [https://github.com/framework7io/Framework7/](https://github.com/nolimits4web/Framework7/tree/v2)
+
+* From NPM: `npm install framework7`
+
+### Run v2 Kitchen Sink
+
+If you downloaded full GitHub repo (not via npm) execute in project folder:
+```
+$ npm install
+```
+
+and then :
+```
+$ npm run prod
+```
+
+Kitchen sink will be available at [http://localhost:3000/kitchen-sink/](http://localhost:3000/kitchen-sink/)
+
+## Whats new?
+
+There are a lot of new things out there. First of all the whole codebase has been rewritten with ES-next syntax and use ES imports/export structure. And now it has totally new modular structure. And not just rewritten, **most of components have been highly reworked and improved in terms of functionality, user experience, performance and visual appearance**.
+
+Let's stop on some interesting features in more details.
+
+### Modular Structure
+
+As i stated above Framework7 has new ES-next modular structure. What does it mean?
+
+First of all good news for bundlers with ES imports support (Webpack, Rollup). Now you can do:
+```
+import Framework7 from 'framework7';
+```
+
+in your code and it will be imported correctly, no hacks or workaround needed.
+
+Also the default `framework7.js` package is now a valid UMD script, so can be correctly required as `var Framework7 = require('framework7');`
+
+New modular structure now allows to create more sophisticated custom builds. Framework7 build script is easily configurable and almost any modules can be included/excluded from the package, same true for styles.
+
+With the next beta (beta-3) even more modular package will be available to do custom builds directly in bundlers:
+```
+import { Framework7, Swiper, Modal, Popup, Tabs} from 'framework7/dist/framework7.modular`
+```
+```
+Framework7.use(Swiper, Modal, Popup);
+```
+
+What is that `.use` ? This is how new F7 modules/components work. Such new structure allows to create more additional plugins or components for the framework. Let's say we want to create a debugger plugin for F7, here is how its code may look like:
+```
+const Debugger = {
+  // Extend default app params with "debugger" parameter to enable disable debugger
+  params: {
+    debugger: false,
+  },
+  proto: {
+    // App methods to enable/disable debugger
+    debugger: {
+      on() {
+        console.log('Debugger enabled'),
+      },
+      off() {
+        console.log('Debugger disabled'),
+      }
+    }
+  },
+  on: {
+    // Listen for page init event
+    pageInit() {
+      const app = this;
+      if (!app.params.debug) return;
+      console.log('Page init')
+    },
+  }
+}
+```
+
+And to install such plugin to Framework7 we will need to call the following line:
+```
+Framework7.use(Debugger);
+```
+
+### iOS/ Material Themes
+
+Themes and the way how they work is highly reworked as well. Now there is no need to include separate CSS files for different themes. Both of them are now included into single stylesheet `framework7.css`file. On app initialization ( `new Framework7()` ) we now pass `theme` parameter that could be `'ios'` or `'md'` or `'auto'`. If we set `'auto'` then iOS theme will be set for iOS devices and Material theme for any other device. On app init the appropriate “ios”or "md” class will be set on`<html>` element. So most of the styles (which are theme-specific) will look like `.ios .card`, `.md .toolbar`, etc.
+
+But in case you develop the app only the single platform (or want it to look like ios or md app on both platforms), the `framework7.ios.css` and `framework7.md.css` stylesheets are also available.
+
+But what with HTML layout difference for iOS and Material themes? One more good news here:
+> **In Framework7 v2 there is no difference in HTML layout for different themes!**
+
+That is right, all components have been reworked to have same layout for both themes!
+
+### Navbars/Toolbars
+
+But hey, we remember that pretty uncomfortable thing when Navbar for iOS theme must be under the View element and under the Page element for Material theme, and that hard to manage “*navbar-fixed*, *navbar-through*, *toolbar-fixed*, *toolbar-through” *additional classes* *thing. This is in the past. Now all styles and required page content offset is based on layout structure and elements order. And there are few new rules for Page bars:
+
+* If we have Navbar for page, then it should be always inside of a Page
+
+* Toolbar/Tabbar must always follow the Navbar (if Navbar exist on a page)
+
+* Subnavbar/Searchbar/Messagebar/…anotherbar must always follow Toolbar (if you have it) or Navbar (if you don't have Toolbar).
+
+* All kind of bars must be direct child of Page (if we want them to be fixed)
+
+For example, the page with all kind of bars will look like:
+```
+<div class="page">
+  <div class="navbar">...</div>
+  <div class="toolbar">...</div>
+  <div class="searchbar">...</div>
+  
+  <div class="page-content">...</div>
+</div>
+```
+
+So the rule is simple: bars first in the following order Navbar -> Toolbar -> Anotherbar. Of course, any of these bars can be omitted, but the order should be the same, e.g. Navbar -> Anotherbar, Toolbar -> Anotherbar, Navbar -> Toolbar, etc.
+
+### Color Themes
+
+Color themes are also highly reworked.
+
+First of all there is no more separate colors CSS file. Now all colors are bundled into base stylesheets. You may say it is probably too much and we don't need extra 100K to stylesheet size.
+
+So second, colors now are component based and configurable via build script. You may set custom theme color and required additional custom colors in build config, and you will get the only colors you need and for only components you need.
+
+### Simplified HTML Layout
+
+HTML layout is not only unified for both themes but also simplified where possible.
+
+Lists**. **Before, if we need just a simple (without icons, subtitle, etc.) list of items or links, we used something like:
+```
+<!-- Display simple data -->
+<div class="list-block">
+  <ul>
+    <li class="item-content">
+     <div class="item-inner">
+       <div class="item-title">Link</div>
+     </div>
+    </li>
+    ...
+  </ul>
+</div>
+```
+```
+<!-- Display simple links -->
+<div class="list-block">
+  <ul>
+    <li>
+     <a href="somewhere" class="item-content item-link">
+       <div class="item-inner">
+         <div class="item-title">Link</div>
+       </div>
+     </a>
+    </li>
+    ...
+  </ul>
+</div>
+```
+
+Now there are new lists modifications, called “links-list” and “simple-list” which saves a lot of time and markup:
+```
+<!-- Simple List to display simple data -->
+<div class="list simple-list">
+  <ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+  </ul>
+</div>
+```
+```
+<!-- Links List to display simple links list -->
+<div class="list links-list">
+  <ul>
+    <li><a href="somewhere1">Item 1</a></li>
+    <li><a href="somewhere2">Item 2</a></li>
+  </ul>
+</div>
+```
+
+App structure/Views**. **If you remember the minimal required layout was:
+```
+<body>
+  <div class="views">
+    <!-- We put here navbar for iOS theme -->
+    <div class="navbar">...</div>
+    <div class="view">
+      <div class="pages">
+        <!-- Page goes here -->
+        <div class="page">
+          <!-- We put here navbar for Material theme -->
+          <div class="navbar">...</div>
+          <div class="page-content">...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+```
+
+Now, to achieve the same:
+```
+<body>
+  <div class="view">
+    <!-- Page goes here -->
+    <div class="page">
+      <!-- We put here navbar for both themes -->
+      <div class="navbar">...</div>
+      ...
+      <div class="page-content">...</div>
+    </div>
+  </div>
+</body>
+```
+
+As we may see:
+
+* Views element is not required anymore (only in case you have a tabbar app with multiple views)
+
+* Pages element is removed, not needed anymore
+
+* Navbar is also required only in single position under the Page
+
+### New Router
+
+Well, this is something huge and far beyond what we had in v1. There will be separate article covering v2 router features.
+
+### Reworked Components
+
+As i stated above many components have been highly improved and reworked. I will cover the most interesting in next articles.
+
+## What is not yet ready?
+
+Almost all components from v1 are ported to v2, except “Autocomplete”, “Picker” and “Calendar”. So if your app uses them you will have to wait for next releases.
+
+## What is next?
+
+There are still many things to implement in/with v2:
+
+* First of all, port the rest of components from v1.
+
+* Implement/integrate some Cordova APIs for work with: Splash screen, Status bar, Push notifications
+
+* Rework Framework7Vue plugin for version 2
+
+* and many more…
+
+Follow Framework7 to be notified and start using it now!
+```
+$ npm install framework7
+```

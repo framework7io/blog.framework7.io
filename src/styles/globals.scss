@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+body {
+  font-family: Inter, -apple-system, system-ui, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+code[class*='language-'],
+pre[class*='language-'] {
+  font-family: Menlo, ui-monospace, SFMono-Regular, Monaco, Consolas,
+    Liberation Mono, Courier New, monospace;
+}
