@@ -34,7 +34,7 @@ export const Header = () => {
       </Link>
       <ul className="flex items-center space-x-1 sm:space-x-2">
         <li className="group relative">
-          <RootLink href="https://framework7.io/docs/">Docs</RootLink>
+          <RootLink>Docs</RootLink>
           <ul className="absolute right-0 top-full hidden space-y-0.5 whitespace-nowrap rounded-xl border border-border bg-surface-3 px-4 py-3 text-sm font-medium group-hover:block">
             <li>
               <SubLink
