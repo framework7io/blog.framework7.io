@@ -24,39 +24,35 @@ Framework7 uses new responsive breakpoints to apply different styles based on ap
 They are now:
 
 - `xsmall` — width more than 480px
-
 - `small` — width more than 568px
-
 - `medium` — width more than 768px
-
 - `large` — width more than 1024px
-
 - `xlarge` — width more than 1200px
 
 If you use `tablet-${n}` and `desktop-${n}` modifiers classes on Layout Grid columns:
 
-```
+```html
 <div class="col-50 tablet-33 desktop-25">...</div>
 ```
 
 they must be changed to the following:
 
-```
+```html
 <div class="col-50 medium-33 large-25">...</div>
 ```
 
 Same for Lists and Block, if you use `tablet-inset` class there, it must be changed to `medium-inset`
 
-```
+```html
 <div class="list tablet-inset">...</div>
-<div class="block tablet-inset">...</div>
+<div class="tablet-inset block">...</div>
 ```
 
 should be changed to:
 
-```
+```html
 <div class="list medium-inset">...</div>
-<div class="block medium-inset">...</div>
+<div class="medium-inset block">...</div>
 ```
 
 ### New Side Panels APIs
@@ -160,7 +156,6 @@ Fast clicks functionality has been completely removed. Following app parameters 
 Now it resolves and rejects with a different object.
 
 - will be resolved with `{ data, status, xhr }` object (rather than with just `data` like before)
-
 - Request "promise" methods now will be rejected with `{ message, status, xhr }` object (rather than with just `status` like before)
 
 ```js
@@ -225,13 +220,13 @@ this.$setState({ foo: 'bar' }).then(() => {
 
 It is new "Lite" version of Framework7 Core that doesn't contain Core Component functionality. And now it is recommended to use "lite" version with F7-Vue/React packages:
 
-```
+```js
 import Framework7 from 'framework7/framework7-lite.esm.js';
 ```
 
 or bundle version:
 
-```
+```js
 import Framework7 from 'framework7/framework7-lite.esm.bundle.js';
 ```
 
@@ -239,29 +234,30 @@ import Framework7 from 'framework7/framework7-lite.esm.bundle.js';
 
 `tabletInset` prop has been removed, and new props based on new responsive breakpoints should be used instead: `xsmallInset`, `smallInset`, `mediumInset`, `largeInset`, `xlargeInset`
 
-```
+```jsx
 <List mediumInset>...</List>
 <Block mediumInset>...</Block>
 ```
 
 and
 
-```
-<f7-list mediumInset>...</f7-list>
-<f7-block mediumInset>...</f7-block>
+```html
+<f7-list mediumInset>...</f7-list> <f7-block mediumInset>...</f7-block>
 ```
 
 ### **Col Component**
 
 `tabletWidth` and `desktopWidth` props have been removed, and new props based on new responsive breakpoints should be used instead: `xsmall`, `small`, `medium`, `large`, `xlarge` :
 
-```
-<Col size="50" medium="33" large="25">...</Col>
+```jsx
+<Col size="50" medium="33" large="25">
+  ...
+</Col>
 ```
 
 and
 
-```
+```html
 <f7-col size="50" medium="33" large="25">...</f7-col>
 ```
 
@@ -304,11 +300,8 @@ There is not so much breaking changes in v5, but there are a lot of new features
 As next steps it is highly recommended to check all new Framework7 v5 docs and:
 
 - [Framework7 Core documentation](http://framework7.io/docs/)
-
 - [Framework7-Vue documentation](http://framework7.io/vue/)
-
 - [Framework7-React documentation](http://framework7.io/react/)
-
 - [Framework7 Forum](http://forum.framework7.io/) — the best place to get F7 support.
 
 ## P.S.

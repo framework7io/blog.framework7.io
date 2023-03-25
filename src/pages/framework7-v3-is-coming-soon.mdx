@@ -18,7 +18,6 @@ A bit of story. [Ben Compton](https://github.com/bencompton/) did a tremendous j
 We realised that we need kind of universal thing, universal component definition that can be used with both Vue and React (and maybe later with WebComponents) keeping same functionality. [Stencil.js](https://stenciljs.com/) looks pretty promising for this as it compiles to WebComponent which can be used by React and Vue js. But soon, it was refused as a solution for few reasons:
 
 - using web components (custom elements) in React and Vue.js requires some extra hacks [https://custom-elements-everywhere.com/](https://custom-elements-everywhere.com/)
-
 - Stencil.js uses own virtual-dom implementation (fork of [Snabbdom](https://github.com/snabbdom/snabbdom)). Not an option for us, because we need our F7-Vue/React components to utilize all "native" features of framework (Vue/React) they are used in, including Vue/React virtual dom implementation
 
 So we decided to go with our own universal component compiler. And after few months of brainstorming and hardcoding we, together with Ben, finally nailed it!
@@ -111,55 +110,55 @@ Because Phenome is a **_universal_** component, so we have refactored FrameworkV
 
 At the moment to install and init Framework7 in Vue we do the following:
 
-```
-*import* Vue *from* 'vue';
-*import* Framework7Vue *from* 'framework7-vue';
-*import* Framework7 *from* 'framework7';
-```
-
-```
-*// Install F7-Vue plugin/router
-*Vue.use(Framework7Vue, Framework7);
+```js
+import Vue from 'vue';
+import Framework7Vue from 'framework7-vue';
+import Framework7 from 'framework7';
 ```
 
+```js
+// Install F7-Vue plugin/router
+Vue.use(Framework7Vue, Framework7);
 ```
-*// Init App
-*new Vue({
+
+```js
+// Init App
+new Vue({
   el: '#app',
-  *// Init Framework7 by passing parameters here
-  *framework7: {
-    *// f7 params
+  // Init Framework7 by passing parameters here
+  framework7: {
+    // f7 params
     // ...
-  *}
+  },
 });
 ```
 
 In v3, it is a bit different:
 
-```
-*import* Vue *from* 'vue';
-*import* Framework7Vue *from* 'framework7-vue';
-*import* Framework7 *from* 'framework7';
-```
-
-```
-*// Different F7-Vue plugin initialization
-*Framework7.use(Framework7Vue, { Vue });
+```js
+import Vue from 'vue';
+import Framework7Vue from 'framework7-vue';
+import Framework7 from 'framework7';
 ```
 
+```js
+// Different F7-Vue plugin initialization
+Framework7.use(Framework7Vue, { Vue });
 ```
-*// Init App
-*new Vue({
+
+```js
+// Init App
+new Vue({
   el: '#app',
-  *// No Framework7 init here
-*});
+  // No Framework7 init here
+});
 ```
 
 ### 2. Framework7 Initialization
 
 There is no more Framework7 params under `framework7` root Vue properties. Now F7 init moves to new `**f7-app`\*\* component in your main app template:
 
-```
+```html
 <template>
   <f7-app :params="f7Params">
     <f7-statusbar></f7-statusbar>
@@ -169,12 +168,12 @@ There is no more Framework7 params under `framework7` root Vue properties. Now F
 <script>
   import { f7App, f7Panel, f7View, f7Statusbar } from 'framework7-vue';
   import routes from './routes';
-```
 
-```
-export default {
+  export default {
     components: {
-      f7App, f7View, f7Statusbar,
+      f7App,
+      f7View,
+      f7Statusbar,
     },
     data() {
       return {
@@ -191,17 +190,17 @@ export default {
 
 For React it will be basically the same now:
 
-```
+```js
 import React from 'react';
 import { App, View, Statusbar } from 'framework7-react';
 import routes from './routes';
 ```
 
-```
+```jsx
 export default () => (
   <App params={{ theme: 'auto', routes, id: 'io.framework7.testapp' }}>
     <Statusbar />
-    <View url="/" main className="ios-edges"/>
+    <View url="/" main className="ios-edges" />
   </App>
 );
 ```
@@ -210,26 +209,26 @@ export default () => (
 
 `onF7Ready` Vue component method to execute F7 related API code is also gone away in favour of new`$f7ready` prototype method which is recommend to use in `mounted` / `componentDidMount` hooks:
 
-```
+```js
 // Vue Page Component
 export default {
   // ...
   mounted() {
     this.$f7ready((f7) => {
       f7.dialog.alert('Component mounted');
-    })
-  }
-}
+    });
+  },
+};
 ```
 
-```
+```js
 // React Page Component
 export default class extends React.Component {
   // ...
   componentDidMount() {
     this.$f7ready((f7) => {
       f7.dialog.alert('Component mounted');
-    })
+    });
   }
 }
 ```
@@ -243,13 +242,9 @@ Framework7 v3 is almost ready, and we already have React/Vue kitchen sinks runni
 After new v3 release we will have a new long v4 roadmap targeting following major features:
 
 - Framework7 WebComponents library
-
 - More frameworks support, e.g. Preact, Angular
-
 - CSS variables support to make F7 app styling and theming much easier
-
 - First class PWA support
-
 - New UI components
 
 And don't forget, if you love Framework7, you can support project by donating or pledging on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7)

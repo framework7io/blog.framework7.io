@@ -12,7 +12,7 @@ V2 Router has a lot of new features. Let's look at the most interesting ones.
 
 First of all, when we init the Framework7 app we should pass default routes in `routes` array parameter:
 
-```
+```js
 var app = new Framework7({
   routes: [
     {
@@ -44,7 +44,7 @@ var app = new Framework7({
         pageInit: function (e, page) {
           // do something when page initialized
         },
-      }
+      },
     },
     // Default route, match to all pages (e.g. 404 page)
     {
@@ -59,7 +59,7 @@ Well, it was pretty easy. Routes defined on app init are default routes, they wi
 
 If you have a multi-view/router app and you want to have some **View/Router to have own strict routes and don't want default routes are available in this View**, then you may specify the same `routes` parameter on View init:
 
-```
+```js
 var view1 = app.views.create('.view-1', {
   el: '.view-1',
   routes: [
@@ -72,12 +72,12 @@ var view1 = app.views.create('.view-1', {
       url: './pages/user.html',
     },
   ],
-})
+});
 ```
 
 If you have a multi-view/router app and you want to have some **View/Router to have additional routes and don't want these additional routes are available in other Views**, then you may specify the `routesAdd` parameter on View init:
 
-```
+```js
 var view2 = app.views.create('.view-2', {
   el: '.view-2',
   // This routes are only available in this view
@@ -91,7 +91,7 @@ var view2 = app.views.create('.view-2', {
       url: './pages/post.html',
     },
   ],
-})
+});
 ```
 
 **Ok, now will see what each route property means:**
@@ -104,7 +104,7 @@ There is also support for dynamic paths. So if you have the following path in yo
 
 Route path matching is handled by [\*\*Path To Regexp](https://github.com/pillarjs/path-to-regexp)\*\* library, so everything what is supported there is supported in Framework7 as well. For example, if you want to add default route which match all paths, we can use regular expression like:
 
-```
+```js
 // Default route, match to all pages (e.g. 404 page)
 {
   path: '(.*)',
@@ -117,26 +117,18 @@ Route path matching is handled by [\*\*Path To Regexp](https://github.com/pillar
 In previous examples we specified `url` parameter for every route. This parameter defines how and what to load for this route. It accepts different properties (not only URL):
 
 - `url` — load page content via Ajax,
-
 - `content` — creates dynamic page from specified content string,
-
 - `pageName` — load page from DOM that has same `data-name` attribute (previous inline page),
-
 - `el` — load page from DOM by passed HTMLElement,
-
 - `template` — load page content from passed Template7 template string or function,
-
 - `templateUrl` — load page content from url via Ajax, and compile it using Template7,
-
 - `component` — load page from passed Framework7 Router Component (see below),
-
 - `componentUrl` — load pages as a component via Ajax,
-
 - `async` — do required asynchronous manipulation and the return specific route content
 
 Here is an example of all possible options:
 
-```
+```js
 routes: [
   // Load via Ajax
   {
@@ -202,9 +194,7 @@ routes: [
     async: function (routeTo, routeFrom, resolve, reject) {
       // Requested route
       console.log(routeTo);
-```
 
-```
       // Get external data and return template7 template
       $.getJSON('http://some-endpoint/', function (data) {
         resolve(
@@ -230,24 +220,18 @@ routes: [
 Object with additional route options (optional):
 
 - `animate` — whether the page should be animated or not (overwrites default router settings),
-
 - `history` — whether the page should be saved in router history,
-
 - `pushState` — whether the page should be saved in browser state (overwrites global `pushState` router parameter),
-
 - `reloadCurrent` — replace the current page with the new one from route,
-
 - `reloadPrevious` — replace the previous page in history with the new one from route,
-
 - `reloadAll` — load new page and remove all previous pages from history and DOM,
-
 - `context` — custom context for Template7/Component page (using `template,` `templateUrl`, `component` or `componentUrl` parameters)
 
 ## Route Events
 
 It is possible to add all page events inside of route for this page using `on` route property. For example:
 
-```
+```js
 var app = new Framework7({
   routes: [
     // ...
@@ -267,7 +251,7 @@ var app = new Framework7({
         pageBeforeRemove: function (event, page) {
           // do something before page gets removed from DOM
         },
-      }
+      },
     },
     // ...
   ],
@@ -280,7 +264,7 @@ Please note, that such route events are actually DOM events, so each such handle
 
 It is possible to have nested routes (routes in routes) as well:
 
-```
+```js
 routes = [
   {
     path: '/faq/',
@@ -306,7 +290,7 @@ routes = [
 
 What does it mean? To get better understanding, actually (under the hood) such routes will be merged into the following ones:
 
-```
+```js
 routes = [
   {
     path: '/faq/',
@@ -341,7 +325,7 @@ So let's say we are on a `/catalog/` page and have the following links:
 
 Tabs in v2 are also can be _routable_. What routable tabs means and why is it good? First of all, it provides opportunity to navigate to tabs by usual links instead of so called special tab-links. Second, when navigating to such route you can load a page with required tab opened. Third, with enabled Push State, the same tab will be opened when you navigate back and forward in history. And the last but not least, when using routable tabs you can load tabs content in the same ways as for pages, i.e. using `url`, `content`, `template`, `templateUrl`, `component` or `componentUrl` :
 
-```
+```js
 routes = [
   {
     path: '/about-me/',
@@ -358,7 +342,7 @@ routes = [
             <h3>About Me</h3>
             <p>...</p>
           </div>
-        `
+        `,
       },
       // Second tab
       {
@@ -375,13 +359,13 @@ routes = [
         componentUrl: './pages/about-me/cv.html',
       },
     ],
-  }
-]
+  },
+];
 ```
 
 On the */about-me/ *page we may have the following structure for example:
 
-```
+```html
 <div class="page">
   <div class="navbar">
     <div class="navbar-inner">
@@ -391,7 +375,9 @@ On the */about-me/ *page we may have the following structure for example:
   <div class="toolbar tabbar">
     <div class="toolbar-inner">
       <a href="./" class="tab-link" data-route-tab-id="about">About</a>
-      <a href="./contacts/" class="tab-link" data-route-tab-id="contacts">>Contacts</a>
+      <a href="./contacts/" class="tab-link" data-route-tab-id="contacts"
+        >>Contacts</a
+      >
       <a href="./cv/" class="tab-link" data-route-tab-id="cv">>CV</a>
     </div>
   </div>
@@ -412,15 +398,12 @@ Modals are also routable. By Modals here we mean the following components: Popup
 And same features as for routable tabs:
 
 - it provides opportunity to open modals by usual links instead of so called special links or API,
-
 - with enabled Push State, the same modal will be opened when you refresh browser, navigate back and forward in history,
-
 - with routable modals you can load modal itself and its content in the same ways as for pages, i.e. using `url`, `content`, `template`, `templateUrl`, `component` or `componentUrl`
 
-```
+```js
 routes = [
-  ...
-  // Creates popup from passed HTML string
+  ...// Creates popup from passed HTML string
   {
     path: '/popup-content/',
     popup: {
@@ -432,8 +415,8 @@ routes = [
             </div>
           </div>
         </div>
-      `
-    }
+      `,
+    },
   },
   // Load Login Screen from file via Ajax
   {
@@ -483,30 +466,27 @@ routes = [
       } else {
         resolve({
           loginScreen: {
-            url: 'login-screen.html'
-          } ,
+            url: 'login-screen.html',
+          },
         });
       }
     },
-  }
-]
+  },
+];
 ```
 
 According to example above:
 
 - when you click on link with "/popup-content/" href attribute it will open Popup from specified string content,
-
 - when you click on link with "/login-screen-ajax/" href attribute it will perform Ajax request to "login-screen.html" file and open it as a Login Screen,
-
 - when you click on link with "/popup-component/" href attribute it will perform Ajax request to "popup-component.html" file, parse it as a Router Component and open it as a Popup,
-
 - when you click on link with "/secured-content/" href attribute it will load page from "secured-page.html" if user is logged in or open Login Screen from "login-screen.html" file is user is not logged in.
 
 ## Router Component
 
 This is something absolutely new and probably deserves separate article. If you remember, to do some page-specific logic in v1, we were strictly sticked to so called page events and page names using data-page attributes. We had something like this in our JS
 
-```
+```js
 $(document).on('page:init', function (e) {
   var page = e.detail.page;
   if (page === 'page1') {
@@ -527,22 +507,16 @@ Framework7 v2 tries to solve this problem by isolating page-specific logic into 
 So what is Router Component? Router Component is basically is object with the following properties (all properties are optional):
 
 - `template` — string template. Will be compiled as Template7 template
-
 - `render` — render function to render component. Must return component html string or HTMLElement
-
 - `data` — function, must return component context data
-
 - `style` — string with component CSS styles. Styles will be added to the document after component will be mounted (added to DOM), and removed after component will be destroyed (removed from the DOM)
-
 - `methods` — object with component methods
-
 - `on` — object with page events handlers
-
 - `beforeCreate`, `created`, `beforeMount`, `mounted`, `beforeDestroy`, `destroyed` — component lifecycle hooks methods.
 
 So the example route with page component may look like:
 
-```
+```js
 routes = [
   ...
   {
@@ -604,20 +578,15 @@ All component methods and Template7 compiler are executed in the context of the 
 What is the **component context**. Component context is the object you have returned in `data` method extended with the following useful properties:
 
 - `$` , `$$`, `$dom7`— equal aliases for Dom7,
-
 - `$app` — instance of the Framework7 app,
-
 - `$root` — root data and methods you have specified in same `data` and `methods` properties on app init (`new Framework7`),
-
 - `$route` — current route. Contains object with route `query` , `hash` , `params` , `path` and `url` ,
-
 - `$router` — link to related router instance,
-
 - `$theme` — object with `md` and `ios` properties which are `true` in related theme is used.
 
 But it is not very comfortable to specify all component routes under same routes array, especially if we have a lot of such routes. This is why we can use `componentUrl` instead:
 
-```
+```js
 routes = [
   ...
   {
@@ -630,7 +599,7 @@ routes = [
 
 And in _some-page.html_:
 
-```
+```html
 <template>
   <div class="page">
     <div class="navbar">
@@ -643,7 +612,7 @@ And in _some-page.html_:
       <div class="list simple-list">
         <ul>
           {{#each names}}
-            <li>{{this}}</li>
+          <li>{{this}}</li>
           {{/each}}
         </ul>
       </div>
@@ -661,7 +630,7 @@ And in _some-page.html_:
       return {
         title: 'Component Page',
         names: ['John', 'Vladimir', 'Timo'],
-      }
+      };
     },
     methods: {
       openAlert: function () {
@@ -675,8 +644,8 @@ And in _some-page.html_:
       pageAfterOut: function () {
         // page has left the view
       },
-    }
-  }
+    },
+  };
 </script>
 ```
 
@@ -691,24 +660,18 @@ Such Router Components should help to better structure our apps, keep things in 
 Page events are also reworked. Now every page the following events:
 
 - `pageMounted` (`page:mounted`) — fires right after page HTML element added to DOM
-
 - `pageInit` (`page:init`) — fires after all page components initialised
-
 - `pageBeforeIn` (`page:beforein`) — fires right before page animation to the current view (for both forward and backward navigation directions)
-
 - `pageAfterIn` (`page:afterin`) — fires right after page animation to the current view (for both forward and backward navigation directions)
-
 - `pageBeforeOut` (`page:beforeout`) — fires right before page animation out of the current view (for both forward and backward navigation directions)
-
 - `pageAfterOut` (`page:afterout`) — fires right after page animation out of the current view (for both forward and backward navigation directions)
-
 - `pageBeforeRemove` (`page:beforeremove`) — fires right before page removing from DOM
 
 ## Initial Page
 
 Initial page can also be loaded correctly using `routes` . In app layout we must leave View blank:
 
-```
+```html
 <body>
   <div id="app">
     <div class="view"></div>
@@ -718,7 +681,7 @@ Initial page can also be loaded correctly using `routes` . In app layout we must
 
 In routes we may specify "home" route, for example:
 
-```
+```js
 routes: [
   {
     path: '/',
@@ -730,13 +693,13 @@ routes: [
 
 And when we init the View, we (recommended) need to specify it is default URL:
 
-```
+```js
 app.views.create('.view', {
-  url: '/'
-})
+  url: '/',
+});
 ```
 
-That is all, now on app load, home page content will be loaded from ‘home.html' file.
+That is all, now on app load, home page content will be loaded from 'home.html' file.
 
 ## Redirect & Alias
 
@@ -744,7 +707,7 @@ Since **beta.16 **there is also support for redirects and aliases in routes.
 
 ### **Redirect**
 
-```
+```js
 routes = [
   {
     path: '/foo/',
@@ -753,15 +716,15 @@ routes = [
   {
     path: '/bar/',
     redirect: '/foo/',
-  }
-]
+  },
+];
 ```
 
 Means than when we request `/bar/` URL then router will redirect to `/foo/` URL and then search for route that match to this new URL. In this case it will match to the first route with path`/foo/` and load the page from "somepage.html"
 
 ### Alias
 
-```
+```js
 routes = [
   {
     path: '/foo/',
@@ -772,14 +735,13 @@ routes = [
     path: '/foo2/',
     url: 'anotherpage.html',
     alias: ['/bar2/', '/baz/', '/baz2/'],
-  }
-]
+  },
+];
 ```
 
 Alias in this case basically means that same route can have multiple paths to access. So according to the example above:
 
 - if we request page by `/foo/` or `/bar/` URL then first route will match and we get the page loaded from "somepage.html"
-
 - if we request page by `/foo2/` , `/bar2/`, `/baz/`, `/baz2/` URL then second route will match and we the page loaded from "anotherpage.html"
 
 ## Improved Push State

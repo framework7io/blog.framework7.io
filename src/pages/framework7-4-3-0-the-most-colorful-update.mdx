@@ -35,7 +35,7 @@ Now Framework7 can automatically enable/disable dark theme based on user system 
 
 To enable this feature we need to pass `autoDarkTheme: true` parameter on app init:
 
-```
+```js
 var app = new Framework7({
   autoDarkTheme: true,
   // ...
@@ -51,22 +51,19 @@ This is how it works (when we switch system color scheme it applies same scheme 
 Now Navbar emits the following events that can be useful to detect its state change:
 
 - `navbar:hide` / `navbarHide` — event will be triggered when Navbar becomes hidden
-
 - `navbar:show` / `navbarShow` — event will be triggered when Navbar becomes hidden
-
 - `navbar:collapse` / `navbarCollapse` — event will be triggered when Navbar with large title collapsed (from large navbar to usual navbar)
-
 - `navbar:expand` / `navbarExpand` — event will be triggered when Navbar with large title expanded (from usual navbar to large navbar)
 
 ## Close Modals With "Esc" Key
 
 One more desktop experience improvement. Now all modals (Popup, Popover, Sheet Modal, Actions Sheet) can be closed with `ESC` keyboard key. To enable this feature, we need to pass `closeOnEscape: true` when we create modal, for example:
 
-```
+```js
 var popup = app.popup.create({
   closeOnEscape: true,
   // ...
-})
+});
 ```
 
 ## Modals Backdrop Improvement
@@ -74,7 +71,6 @@ var popup = app.popup.create({
 There is some minor but pretty useful improvement with modals backdrop (semi-transparent dark overlay behind the modal). Now when app running in cordova environment and there is a cordova keyboard plugin installed:
 
 - Clicking on modal backdrop won't close modal if virtual keyboard was opened. More likely user expects here to close the keyboard rather than modal.
-
 - Closing/opening virtual keyboard will correctly reposition currently opened Popover
 
 ## Top Sheet Modal
@@ -88,11 +84,8 @@ By default sheet modal opens from the bottom of the screen. Now it is also possi
 Framework7 4.3.0 version already released with all the documentation updated. Check the following links for more details:
 
 - [Color Picker documentation](https://framework7.io/docs/color-picker.html)
-
 - [Top Sheet Modal documentation](https://framework7.io/docs/sheet-modal.html#sheet-top-layout)
-
 - [Resizable Panels documentation](https://framework7.io/docs/panel.html#resizable-panel)
-
 - [Full 4.3.0 Changelog](https://github.com/framework7io/framework7/blob/master/CHANGELOG.md)
 
 ## P.S.

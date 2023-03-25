@@ -17,12 +17,12 @@ Core Framework7 package now contains new so called `-lite` JavaScript files. "Li
 
 This "lite" version is designed to be used with Framework7-React and Framework7-Vue libraries, where you, anyway, use React or Vue components instead, so switching to "lite" version will save extra KB in F7-React/Vue apps.
 
-```
+```js
 import Framework7 from 'framework7/framework7-lite.esm.js';
 import Framework7Vue from 'framework7-vue';
 ```
 
-```
+```js
 Framework7.use(Framework7Vue);
 ```
 
@@ -33,13 +33,9 @@ Check updated [Package Structure docs](https://framework7.io/docs/package.html) 
 There are many CSS and theming tweaks and fixes:
 
 - iOS dark theme colors reworked to match iOS 13 dark theme colors
-
 - Most of CSS variables related to colors (especially "gray" colors) reworked to `rgba` colors to appear better on custom designs. It is related to text colors, background colors, icons colors, borders and hairlines colors.
-
 - Most of iOS theme `15px` sizes (list/blocks paddings and margins) are changed to `16px` instead
-
 - Dark theme can now be excluded from bundle (custom build)
-
 - And light (default) theme can also be excluded from bundle (custom build)
 
 <iframe
@@ -61,31 +57,25 @@ Nowadays this became irrelevant, so v5 has new set of such responsive breakpoint
 They are now:
 
 - `xsmall` — width more than 480px
-
 - `small` — width more than 568px
-
 - `medium` — width more than 768px
-
 - `large` — width more than 1024px
-
 - `xlarge` — width more than 1200px
 
 So, if we want to make List block inset on tablet screens, now we need to add `medium-inset` class to it.
 
 Same for Grid. Now we have more control on column sizes:
 
-```
+```html
 <div class="row">
-  <div class="col-100 small-66 medium-50 large-25 xlarge-15">
-    ...
-  </div>
+  <div class="col-100 small-66 medium-50 large-25 xlarge-15">...</div>
   ...
 </div>
 ```
 
 Same for Data Table, we can have more controls on which cells to show on different screen sizes:
 
-```
+```html
 <tr>
   <td>...</td>
   <td>...</td>
@@ -110,11 +100,11 @@ Framework7 v5 now supports translucent navigation bars (Navbar, Toolbar, Subnavb
 
 **This can be a breaking change** if you have custom bars colors, because in "translucent mode" it uses other CSS variables for that. So you can disable translucent bars and modals by disabling `iosTranslucentBars` and `iosTranslucentModals` app parameters.
 
-```
+```js
 var app = new Framework7({
   iosTranslucentBars: false,
   iosTranslucentModals: false,
-})
+});
 ```
 
 ## New Navbar Layout
@@ -195,9 +185,7 @@ Calendar got major improvements. Now it uses ECMAScript Internationalization API
 Also, it has new features:
 
 - New month picker functionality (clicking month name in toolbar will open month picker)
-
 - New year picker functionality (clicking year in toolbar will open year picker)
-
 - New time picker functionality (to select a time in addition to date)
 
 Check updated [Calendar Docs](https://framework7.io/docs/calendar.html) and demo video below that is using system-related date-time format with month, year and time pickers:
@@ -564,11 +552,8 @@ Official icons are really great designed and the collection is huge. We took mos
 Whole Framework7 Icons collection has grown from ~380 icons to 1200+ icons! Most of icons (that came from SF library) are renamed as they appear in SF Symbols. It can be not very clear now but should be fine when get used to it, for example:
 
 - `share` >`square_arrow_up`
-
 - `delete` > `minus`
-
 - `close` > `xmark`
-
 - `add` > `plus`
 
 **This can be a breaking change**, so take a look at new [Framework7 Icons Cheatsheet](https://framework7.io/icons/) and update your icons with new ones.
@@ -578,23 +563,16 @@ Whole Framework7 Icons collection has grown from ~380 icons to 1200+ icons! Most
 Framework7 CLI was also update with the following new features:
 
 - Generated app templates updated to Framework7 v5
-
 - Generated app templates updated to use Framework7 Icons v3
-
 - Update cordova `backbutton`handler. Now it will close opened modals (if available) or go back in navigation
-
 - Updated cordova-related scripts names, e.g. `build-cordova-dev`-> `build-dev-cordova`
-
 - Added alias `f7` for CLI command. Now we can run it like `f7 create --ui`
 
 CLI User Interface (`--ui`) updates:
 
 - Added new Text Editor to custom build settings
-
 - Added options to include/exclude Dark and Light themes in custom build
-
 - Added ability to import project setting from JSON file
-
 - Added ability to export project setting to JSON file
 
 ## Deprecating Templates
@@ -610,31 +588,20 @@ There are also a lot of minor improvements and fixes across whole Framework7. Fo
 As next steps it is recommended to check the following new and updated Framework7 v5 docs:
 
 - [Panel docs](https://framework7.io/docs/panel.html) — for new Panel APIs and usage
-
 - [Layout Grid docs](https://framework7.io/docs/grid.html) — for new responsive breakpoints reference
-
 - [Calendar docs](https://framework7.io/docs/calendar.html) — for new Internationalization based APIs
-
 - [Router Component docs](https://framework7.io/docs/router-component.html) — for all the new things about with mixins and custom components
-
 - [Custom Page Transitions docs](https://framework7.io/docs/view.html#custom-page-transitions) — to know how to use and create own custom page transitions
-
 - [Navbar docs](https://framework7.io/docs/navbar.html) — for reference to new Navbar layout and new styles
-
 - [Text Editor docs](https://framework7.io/docs/text-editor.html) — for new Rich Text Editor
-
 - [Swiper API](https://swiperjs.com/api/) — for new Swiper v5 API
-
 - [Framework7 Icons Cheatsheet](https://framework7.io/icons/) — for new v3 icons
 
 And docs in general:
 
 - [Framework7 Core documentation](http://framework7.io/docs/)
-
 - [Framework7-Vue documentation](http://framework7.io/vue/)
-
 - [Framework7-React documentation](http://framework7.io/react/)
-
 - [Framework7 Forum](http://forum.framework7.io/) — the best place to get F7 support.
 
 ## P.S.

@@ -25,10 +25,13 @@ pre[class*='language-'] {
     @apply my-8 h-[320px] w-full rounded-lg border border-border;
   }
   img {
-    @apply rounded-lg;
+    @apply mx-auto max-h-screen rounded-lg;
     + em {
       @apply -mt-6 mb-12 block text-center;
     }
+  }
+  blockquote {
+    @apply border-l-4 border-primary bg-[#412626] py-1.5 pr-3 pl-4 not-italic text-inherit;
   }
 }
 

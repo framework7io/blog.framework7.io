@@ -17,7 +17,7 @@ The **vi** component is built-in to v2 of Framework7. This allows you to easily 
 
 ## How does vi work?
 
-**vi** has a system directly connected to advertising sources around the world. Once the interstitial ads are installed into your app, vi's system will be notified, and run an ‘ad call'. If advertisers want to reach your audience, you'll begin to see commercials shown.
+**vi** has a system directly connected to advertising sources around the world. Once the interstitial ads are installed into your app, vi's system will be notified, and run an 'ad call'. If advertisers want to reach your audience, you'll begin to see commercials shown.
 
 **vi** provide a dashboard that you can login to to monitor and control the advertising campaigns in your app.
 
@@ -58,12 +58,11 @@ Ok, after we have placement created we need **placement ID:**
 After we set the things up at vi dashboard we will have:
 
 - App bundle id (e.g. `**io.framework7.testapp`\*\*)
-
 - Placement id (e.g. `**pltd4o7ibb9rc653x14`\*\*)
 
 Now when we have our **vi** placement id we may set it up in Framework7 on the app initialization:
 
-```
+```js
 `var app = new Framework7({
   /*
     common app bundle id must match the one
@@ -75,15 +74,15 @@ Now when we have our **vi** placement id we may set it up in Framework7 on the a
   vi: {
     placementId: 'pltd4o7ibb9rc653x14',
   },
-});`
+});`;
 ```
 
 ### 4. Show Ad
 
 That is all, now we can use Framework7's vi API to create and show ads. In simplest way just call the following method when you need to show an ad:
 
-```
-`app.vi.createAd();`
+```js
+`app.vi.createAd();`;
 ```
 
 ## What is Next

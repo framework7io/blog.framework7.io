@@ -39,10 +39,10 @@ All these Aurora demo layouts available in [Framework7 Recipes](https://github.c
 
 To enable Aurora theme we just need to specify `theme: 'aurora'` in app parameters:
 
-```
+```js
 new Framework7({
   theme: 'aurora',
-})
+});
 ```
 
 In case if we have `theme: 'auto'` Aurora will be enabled automatically only if app runs under [Electron](https://electronjs.org) environment.
@@ -62,20 +62,15 @@ In Framework7 Vue and React, and in Framework7 Router Components we use `this.$t
 In Framework7 Core html templates we used `if-ios`/`ios-only` and `if-md`/`md-only` classes on elements that were automatically removed (or hidden) if other theme in use. With Aurora release this set of classes expands to:
 
 - `if-ios` — element will be rendered only for iOS theme
-
 - `if-not-ios` — element will be removed/hidden for theme other than iOS
-
 - `if-md` — element will be rendered only for MD theme
-
 - `if-not-md` — element will be removed/hidden for theme other than MD
-
 - `if-aurora` — element will be rendered only for Aurora theme
-
 - `if-not-aurora` — element will be removed/hidden for theme other than Aurora
 
 So, in previous versions when we had only two themes, we used the following code to hide Navbar's back button text for MD theme:
 
-```
+```html
 <div class="navbar">
   <div class="navbar-inner sliding">
     <div class="left">
@@ -91,7 +86,7 @@ So, in previous versions when we had only two themes, we used the following code
 
 But now this code will also hide back button text in Aurora theme. So if we develop for Aurora theme too, we need to change it to:
 
-```
+```html
 <div class="navbar">
   <div class="navbar-inner sliding">
     <div class="left">
@@ -150,9 +145,7 @@ This release contains a lot more new micro features, fixes and improvements. Che
 As next steps it is recommended to check:
 
 - [Framework7 Aurora-updated docs](http://framework7.io/docs/)
-
 - [Framework7 Forum](http://forum.framework7.io) — the best place to get F7 support
-
 - New [Framework7 Recipes](https://github.com/framework7io/framework7-recipes) repository with new Aurora demo layouts
 
 ## P.S.

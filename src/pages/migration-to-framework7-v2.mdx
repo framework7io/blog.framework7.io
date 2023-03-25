@@ -20,37 +20,25 @@ First of all, new F7 has new JS & CSS assets structure.
 ### Stylesheets
 
 - now there is no more _separate_ "colors" stylesheet, all color themes are embedded now into main stylesheets
-
 - there is no more _additional_ RTL stylesheet that you added in addition to main stylesheet to enable RTL styles. Now it is _standalone_ stylesheet file that must be included instead of usual/ltr one
-
 - theme-related styles (for iOS theme and MD theme) are also now in main styles
 
 So here is the list of stylesheet files you will find in `/dist/css/` folder:
 
 - framework7.css — main styles bundle. Contains everything in default (LTR) direction: all color themes, iOS theme and MD theme
-
 - framework7.ios.css — contains iOS-only style. Useful only in case you develop app with only iOS theme
-
 - framework7.md.css — contains MD-only style. Useful only in case you develop app with only MD theme
-
 - framework7.rtl.css — RTL bundle. Contains everything in RTL direction: all color themes, iOS theme and MD theme
-
 - framework7.rtl.ios.css — RTL styles only for iOS theme. Useful only in case you develop RTL app with only iOS theme
-
 - framework7.rtl.md.css — RTL only for MD theme. Useful only in case you develop RTL app with only MD theme
 
 And same minified files:
 
 - framework7.min.css
-
 - framework7.md.min.css
-
 - framework7.ios.min.css
-
 - framework7.rtl.min.css
-
 - framework7.rtl.ios.min.css
-
 - framework7.rtl.md.min.css
 
 So if in v1 you have supported both iOS and MD themes you had conditional include of the `framework7.ios.css` + `framework7.ios.colors.css` + `framework7.material.css` + `framework7.material.colors.css`. Now you need to include only one stylesheet `framework7.css` (or its minified version).
@@ -62,7 +50,6 @@ If you used RTL layout with both themes, you had even more files included: `fram
 In terms of script files not much changed in case you included them via `<script>` attribute. There are same scripts you will find in `/dist/js/` folder:
 
 - framework7.js — Framework7 library with all its components
-
 - framework7.min.js — its minified version
 
 But if you included it using ES `import` then there are a lot of new things here, now Framework7 and all of its components available as ES modules, check the [Installation Docs](http://framework7.io/docs/installation.html#es-module)
@@ -71,17 +58,13 @@ But if you included it using ES `import` then there are a lot of new things here
 
 HTML layout of many components and main app layout is a bit changed. In v1 we had:
 
-```
+```html
 <body>
   <!-- Statusbar overlay -->
   <div class="statusbar-overlay"></div>
   <!-- Panels -->
-  <div class="panel panel-left">
-    ...
-  </div>
-  <div class="panel panel-right">
-    ...
-  </div>
+  <div class="panel panel-left">...</div>
+  <div class="panel panel-right">...</div>
   <!-- Views -->
   <div class="views">
     <!-- Your main view, should have "view-main" class -->
@@ -89,93 +72,77 @@ HTML layout of many components and main app layout is a bit changed. In v1 we ha
       <!-- Pages container, because we use fixed navbar and toolbar, it has additional appropriate classes-->
       <div class="pages navbar-through toolbar-fixed">
         <!-- Page, "data-page" contains page name -->
-        <div data-page="index" class="page">
-```
-
-```
-          <!-- Navbar -->
-          <div class="navbar">
-            <div class="navbar-inner">
-              <div class="center">Awesome App</div>
-            </div>
-          </div>
-```
-
-```
-          <!-- Toolbar -->
-          <div class="toolbar">
-            <div class="toolbar-inner">
-              <!-- Toolbar links -->
-              <a href="#" class="link">Link 1</a>
-              <a href="#" class="link">Link 2</a>
-            </div>
-          </div>
-```
-
-```
-          <!-- Scrollable page content -->
-          <div class="page-content">
-            <p>Page content goes here</p>
-            <!-- Link to another page -->
-            <a href="about.html">About app</a>
-          </div>
-        </div>
+        <div data-page="index" class="page"></div>
       </div>
     </div>
   </div>
-  ...
 </body>
+```
+
+```html
+<!-- Navbar -->
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="center">Awesome App</div>
+  </div>
+</div>
+```
+
+```html
+<!-- Toolbar -->
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <!-- Toolbar links -->
+    <a href="#" class="link">Link 1</a>
+    <a href="#" class="link">Link 2</a>
+  </div>
+</div>
+```
+
+```html
+<!-- Scrollable page content -->
+<div class="page-content">
+  <p>Page content goes here</p>
+  <!-- Link to another page -->
+  <a href="about.html">About app</a>
+</div>
 ```
 
 What we need to change here:
 
 - `statusbar-overlay` has been renamed to just `statusbar`. Check [Statusbar](http://framework7.io/docs/statusbar.html) docs
-
 - `views` element is not required anymore for single view app. It is only required for so called "Tabbed app layout" with multiple views-tabs. Check [App Layout](http://framework7.io/docs/app-layout.html) docs
-
 - `data-page` page's attribute renamed to `data-name` and also not required anymore
-
 - All navbar/toolbar related layout classes are gone and not used anymore`navbar-through`, `navbar-fixed`, `toolbar-through`, `toolbar-fixed`, etc. Check [Navbar](http://framework7.io/docs/navbar.html) and [Toolbar](http://framework7.io/docs/toolbar-tabbar.html) docs
-
 - `<div class="pages">` element that was used to wrap all view's pages is also gone and not needed anymore
-
 - It is now recommended to wrap an app into single root element, for example `<div id="#app"></div`
-
 - Navbar's `center` element renamed to `title`
 
 So in v2 we will have the following:
 
-```
+```html
 <body>
   <!-- App root -->
   <div id="app">
     <!-- Just "statusbar" now -->
     <div class="statusbar"></div>
     <!-- Panels -->
-    <div class="panel panel-left">
-      ...
-    </div>
-    <div class="panel panel-right">
-      ...
-    </div>
+    <div class="panel panel-left">...</div>
+    <div class="panel panel-right">...</div>
     <!-- No more views -->
     <div class="view view-main">
       <!-- No more "pages" element and navbar/toolbar related classes -->
       <!-- "data-page" renamed to "data-name" -->
       <div data-name="index" class="page">
         <!-- Navbar and Toolbar are always first elements in the page-->
-```
 
-```
         <!-- Navbar -->
         <div class="navbar">
           <div class="navbar-inner">
             <div class="title">Awesome App</div>
           </div>
         </div>
-```
 
-```
         <!-- Toolbar -->
         <div class="toolbar">
           <div class="toolbar-inner">
@@ -184,16 +151,14 @@ So in v2 we will have the following:
             <a href="#" class="link">Link 2</a>
           </div>
         </div>
-```
 
-```
         <!-- Scrollable page content -->
         <div class="page-content">
           <p>Page content goes here</p>
           <!-- Link to another page -->
           <a href="about.html">About app</a>
         </div>
-        </div>
+      </div>
     </div>
   </div>
   ...
@@ -211,34 +176,29 @@ One of the v1 pains was Dynamic Navbar structure, v1 required you to put it unde
 First of all, there is a new components API structure. All components that require initialization have new API now. For example in v1 to init/create component we had to call something like `app.[componentName](params)`, for example:
 
 - `app.popup(...)` — to create and open Popup
-
 - `app.virtualList(...)` — to create Virtual List
-
 - `app.calendar(...)` — to create Calendar
 
 In v2 all components API naming convention is new. It is now `app.[componentName].create(params)`, for example:
 
 - `app.popup.create(...)` — to create Popup instance
-
 - `app.virtualList.create(...)` — to create Virtual List
-
 - `app.calendar.create(...)` — to create Calendar
 
 All these `.create()` methods return initialized component instance with own methods, events and properties. For example:
 
-```
+```js
 var popup = app.popup.create(...);
 ```
 
-```
-*// open popup*
+```js
+// open popup
 popup.open();
 ```
 
 There are also new additional app methods for such components:
 
 - `app.[componentName].get(el)` — returns initialized component instance (with `.create`) by passed HTML element
-
 - `app.[componentName].destroy(el)` — destroys initialized component instance by passed HTML element
 
 And some components has additional app methods related to components. So if you use components with initialization then it is highly recommended to check their [documentation](http://framework7.io/docs/).
@@ -254,9 +214,7 @@ HTML layout structure of many components has been changed, renamed or simplified
 ### **Content Block**
 
 - Content Block. Content block element class changed from `content-block` to just `block`
-
 - Content block title element class changed from `content-block-title` to just `block-title`
-
 - `content-block-inner` element (for additional block highlighting) has beed removed and replaced with just an additional `block-strong` class on the block, so now it should be `<div class="block block-strong">...</div>`
 
 ### **Navbar**
@@ -267,11 +225,9 @@ HTML layout structure of many components has been changed, renamed or simplified
 
 Subnavbar content must be wrapped with additional `<div class="subnavbar-inner">...</div>` element:
 
-```
+```html
 <div class="subnavbar">
-  <div class="subnavbar-inner">
-    ... subnavbar links or buttons ...
-  </div>
+  <div class="subnavbar-inner">... subnavbar links or buttons ...</div>
 </div>
 ```
 
@@ -280,9 +236,7 @@ Subnavbar content must be wrapped with additional `<div class="subnavbar-inner">
 Form inputs layout that used in List View a bit changed:
 
 - List item's `item-content` element that contains form input must have additional `item-input` class. _In v1 "item-input" class was added to input element itself_
-
 - Input element itself must be wrapped with additional `<div class="item-input-wrap"></div>` element
-
 - Input label element now is `<div class="item-title item-label">` . In v1 it was `<div class="item-title label">`
 
 ```html
@@ -300,14 +254,14 @@ Form inputs layout that used in List View a bit changed:
 </li>
 ```
 
-```
+```html
 <!-- In v2 the same will be: -->
 <li class="item-content item-input">
   <div class="item-media">... icon/image here ...</div>
   <div class="item-inner">
     <div class="item-title item-label">Name</div>
     <div class="item-input-wrap">
-      <input type="text" name="name">
+      <input type="text" name="name" />
       <span class="input-clear-button"></span>
     </div>
   </div>
@@ -324,23 +278,23 @@ Well, Messages component has been fully reworked, so everything is new here from
 
 Searchbar has a bit changed layout:
 
-```
+```html
 <!-- In v1: -->
 <form class="searchbar">
   <div class="searchbar-input">
-    <input type="search" placeholder="Search">
+    <input type="search" placeholder="Search" />
     <a href="#" class="searchbar-clear"></a>
   </div>
   <a href="#" class="searchbar-cancel">Cancel</a>
 </form>
 ```
 
-```
+```html
 <!-- In v2: -->
 <form class="searchbar">
   <div class="searchbar-inner">
     <div class="searchbar-input-wrap">
-      <input type="search" placeholder="Search">
+      <input type="search" placeholder="Search" />
       <i class="searchbar-icon"></i>
       <span class="input-clear-button"></span>
     </div>
@@ -352,13 +306,9 @@ Searchbar has a bit changed layout:
 Where we can see:
 
 - new additional "search-inner" element to wrap searchbar content
-
 - "searchbar-input" renamed to "searchbar-input-wrap"
-
 - new seach icon
-
 - "searchbar-clear" renamed to "input-clear-button"
-
 - "searchbar-cancel" renamed to "searchbar-disable-button"
 
 And of course there is new API. Check the [Searchbar component](http://framework7.io/docs/searchbar.html) docs
@@ -367,14 +317,14 @@ And of course there is new API. Check the [Searchbar component](http://framework
 
 FAB layout and API is also changed to be more unified across iOS and MD themes and support new features, including fab position specific classes.
 
-```
+```html
 <!-- In v1 we had: -->
 <a href="#" class="floating-button">
   <i class="icon icon-plus"></i>
 </a>
 ```
 
-```
+```html
 <!-- Now in v2 it is: -->
 <div class="fab fab-right-bottom">
   <a href="#">
@@ -385,7 +335,7 @@ FAB layout and API is also changed to be more unified across iOS and MD themes a
 
 FAB Speed Dial comes with new layout as well:
 
-```
+```html
 <!-- In v1 it was: -->
 <div class="speed-dial">
   <a href="#" class="floating-button">
@@ -401,14 +351,14 @@ FAB Speed Dial comes with new layout as well:
 </div>
 ```
 
-```
+```html
 <!-- In v2 it has changed to: -->
 <div class="fab fab-right-bottom">
   <a href="#">
     <i class="icon icon-plus"></i>
     <i class="icon icon-close"></i>
   </a>
-    <!-- Speed Dial Actions -->
+  <!-- Speed Dial Actions -->
   <div class="fab-buttons fab-buttons-bottom">
     <a href="#">1</a>
     <a href="#">2</a>
@@ -424,7 +374,6 @@ In v1 there was a mess with Notification/Toast component, it was rendered simila
 In v2 such inconsistency removed and now there are two different components instead:
 
 - Notification — look like a system notifications on both iOS and MD themes
-
 - Toast — look like a Toast message on both iOS and MD themes
 
 So just check the [Notification](http://framework7.io/docs/notification.html) and [Toast](http://framework7.io/docs/toast.html) documentation on new API and usage examples
@@ -433,14 +382,14 @@ So just check the [Notification](http://framework7.io/docs/notification.html) an
 
 Checkboxes and radios used in List View now has new and unified layout for both iOS and MD themes:
 
-```
+```html
 <div class="list">
   <ul>
     <!-- Single checkbox item -->
     <li>
       <label class="item-checkbox item-content">
         <!-- Checkbox input -->
-        <input type="checkbox"/>
+        <input type="checkbox" />
         <!-- Checkbox icon -->
         <i class="icon icon-checkbox"></i>
         <div class="item-inner">
@@ -453,7 +402,7 @@ Checkboxes and radios used in List View now has new and unified layout for both 
     <li>
       <label class="item-radio item-content">
         <!-- Radio input -->
-        <input type="radio" name="my-radio" value="radio-1"/>
+        <input type="radio" name="my-radio" value="radio-1" />
         <!-- Radio icon -->
         <i class="icon icon-radio"></i>
         <div class="item-inner">
@@ -472,7 +421,6 @@ Checkboxes and radios used in List View now has new and unified layout for both 
 There is not much changes in Tabs:
 
 - Active tab HTML element class renamed from `active` to `tab-active`
-
 - API function to show tab changed from `app.showTab` to `app.tab.show`
 
 There are also some new features as Routable Tabs, so check the [Tabs](http://framework7.io/docs/tabs.html) documentation.
@@ -482,9 +430,7 @@ There are also some new features as Routable Tabs, so check the [Tabs](http://fr
 Just few changes here:
 
 - active button element class in Buttons Row/Segmented renamed from `active` to `button-active`
-
 - active tab link element class renamed from `active` to `tab-link-active`
-
 - Buttons Row now called Segmented, so`<div class="buttons">` renamed to `<div class="segmented">`
 
 Check the [Button](http://framework7.io/docs/button.html) and [Link](http://framework7.io/docs/link.html) components documentation for all changes and new features.
@@ -493,18 +439,18 @@ Check the [Button](http://framework7.io/docs/button.html) and [Link](http://fram
 
 Switch component in v1 has been renamed to Toggle, it has new HTML layout and now it must be initialized using JavaScript API or auto initialization:
 
-```
+```html
 <!-- In v1 -->
 <label class="label-switch">
-  <input type="checkbox">
+  <input type="checkbox" />
   <div class="checkbox"></div>
 </label>
 ```
 
-```
+```html
 <!-- In v2, with auto init -->
 <label class="toggle toggle-init">
-  <input type="checkbox">
+  <input type="checkbox" />
   <span class="toggle-icon"></span>
 </label>
 ```
@@ -519,13 +465,13 @@ As Switch/Toggle, Range Slider now uses JavaScript API and must be initialized m
 
 As you know there are so called control links in v1, that can trigger some components' actions, like open/close panel, popup, sortable, and other components. In v1 we could have something like:
 
-```
+```html
 <!-- Open/Close Panel -->
 <a href="#" class="open-panel">Open Panel</a>
 <a href="#" class="close-panel">Close Panel</a>
 ```
 
-```
+```html
 <!-- Open/Close Popup -->
 <a href="#" class="open-popup">Open Popup</a>
 <a href="#" class="close-popup">Close Popup</a>
@@ -533,13 +479,13 @@ As you know there are so called control links in v1, that can trigger some compo
 
 In v2 there are same links there only difference is that such additional classes naming convention has beed changed from `[action]-[component]` (open-panel, close-popup) to `[component]-[action]` . So the same in v2 will be:
 
-```
+```html
 <!-- Open/Close Panel -->
 <a href="#" class="panel-open">Open Panel</a>
 <a href="#" class="panel-close">Close Panel</a>
 ```
 
-```
+```html
 <!-- Open/Close Popup -->
 <a href="#" class="popup-open">Open Popup</a>
 <a href="#" class="popup-close">Close Popup</a>
@@ -552,13 +498,9 @@ You can find such links reference in related component documentation, e.g. [Cont
 Ajax API has been removed from built-in Dom7 library ($.ajax, $.get, $.post, $.getJSON) and moved under `app.request` method with same functionality and API:
 
 - `$.ajax(parameters)` -> `app.request(parameters)`
-
 - `$.get(...)` -> `app.request.get(...)`
-
 - `$.post(...)` -> `app.request.post(...)`
-
 - `$.getJSON(...)` -> `app.request.json(...)`
-
 - `$.ajaxSetup(...)` -> `app.request.setup(...)`
 
 ## Init App
@@ -567,7 +509,7 @@ In v1 we init app using `new Framework7` declaration and passing all possible pa
 
 So, if in v1 we had and app with such parameters:
 
-```
+```js
 var app = new Framework7({
   material: true, // enabled material theme
   cache: false,
@@ -590,10 +532,12 @@ var app = new Framework7({
 
 In v2 it will be :
 
-```
+```js
 var app = new Framework7({
   theme: 'md',
-  routes: [/* ... */],
+  routes: [
+    /* ... */
+  ],
   touch: {
     tapHold: true,
   },
@@ -642,10 +586,10 @@ In v2 thins are totally different. When we click a link (or use router's api to 
 
 So first of all, we must pass app routes on app init. For example:
 
-```
-*// Init App*
+```js
+// Init App
 var app = new Framework7({
-*  // Pass app routes on app init*
+  // Pass app routes on app init*
   routes: [
     {
       path: '/about/',
@@ -672,21 +616,15 @@ var app = new Framework7({
 What does it mean? According to routes specified above:
 
 - When we click on link with `/about/` href attribute, page will be loaded from `/pages/about.html` file
-
 - When we click on link with `/news/` href attribute, page will be loaded from `/pages/news.html` file
-
 - When we click on link with `/people/` href attribute, page will be loaded from `/pages/people.html` file as a Router Component
-
 - When we click on link with `/users/25/` href attribute, page will be loaded from `/pages/user.html` file as a Router Component and it will receive `userId: 25` route paremeter
 
 That was the basics. There is much more to learn about v2 Router. Here is what is recommended to read/check:
 
 - [Mastering Framework7 v2 Router](https://blog.framework7.io/mastering-v2-router-958ea2dbd24f) tutorial
-
 - [Routes documentation](http://framework7.io/docs/routes.html) — learn how to and where to specify Routes, all possible parameters and options
-
 - [Router Component documentation](http://framework7.io/docs/router-component.html) — learn what is Router Component and what is it for
-
 - [View / Router documentation](http://framework7.io/docs/view.html) — common Router settings and API
 
 ## What is Next?

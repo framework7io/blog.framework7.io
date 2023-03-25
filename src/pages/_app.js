@@ -21,14 +21,7 @@ export default function App({ Component, pageProps }) {
         <meta name="twitter:creator" content="@framework7io" />
         <meta name="twitter:description" content="Framework7 Blog" />
 
-        <link rel="shortcut icon" href="/images/favicon.png" />
-        <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
-        <link
-          rel="mask-icon"
-          sizes="any"
-          href="/images/favicon.svg"
-          color="#0080FF"
-        />
+        <link rel="shortcut icon" href="/favicon.png" />
       </Head>
       <Header />
       <main className="mx-auto max-w-screen-lg py-16 px-4 md:px-6 lg:px-8">

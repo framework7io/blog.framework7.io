@@ -109,13 +109,13 @@ And because of that it inherits all native Array.prototype methods, but at the s
 If in v5 we used, for example, `.each` method like this:
 
 ```js
-$('p').each((index, el) => {   *// ...* })
+$('p').each((index, el) => {   // ...* })
 ```
 
 Now, arguments of callback are swapped, and in Framework7 v6 it should be the following:
 
 ```js
-$('p').each((el, index) => {   *// ...* })
+$('p').each((el, index) => {   // ...* })
 ```
 
 ### Skeleton Elements

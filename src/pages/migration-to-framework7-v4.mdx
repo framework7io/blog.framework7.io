@@ -62,25 +62,21 @@ New documentation has reference for each component's CSS variables, like, for ex
 In both iOS and MD themes Toolbar / Tabbar can now be positioned on top or on bottom. And now it is always required to add position-specific class to each Toolbar/Tabbar:
 
 - `toolbar-top` to place Toolbar on top of view/page
-
 - `toolbar-bottom` to place Toolbar on bottom of view/page
 
 ## Buttons
 
 `big` button modifier renamed to `large` in v4:
 
-```
+```html
 <button class="button button-big">...</button>
 <f7-button big>...</f7-button>
-```
 
-```
 <!-- need to be changed to -->
-```
 
-```
 <button class="button button-large">
-<f7-button large>...</f7-button>
+  <f7-button large>...</f7-button>
+</button>
 ```
 
 All buttons modifiers (`raised`, `outline`, `fill`, `small`, `large`) now supported in both iOS and MD themes in same way. For example the "raised" button which worked only in MD theme before will become "raised" in iOS theme as well. So don't forget to tweak this behavior.
@@ -118,28 +114,19 @@ Framework7 v4 is intended to be used with Framework7 Icons v2. So if you use thi
 
 So if you have something like this (for example in Vue):
 
-```
+```html
 <f7-list-item>
   <f7-label>Name</f7-label>
-  <f7-input
-    type="text"
-    :value="userName"
-    placeholder="Your name"
-    [@input](http://twitter.com/input)="updateUserName"
-  />
+  <f7-input type="text" :value="userName" placeholder="Your name"
+  [@input](http://twitter.com/input)="updateUserName" />
 </f7-list-item>
 ```
 
 It needs to be changed to new single component:
 
-```
-<f7-list-input
-  label="Name"
-  type="text"
-  :value="userName"
-  placeholder="Your name"
-  [@input](http://twitter.com/input)="updateUserName"
-/>
+```html
+<f7-list-input label="Name" type="text" :value="userName" placeholder="Your
+name" [@input](http://twitter.com/input)="updateUserName" />
 ```
 
 ## This Is It
@@ -149,11 +136,8 @@ Yes, there is not so much breaking changes here, but there are a lot of new feat
 As next steps it is highly recommended to check all new Framework7 v4 docs and:
 
 - [Framework7 Core documentation](http://framework7.io/docs/)
-
 - [Framework7-Vue documentation](http://framework7.io/vue/)
-
 - [Framework7-React documentation](http://framework7.io/react/)
-
 - [Framework7 Forum](http://forum.framework7.io) — the best place to get F7 support.
 
 ## P.S.
