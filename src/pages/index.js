@@ -20,12 +20,13 @@ export default function Home(props) {
         {posts.map((post) => (
           <Link href={post.path} key={post.title} className="group relative">
             <div className="pointer-events-none absolute -left-4 -top-4 -right-4 -bottom-4 -z-10 rounded-2xl bg-surface-3 opacity-0 duration-200 group-hover:opacity-100" />
-            <div className="relative overflow-hidden rounded-xl bg-surface-1 pb-[60%]">
+            <div className="relative overflow-hidden rounded-xl border border-border bg-surface-1 pb-[60%]">
               {post.image && (
                 <img
-                  className="absolute left-0 top-0 h-full w-full object-cover duration-200 group-hover:scale-105"
+                  className="absolute left-0 top-0 h-full w-full  object-cover duration-200 group-hover:scale-105"
                   src={`/images/${post.image}`}
                   alt={post.title}
+                  loading="lazy"
                 />
               )}
             </div>
