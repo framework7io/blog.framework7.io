@@ -1,14 +1,33 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 export const PostLayout = (props) => {
   const { children, meta } = props;
   const { title, date, image } = meta;
+  const router = useRouter();
   const formatDate = (d) => {
     return Intl.DateTimeFormat('en-us', {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
     }).format(new Date(d));
+  };
+  const onClick = (e) => {
+    if (
+      e.target.closest('a') &&
+      e.target
+        .closest('a')
+        .getAttribute('href')
+        .startsWith('https://blog.framework7.io')
+    ) {
+      e.preventDefault();
+      router.push(
+        e.target
+          .closest('a')
+          .getAttribute('href')
+          .split('https://blog.framework7.io')[1]
+      );
+    }
   };
   return (
     <>
@@ -29,7 +48,7 @@ export const PostLayout = (props) => {
           </>
         )}
       </Head>
-      <div className="prose w-full max-w-none">
+      <div className="prose w-full max-w-none" onClick={onClick}>
         {image && (
           <img
             className="post-image !rounded-2xl border border-border"
