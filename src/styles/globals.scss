@@ -36,3 +36,84 @@ pre[class*='language-'] {
 }
 
 @import 'pre-code.scss';
+
+::view-transition-old(root) {
+  animation-name: view-out, view-out-opacity;
+}
+::view-transition-new(root) {
+  animation-name: view-in, view-in-opacity;
+}
+
+@keyframes view-out {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+@keyframes view-out-opacity {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes view-in {
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    transform: translate3d(0%, 0, 0);
+  }
+}
+@keyframes view-in-opacity {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+header {
+  view-transition-name: header;
+}
+.post-image {
+  view-transition-name: post-image;
+}
+.post-date {
+  view-transition-name: post-date;
+}
+.prose h1 {
+  view-transition-name: post-title;
+  width: fit-content;
+}
+.post-content {
+  // view-transition-name: post-content;
+}
+
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-group(post-image),
+::view-transition-image-pair(post-image),
+::view-transition-old(post-image),
+::view-transition-new(post-image),
+::view-transition-group(post-title),
+::view-transition-image-pair(post-title),
+::view-transition-old(post-title),
+::view-transition-new(post-title),
+::view-transition-group(post-date),
+::view-transition-image-pair(post-date),
+::view-transition-old(post-date),
+::view-transition-new(post-date) {
+  animation-duration: 800ms !important;
+  animation-timing-function: cubic-bezier(0, 1, 0.2, 1);
+}

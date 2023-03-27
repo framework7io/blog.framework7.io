@@ -4,9 +4,10 @@ import { Footer } from '@/components/Footer';
 import Head from 'next/head';
 import '@/styles/globals.scss';
 
+let lastEventCalled = 0;
 export default function App({ Component, pageProps }) {
   const meta = Component.layoutProps?.meta || {};
-  const title = meta.metaTitle || meta.title || 'Framework7 Blog';
+
   return (
     <>
       <Head>

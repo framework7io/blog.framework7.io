@@ -27,7 +27,7 @@ export const Header = () => {
     return <li className="!my-3 block h-px bg-border"></li>;
   };
   return (
-    <header className="relative z-50 flex h-16 items-center justify-between bg-surface-2 px-4 lg:px-6">
+    <header className="sticky top-0 z-50 flex h-16 transform-gpu items-center justify-between bg-surface-2 px-4 lg:px-6">
       <Link href="/" className="flex items-center space-x-2">
         <img className="h-12 w-12" src="/logo.svg" alt="framework7" />
         <span className="text-2xl font-semibold text-white">Blog</span>

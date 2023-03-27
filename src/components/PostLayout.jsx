@@ -32,16 +32,16 @@ export const PostLayout = (props) => {
       <div className="prose w-full max-w-none">
         {image && (
           <img
-            className="!rounded-2xl border border-border"
+            className="post-image !rounded-2xl border border-border"
             src={`/images/${image}`}
           />
         )}
         {date && (
-          <div className="mb-2 text-sm text-on-surface-variant text-opacity-75">
+          <div className="post-date mb-2 text-sm text-on-surface-variant text-opacity-75">
             {formatDate(date)}
           </div>
         )}
-        {children}
+        <div className="post-content">{children}</div>
       </div>
     </>
   );
