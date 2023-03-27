@@ -11,6 +11,8 @@ let previousScrollTop;
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   const promiseResolve = useRef(null);
+  const routeChangeStartTime = useRef(null);
+  const routeChangeCompleteTime = useRef(null);
 
   const setElements = (thumbEl) => {
     if (!thumbEl) return;
@@ -31,21 +33,33 @@ export default function App({ Component, pageProps }) {
 
   const onRouteChangeStart = (toUrl) => {
     if (!document.startViewTransition) return;
+    routeChangeStartTime.current = new Date().getTime();
     if (router.asPath === '/') {
       const thumbEl = document.querySelector(`.post-thumb[href="${toUrl}"]`);
       previousScrollTop = window.scrollY;
       unsetElements();
       setElements(thumbEl);
     }
-    document.startViewTransition(async () => {
-      await new Promise((resolve) => {
-        promiseResolve.current = () => resolve();
+    document.startViewTransition(() => {
+      const currentTime = new Date().getTime();
+      return new Promise((resolve) => {
+        if (
+          currentTime > routeChangeStartTime.current &&
+          currentTime > routeChangeCompleteTime.current
+        ) {
+          setTimeout(() => {
+            resolve();
+          });
+        } else {
+          promiseResolve.current = () => resolve();
+        }
       });
     });
   };
 
   const onRouteChangeComplete = (toUrl) => {
     if (!document.startViewTransition) return;
+    routeChangeCompleteTime.current = new Date().getTime();
     if (router.asPath !== '/') {
       const thumbEl = document.querySelector(
         `.post-thumb[href="${router.asPath}"]`
