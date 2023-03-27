@@ -4,6 +4,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+}
+
 body {
   font-family: Inter, -apple-system, system-ui, Helvetica Neue, Helvetica, Arial,
     sans-serif;
@@ -38,20 +43,12 @@ pre[class*='language-'] {
 @import 'pre-code.scss';
 
 ::view-transition-old(root) {
-  animation-name: view-out, view-out-opacity;
+  animation-name: view-out-opacity;
 }
 ::view-transition-new(root) {
   animation-name: view-in, view-in-opacity;
 }
 
-@keyframes view-out {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-100%, 0, 0);
-  }
-}
 @keyframes view-out-opacity {
   0% {
     opacity: 1;
@@ -95,9 +92,6 @@ header {
 .prose h1 {
   view-transition-name: post-title;
   width: fit-content;
-}
-.post-content {
-  // view-transition-name: post-content;
 }
 
 ::view-transition-old(root),

@@ -3,10 +3,78 @@ import { Footer } from '@/components/Footer';
 // eslint-disable-next-line
 import Head from 'next/head';
 import '@/styles/globals.scss';
+import { useRouter } from 'next/router';
+import { useEffect, useRef } from 'react';
 
-let lastEventCalled = 0;
+let previousScrollTop;
+
 export default function App({ Component, pageProps }) {
-  const meta = Component.layoutProps?.meta || {};
+  const router = useRouter();
+  const promiseResolve = useRef(null);
+
+  const setElements = (thumbEl) => {
+    if (!thumbEl) return;
+    thumbEl.querySelector('.post-thumb-image').style.viewTransitionName =
+      'post-image';
+    thumbEl.querySelector('.post-thumb-title').style.viewTransitionName =
+      'post-title';
+    thumbEl.querySelector('.post-thumb-date').style.viewTransitionName =
+      'post-date';
+  };
+  const unsetElements = () => {
+    document.querySelectorAll('.post-thumb').forEach((el) => {
+      el.querySelector('.post-thumb-image').style.viewTransitionName = '';
+      el.querySelector('.post-thumb-title').style.viewTransitionName = '';
+      el.querySelector('.post-thumb-date').style.viewTransitionName = '';
+    });
+  };
+
+  const onRouteChangeStart = (toUrl) => {
+    if (!document.startViewTransition) return;
+    if (router.asPath === '/') {
+      const thumbEl = document.querySelector(`.post-thumb[href="${toUrl}"]`);
+      previousScrollTop = window.scrollY;
+      unsetElements();
+      setElements(thumbEl);
+    }
+    document.startViewTransition(async () => {
+      await new Promise((resolve) => {
+        promiseResolve.current = () => resolve();
+      });
+    });
+  };
+
+  const onRouteChangeComplete = (toUrl) => {
+    if (!document.startViewTransition) return;
+    if (router.asPath !== '/') {
+      const thumbEl = document.querySelector(
+        `.post-thumb[href="${router.asPath}"]`
+      );
+      if (thumbEl) {
+        if (previousScrollTop) {
+          window.scrollTo(0, previousScrollTop);
+        } else {
+          const { y } = thumbEl.getBoundingClientRect();
+          window.scrollTo(0, y - 64 - 16);
+        }
+      }
+      setElements(thumbEl);
+    }
+
+    if (promiseResolve.current) {
+      promiseResolve.current();
+      promiseResolve.current = null;
+    }
+  };
+
+  useEffect(() => {
+    router.events.on('routeChangeStart', onRouteChangeStart);
+    router.events.on('routeChangeComplete', onRouteChangeComplete);
+    return () => {
+      router.events.off('routeChangeStart', onRouteChangeStart);
+      router.events.off('routeChangeComplete', onRouteChangeComplete);
+    };
+  });
 
   return (
     <>
