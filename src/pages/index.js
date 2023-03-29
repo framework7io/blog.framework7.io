@@ -52,10 +52,12 @@ export async function getStaticProps(context) {
     .readdirSync('./src/pages')
     .filter((f) => f.includes('.mdx'))
     .map((f) => {
+      const content = fs.readFileSync(`./src/pages/${f}`, 'utf-8');
       const data = {
         path: `/${f.split('.mdx')[0]}`,
+        published: true,
       };
-      fs.readFileSync(`./src/pages/${f}`, 'utf-8')
+      content
         .split('export const meta = {')[1]
         .split('}')[0]
         .trim()
@@ -70,9 +72,13 @@ export async function getStaticProps(context) {
           if (line.includes('date:')) {
             data.date = line.split(`date: '`)[1].split(`'`)[0];
           }
+          if (line.includes('published:')) {
+            data.published = !line.includes('published: false');
+          }
         });
       return data;
-    });
+    })
+    .filter((d) => d.published);
   posts.sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
   });
