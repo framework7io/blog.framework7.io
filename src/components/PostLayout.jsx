@@ -1,13 +1,35 @@
 import { useAnimations } from '@/shared/useAnimations';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useEffect, useState, useRef } from 'react';
 
 export const PostLayout = (props) => {
   const { children, meta } = props;
   const { title, date, image } = meta;
   const router = useRouter();
+  const contentEl = useRef(null);
+  const [titles, setTitles] = useState([]);
+
+  useEffect(() => {
+    if (contentEl.current) {
+      const titleEls = [...contentEl.current.querySelectorAll('h2')].map(
+        (el) => {
+          return {
+            text: el.textContent,
+            el: el,
+          };
+        }
+      );
+      setTitles([...titleEls]);
+    }
+  }, []);
 
   useAnimations();
+
+  const onTitleClick = (e, title) => {
+    e.preventDefault();
+    title.el.scrollIntoView();
+  };
 
   const formatDate = (d) => {
     return Intl.DateTimeFormat('en-us', {
@@ -43,20 +65,40 @@ export const PostLayout = (props) => {
           <>
             <meta
               property="og:image"
-              content={`https://blog.framework7.io/images/${image}`}
+              content={`https://blog.framework7.io/${image}`}
             />
             <meta
               name="twitter:image"
-              content={`https://blog.framework7.io/images/${image}`}
+              content={`https://blog.framework7.io/${image}`}
             />
           </>
         )}
       </Head>
+
+      {titles.length && (
+        <div className="post-index fixed right-0 top-16 hidden h-[calc(100vh-64px)] w-[calc((100vw-1024px)/2)] max-w-[256px] overflow-auto pt-16 pr-4 pb-16 xl:block">
+          <div className="mb-3 text-sm font-bold text-on-surface">
+            On this page
+          </div>
+          <ul className="text-sm">
+            {titles.map((title) => (
+              <li className="my-2" key={title.text}>
+                <a
+                  className="cursor-pointer text-secondary hover:text-primary"
+                  onClick={(e) => onTitleClick(e, title)}
+                >
+                  {title.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <div className="prose w-full max-w-none" onClick={onClick}>
         {image && (
           <img
             className="post-image !rounded-2xl border border-border"
-            src={`/images/${image}`}
+            src={`${image}`}
           />
         )}
         {date && (
@@ -64,7 +106,9 @@ export const PostLayout = (props) => {
             {formatDate(date)}
           </div>
         )}
-        <div className="post-content">{children}</div>
+        <div className="post-content" ref={contentEl}>
+          {children}
+        </div>
       </div>
     </>
   );

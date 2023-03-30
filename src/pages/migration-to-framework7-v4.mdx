@@ -2,7 +2,7 @@ import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Migration To Framework7 v4',
   date: '2019-02-11T13:01:06.000Z',
-  image: 'migration-to-framework7-v4.png',
+  image: '/images/migration-to-framework7-v4.png',
 };
 
 # Migration To Framework7 v4
@@ -55,7 +55,7 @@ framework7.md.rtl.css
 
 This is the most significant and most complex part of new update. All CSS styles were reworked to use [CSS Variables (Custom Properties)](https://developer.mozilla.org/docs/Web/CSS/Using_CSS_variables). It shouldn't break any default styles that were in v3. But if you have a lot of custom styles, then some of them may become invalid. In v4, it is recommended to do custom styling with CSS Custom properties.
 
-New documentation has reference for each component's CSS variables, like, for example, on this [Button CSS variables docs](http://framework7.io/docs/button.html#css-variables). There is also [reference of all available CSS variables](http://framework7.io/docs/css-variables.html).
+New documentation has reference for each component's CSS variables, like, for example, on this [Button CSS variables docs](https://framework7.io/docs/button.html#css-variables). There is also [reference of all available CSS variables](https://framework7.io/docs/css-variables.html).
 
 ## Unified Toolbars Position
 
@@ -98,7 +98,7 @@ no-ios-left-edge -> no-safe-area-left
 no-ios-right-edge -> no-safe-area-right
 ```
 
-You can read more about these classes in [Safe Areas documentation](http://framework7.io/docs/safe-areas.html).
+You can read more about these classes in [Safe Areas documentation](https://framework7.io/docs/safe-areas.html).
 
 ## Unified Navigation Bars Styling
 
@@ -118,7 +118,7 @@ So if you have something like this (for example in Vue):
 <f7-list-item>
   <f7-label>Name</f7-label>
   <f7-input type="text" :value="userName" placeholder="Your name"
-  [@input](http://twitter.com/input)="updateUserName" />
+  [@input](https://twitter.com/input)="updateUserName" />
 </f7-list-item>
 ```
 
@@ -126,7 +126,7 @@ It needs to be changed to new single component:
 
 ```html
 <f7-list-input label="Name" type="text" :value="userName" placeholder="Your
-name" [@input](http://twitter.com/input)="updateUserName" />
+name" [@input](https://twitter.com/input)="updateUserName" />
 ```
 
 ## This Is It
@@ -135,10 +135,10 @@ Yes, there is not so much breaking changes here, but there are a lot of new feat
 
 As next steps it is highly recommended to check all new Framework7 v4 docs and:
 
-- [Framework7 Core documentation](http://framework7.io/docs/)
-- [Framework7-Vue documentation](http://framework7.io/vue/)
-- [Framework7-React documentation](http://framework7.io/react/)
-- [Framework7 Forum](http://forum.framework7.io) — the best place to get F7 support.
+- [Framework7 Core documentation](https://framework7.io/docs/)
+- [Framework7-Vue documentation](https://framework7.io/vue/)
+- [Framework7-React documentation](https://framework7.io/react/)
+- [Framework7 Forum](https://forum.framework7.io) - the best place to get F7 support.
 
 ## P.S.
 

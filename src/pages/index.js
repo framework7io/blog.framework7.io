@@ -18,19 +18,20 @@ export default function Home(props) {
       <Head>
         <title>Framework7 Blog</title>
       </Head>
-      <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
+      <div className="space-y-16 md:grid md:grid-cols-2 md:gap-16 md:space-y-0">
         {posts.map((post) => (
           <Link
             href={post.path}
             key={post.title}
-            className="post-thumb group relative"
+            style={{ gridColumn: post.featured ? '1 / span 2' : 'auto' }}
+            className={`post-thumb group relative block`}
           >
             <div className="pointer-events-none absolute -left-4 -top-4 -right-4 -bottom-4 -z-10 rounded-2xl bg-surface-3 opacity-0 duration-200 group-hover:opacity-100" />
             <div className="post-thumb-image relative overflow-hidden rounded-xl border border-border bg-surface-1 pb-[60%]">
               {post.image && (
                 <img
                   className="absolute left-0 top-0 h-full w-full  object-cover duration-200 group-hover:scale-105"
-                  src={`/images/${post.image}`}
+                  src={`${post.image}`}
                   alt={post.title}
                   loading="lazy"
                 />
@@ -76,6 +77,9 @@ export async function getStaticProps(context) {
           }
           if (line.includes('published:')) {
             data.published = !line.includes('published: false');
+          }
+          if (line.includes('featured: true')) {
+            data.featured = true;
           }
         });
       return data;

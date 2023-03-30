@@ -2,12 +2,12 @@ import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Superpowered Router Components in Framework7 3.1.0',
   date: '2018-07-26T08:37:33.000Z',
-  image: 'superpowered-router-components-in-framework7-3-1-0.png',
+  image: '/images/superpowered-router-components-in-framework7-3-1-0.png',
 };
 
 # Superpowered Router Components in Framework7 3.1.0
 
-We all love [Router Components](http://framework7.io/docs/router-component.html) in core Framework7 library. They help structure our apps better, keep things in appropriate place, and make many things quicker and in a more clear and comfortable way.
+We all love [Router Components](https://framework7.io/docs/router-component.html) in core Framework7 library. They help structure our apps better, keep things in appropriate place, and make many things quicker and in a more clear and comfortable way.
 
 But there was one feature that was really missing. It is auto re-rendering (layout update) when we update component state (data). Which is especially useful when we request component data asynchronously like with XHR request.
 
@@ -83,7 +83,7 @@ But what if we request user data later, after page was already rendered:
         var self = this;
         var app = self.$app;
         // request user data on page init
-        app.request.get('http://api.website.com/get-user-profile', (user) => {
+        app.request.get('https://api.website.com/get-user-profile', (user) => {
           // update component state user with new user
           self.user = user;
         });
@@ -149,7 +149,7 @@ Now let's look again at that user profile component that will auto update layout
         var self = this;
         var app = self.$app;
         // request user data on page init
-        app.request.get('http://api.website.com/get-user-profile', (user) => {
+        app.request.get('https://api.website.com/get-user-profile', (user) => {
           // update component state with new state
           self.$setState({
             user: user,
@@ -165,7 +165,7 @@ Noticed that `self.$setState()` method we call in previous example to update com
 
 ## `$setState`
 
-`.$setState()` — is the new component method where you pass `mergeState` object that will be merged with current component state. It is the method that tells to component that its state has been changed and it must be rerendered. It launches the process of VDOM comparison and patching of necessary elements and attributes in real DOM.
+`.$setState()` - is the new component method where you pass `mergeState` object that will be merged with current component state. It is the method that tells to component that its state has been changed and it must be rerendered. It launches the process of VDOM comparison and patching of necessary elements and attributes in real DOM.
 
 Such mechanism is similar to React's approach and its `setState()` method. It allows to control rendering and avoid unnecessary renders.
 

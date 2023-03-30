@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }) {
         <link rel="shortcut icon" href="/favicon.png" />
       </Head>
       <Header />
-      <main className="mx-auto max-w-screen-lg py-16 px-4 md:px-6 lg:px-8">
+      <main className="relative mx-auto max-w-screen-lg py-16 px-4 md:px-6 lg:px-8">
         <Component {...pageProps} />
       </main>
       <Footer />

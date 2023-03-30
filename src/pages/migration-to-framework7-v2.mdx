@@ -2,7 +2,7 @@ import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Migration To Framework7 v2',
   date: '2018-01-12T14:00:14.000Z',
-  image: 'migration-to-framework7-v2.png',
+  image: '/images/migration-to-framework7-v2.png',
 };
 
 # Migration To Framework7 v2
@@ -25,12 +25,12 @@ First of all, new F7 has new JS & CSS assets structure.
 
 So here is the list of stylesheet files you will find in `/dist/css/` folder:
 
-- framework7.css — main styles bundle. Contains everything in default (LTR) direction: all color themes, iOS theme and MD theme
-- framework7.ios.css — contains iOS-only style. Useful only in case you develop app with only iOS theme
-- framework7.md.css — contains MD-only style. Useful only in case you develop app with only MD theme
-- framework7.rtl.css — RTL bundle. Contains everything in RTL direction: all color themes, iOS theme and MD theme
-- framework7.rtl.ios.css — RTL styles only for iOS theme. Useful only in case you develop RTL app with only iOS theme
-- framework7.rtl.md.css — RTL only for MD theme. Useful only in case you develop RTL app with only MD theme
+- framework7.css - main styles bundle. Contains everything in default (LTR) direction: all color themes, iOS theme and MD theme
+- framework7.ios.css - contains iOS-only style. Useful only in case you develop app with only iOS theme
+- framework7.md.css - contains MD-only style. Useful only in case you develop app with only MD theme
+- framework7.rtl.css - RTL bundle. Contains everything in RTL direction: all color themes, iOS theme and MD theme
+- framework7.rtl.ios.css - RTL styles only for iOS theme. Useful only in case you develop RTL app with only iOS theme
+- framework7.rtl.md.css - RTL only for MD theme. Useful only in case you develop RTL app with only MD theme
 
 And same minified files:
 
@@ -49,10 +49,10 @@ If you used RTL layout with both themes, you had even more files included: `fram
 
 In terms of script files not much changed in case you included them via `<script>` attribute. There are same scripts you will find in `/dist/js/` folder:
 
-- framework7.js — Framework7 library with all its components
-- framework7.min.js — its minified version
+- framework7.js - Framework7 library with all its components
+- framework7.min.js - its minified version
 
-But if you included it using ES `import` then there are a lot of new things here, now Framework7 and all of its components available as ES modules, check the [Installation Docs](http://framework7.io/docs/installation.html#es-module)
+But if you included it using ES `import` then there are a lot of new things here, now Framework7 and all of its components available as ES modules, check the [Installation Docs](https://framework7.io/docs/installation.html#es-module)
 
 ## App HTML Layout
 
@@ -110,10 +110,10 @@ HTML layout of many components and main app layout is a bit changed. In v1 we ha
 
 What we need to change here:
 
-- `statusbar-overlay` has been renamed to just `statusbar`. Check [Statusbar](http://framework7.io/docs/statusbar.html) docs
-- `views` element is not required anymore for single view app. It is only required for so called "Tabbed app layout" with multiple views-tabs. Check [App Layout](http://framework7.io/docs/app-layout.html) docs
+- `statusbar-overlay` has been renamed to just `statusbar`. Check [Statusbar](https://framework7.io/docs/statusbar.html) docs
+- `views` element is not required anymore for single view app. It is only required for so called "Tabbed app layout" with multiple views-tabs. Check [App Layout](https://framework7.io/docs/app-layout.html) docs
 - `data-page` page's attribute renamed to `data-name` and also not required anymore
-- All navbar/toolbar related layout classes are gone and not used anymore`navbar-through`, `navbar-fixed`, `toolbar-through`, `toolbar-fixed`, etc. Check [Navbar](http://framework7.io/docs/navbar.html) and [Toolbar](http://framework7.io/docs/toolbar-tabbar.html) docs
+- All navbar/toolbar related layout classes are gone and not used anymore`navbar-through`, `navbar-fixed`, `toolbar-through`, `toolbar-fixed`, etc. Check [Navbar](https://framework7.io/docs/navbar.html) and [Toolbar](https://framework7.io/docs/toolbar-tabbar.html) docs
 - `<div class="pages">` element that was used to wrap all view's pages is also gone and not needed anymore
 - It is now recommended to wrap an app into single root element, for example `<div id="#app"></div`
 - Navbar's `center` element renamed to `title`
@@ -175,15 +175,15 @@ One of the v1 pains was Dynamic Navbar structure, v1 required you to put it unde
 
 First of all, there is a new components API structure. All components that require initialization have new API now. For example in v1 to init/create component we had to call something like `app.[componentName](params)`, for example:
 
-- `app.popup(...)` — to create and open Popup
-- `app.virtualList(...)` — to create Virtual List
-- `app.calendar(...)` — to create Calendar
+- `app.popup(...)` - to create and open Popup
+- `app.virtualList(...)` - to create Virtual List
+- `app.calendar(...)` - to create Calendar
 
 In v2 all components API naming convention is new. It is now `app.[componentName].create(params)`, for example:
 
-- `app.popup.create(...)` — to create Popup instance
-- `app.virtualList.create(...)` — to create Virtual List
-- `app.calendar.create(...)` — to create Calendar
+- `app.popup.create(...)` - to create Popup instance
+- `app.virtualList.create(...)` - to create Virtual List
+- `app.calendar.create(...)` - to create Calendar
 
 All these `.create()` methods return initialized component instance with own methods, events and properties. For example:
 
@@ -198,10 +198,10 @@ popup.open();
 
 There are also new additional app methods for such components:
 
-- `app.[componentName].get(el)` — returns initialized component instance (with `.create`) by passed HTML element
-- `app.[componentName].destroy(el)` — destroys initialized component instance by passed HTML element
+- `app.[componentName].get(el)` - returns initialized component instance (with `.create`) by passed HTML element
+- `app.[componentName].destroy(el)` - destroys initialized component instance by passed HTML element
 
-And some components has additional app methods related to components. So if you use components with initialization then it is highly recommended to check their [documentation](http://framework7.io/docs/).
+And some components has additional app methods related to components. So if you use components with initialization then it is highly recommended to check their [documentation](https://framework7.io/docs/).
 
 ## New/Reworked Components Layout
 
@@ -268,11 +268,11 @@ Form inputs layout that used in List View a bit changed:
 </li>
 ```
 
-And now all input labels are stacked by default (not inline like in v1), there are also a lot of new additional elements and configuration for input elements. Check the [Form Inputs](http://framework7.io/docs/inputs.html) docs for more info
+And now all input labels are stacked by default (not inline like in v1), there are also a lot of new additional elements and configuration for input elements. Check the [Form Inputs](https://framework7.io/docs/inputs.html) docs for more info
 
 ### Messages
 
-Well, Messages component has been fully reworked, so everything is new here from html layout to API. So it is worth to check [Messages](http://framework7.io/docs/messages.html) docs
+Well, Messages component has been fully reworked, so everything is new here from html layout to API. So it is worth to check [Messages](https://framework7.io/docs/messages.html) docs
 
 ### Searchbar
 
@@ -311,7 +311,7 @@ Where we can see:
 - "searchbar-clear" renamed to "input-clear-button"
 - "searchbar-cancel" renamed to "searchbar-disable-button"
 
-And of course there is new API. Check the [Searchbar component](http://framework7.io/docs/searchbar.html) docs
+And of course there is new API. Check the [Searchbar component](https://framework7.io/docs/searchbar.html) docs
 
 ### Floating Action Button (FAB)
 
@@ -373,10 +373,10 @@ In v1 there was a mess with Notification/Toast component, it was rendered simila
 
 In v2 such inconsistency removed and now there are two different components instead:
 
-- Notification — look like a system notifications on both iOS and MD themes
-- Toast — look like a Toast message on both iOS and MD themes
+- Notification - look like a system notifications on both iOS and MD themes
+- Toast - look like a Toast message on both iOS and MD themes
 
-So just check the [Notification](http://framework7.io/docs/notification.html) and [Toast](http://framework7.io/docs/toast.html) documentation on new API and usage examples
+So just check the [Notification](https://framework7.io/docs/notification.html) and [Toast](https://framework7.io/docs/toast.html) documentation on new API and usage examples
 
 ### Checkbox/Radio
 
@@ -423,7 +423,7 @@ There is not much changes in Tabs:
 - Active tab HTML element class renamed from `active` to `tab-active`
 - API function to show tab changed from `app.showTab` to `app.tab.show`
 
-There are also some new features as Routable Tabs, so check the [Tabs](http://framework7.io/docs/tabs.html) documentation.
+There are also some new features as Routable Tabs, so check the [Tabs](https://framework7.io/docs/tabs.html) documentation.
 
 ### Buttons & Links
 
@@ -433,7 +433,7 @@ Just few changes here:
 - active tab link element class renamed from `active` to `tab-link-active`
 - Buttons Row now called Segmented, so`<div class="buttons">` renamed to `<div class="segmented">`
 
-Check the [Button](http://framework7.io/docs/button.html) and [Link](http://framework7.io/docs/link.html) components documentation for all changes and new features.
+Check the [Button](https://framework7.io/docs/button.html) and [Link](https://framework7.io/docs/link.html) components documentation for all changes and new features.
 
 ### Switch/Toggle
 
@@ -455,11 +455,11 @@ Switch component in v1 has been renamed to Toggle, it has new HTML layout and no
 </label>
 ```
 
-It is worth to check new [Toggle component](http://framework7.io/docs/toggle.html) documentation about all features and new API
+It is worth to check new [Toggle component](https://framework7.io/docs/toggle.html) documentation about all features and new API
 
 ### Range Slider
 
-As Switch/Toggle, Range Slider now uses JavaScript API and must be initialized manually or automatically in order to work. It has much better support than the older one which was just styled input:range, it has much more new features including dual-range support. Just check [Range Slider documentation ](http://framework7.io/docs/range-slider.html)on how to use it now.
+As Switch/Toggle, Range Slider now uses JavaScript API and must be initialized manually or automatically in order to work. It has much better support than the older one which was just styled input:range, it has much more new features including dual-range support. Just check [Range Slider documentation ](https://framework7.io/docs/range-slider.html)on how to use it now.
 
 ## Control Links
 
@@ -491,7 +491,7 @@ In v2 there are same links there only difference is that such additional classes
 <a href="#" class="popup-close">Close Popup</a>
 ```
 
-You can find such links reference in related component documentation, e.g. [Control Panel With Links](http://framework7.io/docs/panel.html#control-panel-with-links), [Control Popup With Links](http://framework7.io/docs/popup.html#control-popup-with-links), etc.
+You can find such links reference in related component documentation, e.g. [Control Panel With Links](https://framework7.io/docs/panel.html#control-panel-with-links), [Control Popup With Links](https://framework7.io/docs/popup.html#control-popup-with-links), etc.
 
 ## Request/Ajax API
 
@@ -574,7 +574,7 @@ var app = new Framework7({
 });
 ```
 
-Common app parameters like `theme` in the above example can be found in [App Parameters](http://framework7.io/docs/app.html#app-parameters) documentation. Components related parameters can be found on each component page: [Popup](http://framework7.io/docs/popup.html#popup-parameters), [Navbar](http://framework7.io/docs/navbar.html#navbar-app-parameters), [View](http://framework7.io/docs/view.html#view-parameters), [Panel](http://framework7.io/docs/panel.html#panel-app-parameters), etc.
+Common app parameters like `theme` in the above example can be found in [App Parameters](https://framework7.io/docs/app.html#app-parameters) documentation. Components related parameters can be found on each component page: [Popup](https://framework7.io/docs/popup.html#popup-parameters), [Navbar](https://framework7.io/docs/navbar.html#navbar-app-parameters), [View](https://framework7.io/docs/view.html#view-parameters), [Panel](https://framework7.io/docs/panel.html#panel-app-parameters), etc.
 
 ## Router & Routes
 
@@ -623,13 +623,13 @@ What does it mean? According to routes specified above:
 That was the basics. There is much more to learn about v2 Router. Here is what is recommended to read/check:
 
 - [Mastering Framework7 v2 Router](https://blog.framework7.io/mastering-v2-router) tutorial
-- [Routes documentation](http://framework7.io/docs/routes.html) — learn how to and where to specify Routes, all possible parameters and options
-- [Router Component documentation](http://framework7.io/docs/router-component.html) — learn what is Router Component and what is it for
-- [View / Router documentation](http://framework7.io/docs/view.html) — common Router settings and API
+- [Routes documentation](https://framework7.io/docs/routes.html) - learn how to and where to specify Routes, all possible parameters and options
+- [Router Component documentation](https://framework7.io/docs/router-component.html) - learn what is Router Component and what is it for
+- [View / Router documentation](https://framework7.io/docs/view.html) - common Router settings and API
 
 ## What is Next?
 
-This was the basic guide to migrate your app made with Framework7 v1 to v2. Of course there are a lot more new features which are out of the scope for this guide. As next steps it is highly recommended to check all new [Framework7 v2 Docs](http://framework7.io/docs) and Framework7 [v2 Starter Templates](http://framework7.io/templates/). And don't forget about [Framework7 Forum](http://forum.framework7.io) — the best place to get F7 support.
+This was the basic guide to migrate your app made with Framework7 v1 to v2. Of course there are a lot more new features which are out of the scope for this guide. As next steps it is highly recommended to check all new [Framework7 v2 Docs](https://framework7.io/docs) and Framework7 [v2 Starter Templates](https://framework7.io/templates/). And don't forget about [Framework7 Forum](https://forum.framework7.io) - the best place to get F7 support.
 
 export default ({ children }) => (
   <PostLayout meta={meta}>{children}</PostLayout>

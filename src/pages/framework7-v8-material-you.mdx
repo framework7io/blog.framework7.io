@@ -2,444 +2,208 @@ import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Framework7 v8 - Material You',
   date: '2023-03-31T10:25:29.000Z',
-  image: 'framework7-v6.png',
+  image: '/images/framework7-v8/cover.png',
+  featured: true,
   published: false,
 };
 
 # Framework7 v8 - Material You
 
-It's been a crazy year and a long road, but, finally, all new Framework7 v6 has been released! 🎉
+## Material You
 
-## TL;DR
+![](/images/framework7-v8/material-you.png)
 
-- New UI Components: Area Chart, Pie Chart, Menu List, Preloader Buttons
-- Highly reworked Aurora theme look and feel
-- Updated Material Design theme look and feel
-- All new core Router Components
-- New Store library for application state management
-- Capacitor support
-- Full Vue.js v3 support
-- React functional components
-- Server-side rendering support
-- Full [v8 changelog](https://github.com/framework7io/framework7/blob/master/CHANGELOG.md)
+[Material You (Material 3)](https://m3.material.io/) - is the largest new feature in Framework7 v8 and largest change in Framework7 MD theme design for the last few years.
 
-## Framework7 Core
+Styles, colors, transitions, timing functions - got huge updates for absolutely all components in Framework7 to comply with the latest Material Design.
 
-First, let's check largest changes in core version and APIs.
+You can explore all new components appearance in [v8 Kitchen Sink](https://framework7.io/kitchen-sink/core/?theme=md).
 
-### New UI Components & Improvements
+## Colors
 
-There are few new UI components landed in version 6.
+![](/images/framework7-v8/colors.png)
 
-New **Area Chart** & **Pie Chart** components that generate pure SVG charts:
+Support for [Material You color palette](https://m3.material.io/styles/color/the-color-system/key-colors-tones) brings a lot of changes to color theming.
 
-![Area Chart](/images/framework7-v6-0.png)_Area Chart_
-
-![Pie Chart](/images/framework7-v6-1.png)_Pie Chart_
-
-New **Menu List** component (modification for existing list). Menu List unlike usual links list is designed to indicate currently active screen (or section) of your app.
-
-<iframe
-  loading="lazy"
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/eDRNlubgFMg"
-  allowFullScreen
-></iframe>
-
-New **Preloader Buttons** to indicate loading state:
-
-<iframe
-  loading="lazy"
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/h0-rXMkYsm8"
-  allowFullScreen
-/>
-
-Support for **nested side panels**. Now, in addition to global app side panels, we can put them right inside of every Page:
-
-<iframe
-  loading="lazy"
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/3OUFJhtfpRw"
-  allowFullScreen
-/>
-
-New and reworked **Touch Ripple effect** (used in Material theme) to better match updated official Material theme look and feel:
-
-<iframe
-  loading="lazy"
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/NdPy9BslTL8"
-  allowFullScreen
-/>
-
-**Highly reworked and redesigned Aurora theme** (the desktop theme). All components styles have been tweaked to bring all new look:
-
-![All new Aurora Theme](/images/framework7-v6-2.png)_All new Aurora Theme_
-
-### Request Library
-
-Built-in `request` library now only uses Promises API:
-
-If in v5 we had something like:
+Now, primary theme color and all additional colors must be specified in `app.colors` parameters, rather than in CSS. Framework7 generates all required CSS variables related to colors dynamically:
 
 ```js
-request.get('some-url', (data) => {
-  console.log(res.data);
-});
-```
-
-In v6 we should use new Promise sytax:
-
-```js
-request.get('some-url').then((res) => {
-  console.log(res.data);
-});
-```
-
-### Dom7 Library
-
-Built-in library for DOM manipulation has been updated to new version 3, which, under the hood, has been rewritten as `Array` class extension instead of custom class.
-
-And because of that it inherits all native Array.prototype methods, but at the some time introduces some breaking changes in "iteration" methods to match native Array methods:
-
-If in v5 we used, for example, `.each` method like this:
-
-```js
-$('p').each((index, el) => {   // ...* })
-```
-
-Now, arguments of callback are swapped, and in Framework7 v6 it should be the following:
-
-```js
-$('p').each((el, index) => {   // ...* })
-```
-
-### Skeleton Elements
-
-Skeleton layouts was released as a standalone [Skeleton Elements](http://skeleton-elements.dev) library with "native" components for React, Vue, Svelete and Angular. It is now integrated into Framework7 v6 as a dependency.
-
-### Swiper
-
-In meanwhile, [Swiper](http://swiperjs.com) also got huge v6 update with a lot of new features, and own "native" components for React, Vue, Svelte and Angular. And now it is also integrated into Framework7 v6 as a dependency.
-
-### Template7 Library
-
-Template7 template engine has been completely removed from Framework7, as it produces more confusion and limitations, especially when comparing to native JS template literals.
-
-If you still rely on it in your custom logic, you can install it as dependency
-
-```
-npm i template7
-```
-
-### Router Component
-
-One of the largest addition in core version of Framework7 v6 is totally new Router Components.
-
-With Template7 removal, they use JS tagged template literals as template engine. It provides much more flexibility over previously used Template7 templates, but may require some extra efforts migrating your existing components.
-
-Also component definition is now a function rather then object with `data` , `methods`, and other options.
-
-For example if we had something like this in v5:
-
-```html
-<template>
-  <div class="page">
-    <p>Value is: {{foo}}</p>
-    <p>
-      <a href="#" @click="changeValue">Change value</a>
-    </p>
-    <ul>
-      {{each items}}
-      <li>{{title}}</li>
-      {{/each}}
-    </ul>
-  </div>
-</template>
-<script>
-  export default {
-    data() {
-      return {
-        foo: 'bar',
-        items: [
-          {
-            title: 'Item 1',
-          },
-          {
-            title: 'Item 2',
-          },
-        ],
-      };
-    },
-    methods: {
-      changeValue() {
-        this.foo = 'bar 2';
-        this.$update();
-      },
-    },
-    on: {
-      pageInit() {
-        this.$app.dialog.alert('page init');
-      },
-    },
-  };
-</script>
-```
-
-In v6 will look like this:
-
-```html
-<template>
-  <div class="page">
-    <p>Value is: ${foo}</p>
-    <p>
-      <a href="#" @click="${changeValue}">Change value</a>
-    </p>
-    <ul>
-      ${items.map((item) => $h`
-      <li>${item.title}</li>
-      `)}
-    </ul>
-  </div>
-</template>
-<script>
-  export default (props, { $f7, $on, $update }) => {
-    let foo = 'bar';
-    const items = [
-      {
-        title: 'Item 1',
-      },
-      {
-        title: 'Item 2',
-      },
-    ];
-
-    const changeValue = () => {
-      foo = 'bar 2';
-      $update();
-    };
-
-    $on('pageInit', () => {
-      $f7.dialog.alert('page init');
-    });
-
-    return $render;
-  };
-</script>
-```
-
-Having component in single function body provides much better readability, structuring and opens a lot of possibilities for reusing code and logic across components.
-
-And now, it is even possible to write Router Components with JSX:
-
-```jsx
-export default (props, { $f7, $on, $update }) => {
-  let foo = 'bar';
-  const items = [
-    {
-      title: 'Item 1',
-    },
-    {
-      title: 'Item 2',
-    },
-  ];
-
-  const changeValue = () => {
-    foo = 'bar 2';
-    $update();
-  };
-
-  $on('pageInit', () => {
-    $f7.dialog.alert('page init');
-  });
-
-  return () => (
-    <div class="page">
-      <p>Value is: {foo}</p>
-      <p>
-        <a href="#" onClick={changeValue}>
-          Change value
-        </a>
-      </p>
-      <ul>
-        {items.map((item) => (
-          <li>{item.title}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-```
-
-### Store
-
-There is also a totally new application state management solution built-in. As you remember in v5 we could have global app `data` and `methods` defined on app init, now this is gone in favor of new Store.
-
-First, we create store (for example in `store.js` file):
-
-```js
-import { createStore } from 'framework7';
-
-// create store
-const store = createStore({
-  // start with the state (store data)
-  state: {
-    users: [],
-    // ...
-  },
-
-  // actions to operate with state and for async manipulations
-  actions: {
-    getUser({ state }) {
-      // fetch users from API
-      fetch('some-url')
-        .then((res) => res.json())
-        .then((users) => {
-          // assign new users to store state.users
-          state.users = users;
-        });
-    },
-    // ...
-  },
-
-  // getters to retreive the state
-  getters: {
-    users({ state }) {
-      return state.users;
-    },
-  },
-});
-
-// export store
-export default store;
-```
-
-Next we pass this store to Framework7 app on init:
-
-```js
-import Framework7 from 'framework7';
-import store from 'path/to/store.js';
-
 const app = new Framework7({
-  // pass store instance
-  store,
-  // ...
+  colors: {
+    // primary color
+    primary: '#ff0000',
+
+    // extra colors
+    green: '#00ff00',
+    brand: '#0fff45',
+    // ...
+  },
 });
 ```
 
-And we can use store in our components:
+It makes it so much easier to change colors, which is now can be done automatically at any time with new `app.setColorTheme` method:
 
-```jsx
-<template>
-  <div class="page">
-    <ul>
-      <!-- getter has value in ".value" property -->
-      ${users.value.map((user) => $h`
-        <li>${user.name}</li>
-      `)}
-    </ul>
-  </div>
-</template>
-<script>
-  export default (props, { $store, $on }) => {
-    // retrieve "users" getter handler value. Initially empty array
-    const users = $store.getters('users');
+```js
+// initially with go with red color theme
+const app = new Framework7({
+  colors: {
+    primary: '#ff0000',
+  },
+});
 
-    $on('pageInit', () => {
-      // load users on page init
-      store.dispatch('getUsers');
-    });
-
-    return $render;
-  }
-</script>
+// change it later to different color
+app.setColorTheme('#00ff00');
 ```
 
-Awesome thing with Store is that it will automatically update (re-render) dependant components on state/getters update.
+## Swiper
 
-### Capacitor
+There is all new Swiper v9 arrived here as well. It has a lot of new features, especially new [Swiper Element](https://swiperjs.com/element) web component:
 
-Framework7 now officially support Capacitor. We added support for core APIs when app is running under Capacitor environment (core Statusbar methods, automatic disabling of service workers and router browser history, etc.)
+- all new Loop mode without slides duplication
+- all new autoplay module
+- added support for virtual slides loop mode
+- improved virtual slides performance
 
-## Framework7 React
+It also comes with few breaking changes:
 
-Framework7 React also got a large update.
+- `swiper-init` class (in Core version) support to auto init Swiper has been removed in favor of <a href="https://swiperjs.com/element" target="_blank">Swiper Element</a>
+- Swipeable Tabs now <a href="https://framework7.io/docs/tabs.html#swipeable-tabs">require to use Swiper Element</a>
+- Swiper React, Svelte, Vue components have been removed from Framework7 package in favor of <a href="https://swiperjs.com/element" target="_blank">Swiper Element</a>
+- It is recommended to check <a href="https://swiperjs.com/migration-guide-v9" target="_blank">Swiper v9 migration guide</a>
 
-First, of course, there are new React components for new UI elements: Area & Pie charts, Menu List, Preloader buttons, etc.
+## Photo Browser Thumbs
 
-As you could know, since Framework7 v3 we used Phenome.js library that allows us to write components once, and then auto compile them to Vue and React components. But such approach has some limitations and didn't allow to use some framework-specific features.
+Photo Browser in v8 has new Thumbs module with previews of all images - basically what we have in most of modern mobile Gallery apps:
 
-In v6 we removed Phenome.js components and rewrote all Framework7 React components from scratch as function components (using hooks). Such change should provide a noticeable performance boost and much better support for Fast refresh (hot reload).
+<video
+  controls={false}
+  loop
+  autoPlay
+  muted
+  src="/images/framework7-v8/pb.mp4"
+/>
 
-We also changed a bit how Router works in React, and now initial page components (initial routes) should be loaded much faster - on first initial app rendering.
+And the usage is very simple, we just need to pass `thumbs` array to Photo Browser parameters:
 
-And finally, full server-side rendering (SSR and SSG) support (with Next.js)! 🎉
+```js
+app.photoBrowser.create({
+  photos: [
+    'path/to/photo1.jpg',
+    'path/to/photo2.jpg',
+    'path/to/photo3.jpg',
+    // ...
+  ],
+  thumbs: [
+    'path/to/photo1-thumb.jpg',
+    'path/to/photo2-thumb.jpg',
+    'path/to/photo3-thumb.jpg',
+    // ...
+  ],
+});
+```
 
-## Framework7 Vue
+## New Grid
 
-Framework7 Vue got an even bigger update, with full new Vue.js v3 support.
+Framework7 v8 comes with new simplified <a href="https://framework7.io/docs/grid.html">grid layout and sizes</a>.
 
-- In v6 we rewrote all Framework7 Vue components from scratch as function components (using new Composition API).
-- There are new Vue.js components for new UI elements: Area & Pie charts, Menu List, Preloader buttons, etc.
-- Same as in Framework7 React — now initial page components (initial routes) should be loaded much faster — on first initial app rendering.
-- Server-side support is coming as well, with upcoming Nuxt.js v3.
-- As we migrated to pure Vue.js components, support for `v-bind` came back and can be used with all kind of form elements components and modals!
+Before, Grid definitions were based on column widths, now it is a usual CSS Grid with definitions based on columns:
 
-## Framework Svelte
+Before v8 we had:
 
-New Framework7 Svelte already had own "native" components so not much updates here.
+```html
+<div class="row">
+  <div class="col-25">Col 1</div>
+  <div class="col-25">Col 2</div>
+  <div class="col-25">Col 3</div>
+  <div class="col-25">Col 4</div>
+</div>
+```
 
-- There are new Svelte components for new UI elements: Area & Pie charts, Menu List, Preloader buttons, etc.
-- Same as in Framework7 React — now initial page components (initial routes) should be loaded much faster — on first initial app rendering.
-- Added support for `bind:$property` props for form elements components and modals
+Now it is:
 
-## Framework7 CLI
+```html
+<div class="grid grid-cols-4">
+  <div>Col 1</div>
+  <div>Col 2</div>
+  <div>Col 3</div>
+  <div>Col 4</div>
+</div>
+```
 
-CLI got a large update too:
+## Block & List
 
-- Now it generates Framework7 v6 projects (with new Router Components for Core version)
-- Webpack projects updated to use latest webpack 5
-- Now, in addition to Cordova, it can generate Capacitor project (for native iOS and Android apps)
+![](/images/framework7-v8/block-list.png)
 
-![](/images/framework7-v6-3.png)
+Blocks and Lists default appearance has been changed. And now by default they don't have any background, outline and dividers (borders) between list items.
+
+Appearance now should be controlled with extra classes (or with props in components):
+
+- `block-strong` / `list-strong` - adds block background
+- `block-outline` / `list-outline` - adds block outline (border)
+- `list-dividers` - adds dividers (borders) between list items
+
+Plus there are new theme specific classes:
+
+- `block-strong-ios` / `list-strong-md` - adds block background only when iOS (or MD) theme is active
+- `block-outline-ios` / `list-outline-md` - adds block outline only when iOS (or MD) theme is active
+- `list-dividers-ios` / `list-dividers-md` - adds dividers only when iOS (or MD) theme is active
+
+And we can combine all of these classes:
+
+```html
+<div class="block-strong-ios block-outline-ios"></div>
+```
+
+```html
+<div class="list list-strong list-dividers-ios list-outline-md inset-md"></div>
+```
+
+## Removed Aurora Theme
+
+We decided to focus exclusively on mobile applications and interfaces, which is what the Framework7 was originally created for. Therefore it was decided to remove Aurora theme.
+
+## Removed Components & Functionality
+
+- Elevation - removed as such shadows are not used in Material Design anymore
+- Lazy - removed in favor of native `loading="lazy"`
+- Menu - removed as was intended to be used in Aurora theme
+- Appbar - removed as was intended to be used in Aurora theme
+- Request - removed in favor of native `fetch`
+- Inline Input Labels - removed as such layouts are rarely used in modern apps
+- List Item Cell & Row - removed as not really useful
+- Removed `stackPages` functionality in router that allows you to load pages from existing DOM elements, and keep previous pages in DOM. It is recommended to use [Router Components](https://framework7.io/docs/router-component.html) instead
+- Removed `expandInput` functionality in Autocomplete as it was indented for inline inputs labels (which are removed now)
+- Browser lazy components - components files with `.lazy` prefix to be loaded by browser are removed now. Use bundler instead (e.g. Vite, Rollup, etc.)
 
 ## What's Next?
 
-That was just a brief overview of most significant changes.
+It was an overview of most significant changes and new features.
 
-There are also a lot of minor improvements and fixes across whole Framework7. For all changes list please refer to [full v6 changelog](https://github.com/framework7io/framework7/blob/master/CHANGELOG.md) which can also be helpful for migration from previous version.
+There are also a lot of minor improvements and fixes across whole Framework7. For all changes list please refer to [full v8 changelog](https://framework7.io/release-notes/).
 
 As next steps it is recommended to check the following new and updated Framework7 v8 docs:
 
 - [Migration guide to v8](https://framework7.io/docs/migration-from-v7-to-v8.html)
-- [Router Component docs](https://framework7.io/docs/router-component.html) — updated documentation for all new Router Component
-- [Store docs](https://framework7.io/docs/store.html) — documentation for all new Store library
-- [Area Chart docs](https://framework7.io/docs/area-chart.html) — new Area Chart component
-- [Pie Chart docs](https://framework7.io/docs/pie-chart.html) — new Pie Chart component
-- [Menu List docs](https://framework7.io/docs/menu-list.html) — new Pie Chart component
+- [Color Themes docs](https://framework7.io/docs/color-themes.html) - updated colors
+- [List View](https://framework7.io/docs/list-view.html) - updated layout
+- [Block / Content Block](https://framework7.io/docs/block.html) - updated layout
+- [Grid docs](https://framework7.io/docs/grid.html) - new sizes grid
 
 And docs in general:
 
-- [Framework7 Core documentation](http://framework7.io/docs/)
-- [Framework7-Vue documentation](http://framework7.io/vue/)
-- [Framework7-React documentation](http://framework7.io/react/)
-- [Framework7 Forum](http://forum.framework7.io/) — the best place to get F7 support.
+- [Framework7 Core documentation](https://framework7.io/docs/)
+- [Framework7-Vue documentation](https://framework7.io/vue/)
+- [Framework7-React documentation](https://framework7.io/react/)
+- [Framework7 Forum](https://forum.framework7.io/) - the best place to get F7 support.
 
 ## P.S.
 
-If you love Framework7, please, support project by donating or pledging:
+And as always, if you love Framework7, please, support project by donating or pledging:
 
 - on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7)
-- on Open Collective: [http://opencollective.com/framework7](http://opencollective.com/framework7)
+- on Open Collective: [https://opencollective.com/framework7](https://opencollective.com/framework7)
 
 Your support means a lot for us!
-
-Happy New Year! 🎄
 
 export default ({ children }) => (
   <PostLayout meta={meta}>{children}</PostLayout>

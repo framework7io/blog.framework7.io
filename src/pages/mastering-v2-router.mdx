@@ -2,7 +2,7 @@ import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Mastering Framework7 v2 Router',
   date: '2017-09-03T12:00:05.000Z',
-  image: 'mastering-v2-router.png',
+  image: '/images/mastering-v2-router.png',
 };
 
 # Mastering Framework7 v2 Router
@@ -117,15 +117,15 @@ Route path matching is handled by [\*\*Path To Regexp](https://github.com/pillar
 
 In previous examples we specified `url` parameter for every route. This parameter defines how and what to load for this route. It accepts different properties (not only URL):
 
-- `url` — load page content via Ajax,
-- `content` — creates dynamic page from specified content string,
-- `pageName` — load page from DOM that has same `data-name` attribute (previous inline page),
-- `el` — load page from DOM by passed HTMLElement,
-- `template` — load page content from passed Template7 template string or function,
-- `templateUrl` — load page content from url via Ajax, and compile it using Template7,
-- `component` — load page from passed Framework7 Router Component (see below),
-- `componentUrl` — load pages as a component via Ajax,
-- `async` — do required asynchronous manipulation and the return specific route content
+- `url` - load page content via Ajax,
+- `content` - creates dynamic page from specified content string,
+- `pageName` - load page from DOM that has same `data-name` attribute (previous inline page),
+- `el` - load page from DOM by passed HTMLElement,
+- `template` - load page content from passed Template7 template string or function,
+- `templateUrl` - load page content from url via Ajax, and compile it using Template7,
+- `component` - load page from passed Framework7 Router Component (see below),
+- `componentUrl` - load pages as a component via Ajax,
+- `async` - do required asynchronous manipulation and the return specific route content
 
 Here is an example of all possible options:
 
@@ -197,7 +197,7 @@ routes: [
       console.log(routeTo);
 
       // Get external data and return template7 template
-      $.getJSON('http://some-endpoint/', function (data) {
+      $.getJSON('https://some-endpoint/', function (data) {
         resolve(
           // How and what to load: template
           {
@@ -220,13 +220,13 @@ routes: [
 
 Object with additional route options (optional):
 
-- `animate` — whether the page should be animated or not (overwrites default router settings),
-- `history` — whether the page should be saved in router history,
-- `pushState` — whether the page should be saved in browser state (overwrites global `pushState` router parameter),
-- `reloadCurrent` — replace the current page with the new one from route,
-- `reloadPrevious` — replace the previous page in history with the new one from route,
-- `reloadAll` — load new page and remove all previous pages from history and DOM,
-- `context` — custom context for Template7/Component page (using `template,` `templateUrl`, `component` or `componentUrl` parameters)
+- `animate` - whether the page should be animated or not (overwrites default router settings),
+- `history` - whether the page should be saved in router history,
+- `pushState` - whether the page should be saved in browser state (overwrites global `pushState` router parameter),
+- `reloadCurrent` - replace the current page with the new one from route,
+- `reloadPrevious` - replace the previous page in history with the new one from route,
+- `reloadAll` - load new page and remove all previous pages from history and DOM,
+- `context` - custom context for Template7/Component page (using `template,` `templateUrl`, `component` or `componentUrl` parameters)
 
 ## Route Events
 
@@ -314,13 +314,13 @@ routes = [
 
 So let's say we are on a `/catalog/` page and have the following links:
 
-1. `<a href="computers/">Computers</a>` — will work as expected. Link will be merged with the current route (`/catalog/` + `computers/`) and we will have `/catalog/computers/` which we have in our routes.
+1. `<a href="computers/">Computers</a>` - will work as expected. Link will be merged with the current route (`/catalog/` + `computers/`) and we will have `/catalog/computers/` which we have in our routes.
 
-1. `<a href="./computers/">Computers</a>` — will work the same as case 1 because `./` in the beginning of path means same sub level.
+1. `<a href="./computers/">Computers</a>` - will work the same as case 1 because `./` in the beginning of path means same sub level.
 
-1. `<a href="/catalog/computers/">Computers</a>` — will also work as expected the same as case 1 because `/` (slash) in the beginning means root. And we have such root route in merged routes.
+1. `<a href="/catalog/computers/">Computers</a>` - will also work as expected the same as case 1 because `/` (slash) in the beginning means root. And we have such root route in merged routes.
 
-1. `<a href="/computers/">Computers</a>` — **won't work** as expected because `/` (slash) in the beginning means root. And we don't have such `/computers/` root route in our routes and won't have same .
+1. `<a href="/computers/">Computers</a>` - **won't work** as expected because `/` (slash) in the beginning means root. And we don't have such `/computers/` root route in our routes and won't have same .
 
 ## Routable Tabs
 
@@ -507,13 +507,13 @@ Framework7 v2 tries to solve this problem by isolating page-specific logic into 
 
 So what is Router Component? Router Component is basically is object with the following properties (all properties are optional):
 
-- `template` — string template. Will be compiled as Template7 template
-- `render` — render function to render component. Must return component html string or HTMLElement
-- `data` — function, must return component context data
-- `style` — string with component CSS styles. Styles will be added to the document after component will be mounted (added to DOM), and removed after component will be destroyed (removed from the DOM)
-- `methods` — object with component methods
-- `on` — object with page events handlers
-- `beforeCreate`, `created`, `beforeMount`, `mounted`, `beforeDestroy`, `destroyed` — component lifecycle hooks methods.
+- `template` - string template. Will be compiled as Template7 template
+- `render` - render function to render component. Must return component html string or HTMLElement
+- `data` - function, must return component context data
+- `style` - string with component CSS styles. Styles will be added to the document after component will be mounted (added to DOM), and removed after component will be destroyed (removed from the DOM)
+- `methods` - object with component methods
+- `on` - object with page events handlers
+- `beforeCreate`, `created`, `beforeMount`, `mounted`, `beforeDestroy`, `destroyed` - component lifecycle hooks methods.
 
 So the example route with page component may look like:
 
@@ -579,11 +579,11 @@ All component methods and Template7 compiler are executed in the context of the 
 What is the **component context**. Component context is the object you have returned in `data` method extended with the following useful properties:
 
 - `$` , `$$`, `$dom7`— equal aliases for Dom7,
-- `$app` — instance of the Framework7 app,
-- `$root` — root data and methods you have specified in same `data` and `methods` properties on app init (`new Framework7`),
-- `$route` — current route. Contains object with route `query` , `hash` , `params` , `path` and `url` ,
-- `$router` — link to related router instance,
-- `$theme` — object with `md` and `ios` properties which are `true` in related theme is used.
+- `$app` - instance of the Framework7 app,
+- `$root` - root data and methods you have specified in same `data` and `methods` properties on app init (`new Framework7`),
+- `$route` - current route. Contains object with route `query` , `hash` , `params` , `path` and `url` ,
+- `$router` - link to related router instance,
+- `$theme` - object with `md` and `ios` properties which are `true` in related theme is used.
 
 But it is not very comfortable to specify all component routes under same routes array, especially if we have a lot of such routes. This is why we can use `componentUrl` instead:
 
@@ -660,13 +660,13 @@ Such Router Components should help to better structure our apps, keep things in 
 
 Page events are also reworked. Now every page the following events:
 
-- `pageMounted` (`page:mounted`) — fires right after page HTML element added to DOM
-- `pageInit` (`page:init`) — fires after all page components initialised
-- `pageBeforeIn` (`page:beforein`) — fires right before page animation to the current view (for both forward and backward navigation directions)
-- `pageAfterIn` (`page:afterin`) — fires right after page animation to the current view (for both forward and backward navigation directions)
-- `pageBeforeOut` (`page:beforeout`) — fires right before page animation out of the current view (for both forward and backward navigation directions)
-- `pageAfterOut` (`page:afterout`) — fires right after page animation out of the current view (for both forward and backward navigation directions)
-- `pageBeforeRemove` (`page:beforeremove`) — fires right before page removing from DOM
+- `pageMounted` (`page:mounted`) - fires right after page HTML element added to DOM
+- `pageInit` (`page:init`) - fires after all page components initialised
+- `pageBeforeIn` (`page:beforein`) - fires right before page animation to the current view (for both forward and backward navigation directions)
+- `pageAfterIn` (`page:afterin`) - fires right after page animation to the current view (for both forward and backward navigation directions)
+- `pageBeforeOut` (`page:beforeout`) - fires right before page animation out of the current view (for both forward and backward navigation directions)
+- `pageAfterOut` (`page:afterout`) - fires right after page animation out of the current view (for both forward and backward navigation directions)
+- `pageBeforeRemove` (`page:beforeremove`) - fires right before page removing from DOM
 
 ## Initial Page
 
@@ -753,9 +753,9 @@ Push state in v2 is highly reworked and improved as well. Now it more correctly 
 
 Now router has just 2 main methods:
 
-1. `router.navigate(url[, options])` — navigate to the specified URL with specified options (optional).
+1. `router.navigate(url[, options])` - navigate to the specified URL with specified options (optional).
 
-1. `router.back([url, options])` — navigate back in history. Both parameters are optional.
+1. `router.back([url, options])` - navigate back in history. Both parameters are optional.
 
 ## Summary
 

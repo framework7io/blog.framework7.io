@@ -2,7 +2,7 @@ import { PostLayout } from '@/components/PostLayout.jsx';
 export const meta = {
   title: 'Framework7, Next.js & Server-Side Rendering? Yes!',
   date: '2021-03-05T14:26:52.000Z',
-  image: 'framework7-next-js-server-side-rendering-yes.png',
+  image: '/images/framework7-next-js-server-side-rendering-yes.png',
 };
 
 # Framework7, Next.js & Server-Side Rendering? Yes!
@@ -35,14 +35,14 @@ npm i framework7 framework7-react framework7-icons material-icons
 
 In project root folder we need to create two `env` files:
 
-- `.env.development` — with environment variables for development
-- `.env.production` — with environment variables for production build
+- `.env.development` - with environment variables for development
+- `.env.production` - with environment variables for production build
 
-In this files we need to define `NEXT_PUBLIC_HOST` variable, that will point to our webapp host. During development it will be `[http://localhost:3000`](http://localhost:3000,) (default Next.js dev server), and for production you need to specify the host where the app will be deployed:
+In this files we need to define `NEXT_PUBLIC_HOST` variable, that will point to our webapp host. During development it will be `[https://localhost:3000`](https://localhost:3000,) (default Next.js dev server), and for production you need to specify the host where the app will be deployed:
 
 ```bash
 # .env.development
-NEXT_PUBLIC_HOST=http://localhost:3000
+NEXT_PUBLIC_HOST=https://localhost:3000
 ```
 
 ```bash
@@ -62,7 +62,7 @@ For example, if we have the following pages in our Next.js app:
 
 - `./pages/index.js`
 - `./pages/about.js`
-- `./pages/blog/[postID].js` — dynamic route
+- `./pages/blog/[postID].js` - dynamic route
 
 We need to match it to Framework7 React router and pass this routes to our Framework7 App. So Framework7 routes for such structure will be the following:
 
@@ -189,7 +189,7 @@ Now, let's launch our dev server
 npm run dev
 ```
 
-And we should see something similar to this on `http://localhost:3000`
+And we should see something similar to this on `https://localhost:3000`
 
 ![](/images/framework7-next-js-and-server-side-rendering-yes-0.png)
 
@@ -342,7 +342,7 @@ export default function Home() {
 If you love Framework7, please, support project by donating or pledging:
 
 - on Patreon: [https://www.patreon.com/framework7](https://www.patreon.com/framework7)
-- on Open Collective: [http://opencollective.com/framework7](http://opencollective.com/framework7)
+- on Open Collective: [https://opencollective.com/framework7](https://opencollective.com/framework7)
 
 Your support means a lot for us!
 
