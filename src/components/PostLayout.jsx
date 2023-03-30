@@ -1,3 +1,4 @@
+import { useAnimations } from '@/shared/useAnimations';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -5,6 +6,9 @@ export const PostLayout = (props) => {
   const { children, meta } = props;
   const { title, date, image } = meta;
   const router = useRouter();
+
+  useAnimations();
+
   const formatDate = (d) => {
     return Intl.DateTimeFormat('en-us', {
       day: 'numeric',

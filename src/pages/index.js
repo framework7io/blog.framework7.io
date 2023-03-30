@@ -1,3 +1,4 @@
+import { useAnimations } from '@/shared/useAnimations';
 import fs from 'fs';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -11,6 +12,7 @@ export default function Home(props) {
       year: 'numeric',
     }).format(new Date(d));
   };
+  useAnimations();
   return (
     <>
       <Head>

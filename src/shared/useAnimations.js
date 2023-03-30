@@ -1,13 +1,11 @@
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 
-let previousScrollTop;
+let allowRouting = false;
 
 export const useAnimations = () => {
   const router = useRouter();
   const promiseResolve = useRef(null);
-  const routeChangeStartTime = useRef(null);
-  const routeChangeCompleteTime = useRef(null);
 
   const setElements = (thumbEl) => {
     if (!thumbEl) return;
@@ -28,45 +26,31 @@ export const useAnimations = () => {
 
   const onRouteChangeStart = (toUrl) => {
     if (!document.startViewTransition) return;
-    routeChangeStartTime.current = new Date().getTime();
-    if (router.asPath === '/') {
-      const thumbEl = document.querySelector(`.post-thumb[href="${toUrl}"]`);
-      previousScrollTop = window.scrollY;
-      unsetElements();
-      setElements(thumbEl);
-    }
-    document.startViewTransition(() => {
-      const currentTime = new Date().getTime();
-      return new Promise((resolve) => {
-        if (
-          currentTime > routeChangeStartTime.current &&
-          currentTime > routeChangeCompleteTime.current
-        ) {
-          setTimeout(() => {
-            resolve();
-          });
-        } else {
-          promiseResolve.current = () => resolve();
-        }
+    if (!allowRouting) {
+      if (router.asPath === '/') {
+        const thumbEl = document.querySelector(`.post-thumb[href="${toUrl}"]`);
+        unsetElements();
+        setElements(thumbEl);
+      } else {
+      }
+      document.startViewTransition(() => {
+        allowRouting = true;
+        router.push(toUrl);
+        return new Promise((resolve) => {
+          promiseResolve.current = resolve;
+        });
       });
-    });
+      throw 'error';
+    }
   };
 
   const onRouteChangeComplete = (toUrl) => {
     if (!document.startViewTransition) return;
-    routeChangeCompleteTime.current = new Date().getTime();
+    allowRouting = false;
     if (router.asPath !== '/') {
       const thumbEl = document.querySelector(
         `.post-thumb[href="${router.asPath}"]`
       );
-      if (thumbEl) {
-        if (previousScrollTop) {
-          window.scrollTo(0, previousScrollTop);
-        } else {
-          const { y } = thumbEl.getBoundingClientRect();
-          window.scrollTo(0, y - 64 - 16);
-        }
-      }
       setElements(thumbEl);
     }
 
