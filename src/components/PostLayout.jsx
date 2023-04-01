@@ -96,10 +96,12 @@ export const PostLayout = (props) => {
       )}
       <div className="prose w-full max-w-none" onClick={onClick}>
         {image && (
-          <img
-            className="post-image !rounded-2xl border border-border"
-            src={`${image}`}
-          />
+          <div className="post-image relative -mx-4 mb-8 -mt-16 overflow-hidden border-b border-border pb-[50%] sm:mx-0 sm:mt-0 sm:rounded-2xl sm:border">
+            <img
+              className="absolute left-0 top-0 !m-0 !h-full !w-full object-cover object-center"
+              src={`${image}`}
+            />
+          </div>
         )}
         {date && (
           <div className="post-date mb-2 text-sm text-on-surface-variant text-opacity-75">

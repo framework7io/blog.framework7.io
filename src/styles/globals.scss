@@ -117,5 +117,5 @@ header {
 ::view-transition-old(post-date),
 ::view-transition-new(post-date) {
   animation-duration: 800ms !important;
-  animation-timing-function: cubic-bezier(0, 1, 0.2, 1);
+  animation-timing-function: cubic-bezier(0.2, 1, 0.5, 1);
 }

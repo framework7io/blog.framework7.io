@@ -27,17 +27,17 @@ export default function Home(props) {
             className={`post-thumb group relative block`}
           >
             <div className="pointer-events-none absolute -left-4 -top-4 -right-4 -bottom-4 -z-10 rounded-2xl bg-surface-3 opacity-0 duration-200 group-hover:opacity-100" />
-            <div className="post-thumb-image relative overflow-hidden rounded-xl border border-border bg-surface-1 pb-[60%]">
+            <div className="post-thumb-image relative overflow-hidden rounded-xl border border-border bg-surface-1 pb-[50%]">
               {post.image && (
                 <img
-                  className="absolute left-0 top-0 h-full w-full  object-cover duration-200 group-hover:scale-105"
+                  className="absolute left-0 top-0 h-full w-full object-cover object-center duration-200"
                   src={`${post.image}`}
                   alt={post.title}
                   loading="lazy"
                 />
               )}
             </div>
-            <div className="post-thumb-title mt-4 w-fit text-xl font-bold text-primary">
+            <div className="post-thumb-title mt-4 w-fit text-lg font-bold text-primary">
               {post.title}
             </div>
             <div className="post-thumb-date mt-1 text-sm text-on-surface-variant">
