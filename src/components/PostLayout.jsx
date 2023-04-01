@@ -75,7 +75,7 @@ export const PostLayout = (props) => {
         )}
       </Head>
 
-      {titles.length && (
+      {titles.length > 0 && (
         <div className="post-index fixed right-0 top-16 hidden h-[calc(100vh-64px)] w-[calc((100vw-1024px)/2)] max-w-[256px] overflow-auto pt-16 pr-4 pb-16 xl:block">
           <div className="mb-3 text-sm font-bold text-on-surface">
             On this page
