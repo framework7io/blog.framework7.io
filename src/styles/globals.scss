@@ -50,11 +50,50 @@ pre[class*='language-'] {
 
 @import 'pre-code.scss';
 
+.prose
+  :where(blockquote p:first-of-type):not(
+    :where([class~='not-prose'] *)
+  )::before {
+  content: '';
+}
+
+header {
+  view-transition-name: header;
+}
+.post-image {
+  view-transition-name: post-image;
+}
+.post-date {
+  view-transition-name: post-date;
+}
+.prose h1 {
+  view-transition-name: post-title;
+  width: fit-content;
+}
+
 ::view-transition-old(root) {
   animation-name: view-out-opacity;
 }
 ::view-transition-new(root) {
   animation-name: view-in, view-in-opacity;
+}
+
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-group(post-image),
+::view-transition-image-pair(post-image),
+::view-transition-old(post-image),
+::view-transition-new(post-image),
+::view-transition-group(post-title),
+::view-transition-image-pair(post-title),
+::view-transition-old(post-title),
+::view-transition-new(post-title),
+::view-transition-group(post-date),
+::view-transition-image-pair(post-date),
+::view-transition-old(post-date),
+::view-transition-new(post-date) {
+  animation-duration: 800ms !important;
+  animation-timing-function: cubic-bezier(0.2, 1, 0.5, 1);
 }
 
 @keyframes view-out-opacity {
@@ -86,36 +125,4 @@ pre[class*='language-'] {
   100% {
     opacity: 1;
   }
-}
-
-header {
-  view-transition-name: header;
-}
-.post-image {
-  view-transition-name: post-image;
-}
-.post-date {
-  view-transition-name: post-date;
-}
-.prose h1 {
-  view-transition-name: post-title;
-  width: fit-content;
-}
-
-::view-transition-old(root),
-::view-transition-new(root),
-::view-transition-group(post-image),
-::view-transition-image-pair(post-image),
-::view-transition-old(post-image),
-::view-transition-new(post-image),
-::view-transition-group(post-title),
-::view-transition-image-pair(post-title),
-::view-transition-old(post-title),
-::view-transition-new(post-title),
-::view-transition-group(post-date),
-::view-transition-image-pair(post-date),
-::view-transition-old(post-date),
-::view-transition-new(post-date) {
-  animation-duration: 800ms !important;
-  animation-timing-function: cubic-bezier(0.2, 1, 0.5, 1);
 }
