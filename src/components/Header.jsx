@@ -4,7 +4,7 @@ export const Header = () => {
   const RootLink = (props) => {
     return (
       <a
-        className="block rounded-lg py-[6px] px-2 text-sm font-medium text-primary hover:bg-primary hover:text-on-primary sm:px-3"
+        className="block select-none rounded-lg py-[6px] px-2 text-sm font-medium text-primary hover:bg-primary hover:text-on-primary sm:px-3"
         href={props.href}
         target="_blank"
       >
@@ -15,7 +15,7 @@ export const Header = () => {
   const SubLink = (props) => {
     return (
       <a
-        className="block rounded-lg px-3 py-2 text-sm font-medium text-primary hover:bg-primary hover:text-on-primary"
+        className="block select-none rounded-lg px-3 py-2 text-sm font-medium text-primary hover:bg-primary hover:text-on-primary"
         href={props.href}
         target="_blank"
       >
@@ -122,9 +122,6 @@ export const Header = () => {
               </SubLink>
             </li>
           </ul>
-        </li>
-        <li>
-          <RootLink href="https://blog.framework7.io">Blog</RootLink>
         </li>
       </ul>
     </header>
