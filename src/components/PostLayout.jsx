@@ -1,4 +1,3 @@
-import { useAnimations } from '@/shared/useAnimations';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef } from 'react';
@@ -11,7 +10,9 @@ export const PostLayout = (props) => {
   const [titles, setTitles] = useState([]);
 
   useEffect(() => {
+    console.log(1);
     if (contentEl.current) {
+      console.log(2);
       const titleEls = [...contentEl.current.querySelectorAll('h2')].map(
         (el) => {
           return {
@@ -23,8 +24,6 @@ export const PostLayout = (props) => {
       setTitles([...titleEls]);
     }
   }, []);
-
-  useAnimations();
 
   const onTitleClick = (e, title) => {
     e.preventDefault();
@@ -96,15 +95,17 @@ export const PostLayout = (props) => {
       )}
       <div className="prose w-full max-w-none" onClick={onClick}>
         {image && (
-          <div className="post-image relative -mx-4 mb-8 -mt-16 overflow-hidden border-b border-border pb-[50%] sm:mx-0 sm:mt-0 sm:rounded-2xl sm:border">
-            <img
-              className="absolute left-0 top-0 !m-0 !h-full !w-full object-cover object-center"
-              src={`${image}`}
-            />
+          <div className="relative -mx-4 mb-8 -mt-16 sm:mx-0 sm:mt-0">
+            <div className="relative overflow-hidden border-b border-border pb-[50%]  sm:rounded-2xl sm:border">
+              <img
+                className="absolute left-0 top-0 !m-0 !h-full !w-full object-cover object-center"
+                src={`${image}`}
+              />
+            </div>
           </div>
         )}
         {date && (
-          <div className="post-date mb-2 text-sm text-on-surface-variant text-opacity-75">
+          <div className="mb-2 text-sm text-on-surface-variant text-opacity-75">
             {formatDate(date)}
           </div>
         )}

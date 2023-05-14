@@ -1,4 +1,3 @@
-import { useAnimations } from '@/shared/useAnimations';
 import fs from 'fs';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -12,7 +11,6 @@ export default function Home(props) {
       year: 'numeric',
     }).format(new Date(d));
   };
-  useAnimations();
   return (
     <>
       <Head>
@@ -85,6 +83,7 @@ export async function getStaticProps(context) {
       return data;
     })
     .filter((d) => d.published);
+
   posts.sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
   });
